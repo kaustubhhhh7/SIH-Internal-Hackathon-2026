@@ -1,0 +1,244 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome",
+    "profileCompletion": "Profile Completion"
+  },
+  "challenge": {
+    "title": "Challenges",
+    "create": "Create Challenge"
+  },
+  "startup": {
+    "profile": "Startup Profile",
+    "documents": "Documents"
+  },
+  "common": {
+    "save": "Save",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "next": "Next",
+    "previous": "Previous",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "signIn": "Sign In"
+  },
+  "auth": {
+    "loginTitle": "Government of Maharashtra Innovation Procurement Portal",
+    "registerStartup": "Register as Startup"
+  },
+  "landing": {
+    "topbar": {
+      "fullTitle": "Government of Maharashtra | StartupSetu Portal",
+      "shortTitle": "Govt of Maharashtra",
+      "highContrast": "High Contrast"
+    },
+    "header": {
+      "govTitle": "Government of Maharashtra",
+      "portalTitle": "StartupSetu",
+      "nav": {
+        "home": "Home",
+        "challenges": "Challenges",
+        "sectors": "Sectors",
+        "process": "Process"
+      }
+    },
+    "marquee": {
+      "title": "Updates",
+      "m1": "New guidelines issued for Startup Procurement under the Maharashtra IT Policy 2026.",
+      "m2": "Application processing times have been reduced by 20% across all departments.",
+      "m3": "Scheduled maintenance on Friday, 11:00 PM to 2:00 AM IST."
+    },
+    "hero": {
+      "badge": "Official Government Platform",
+      "title": "Startup Innovation Initiative",
+      "subtitle": "Connecting government operational challenges with verified startup solutions through an evidence-based procurement pipeline.",
+      "registerBtn": "Register Startup",
+      "learnBtn": "Learn the Process"
+    },
+    "status": {
+      "title": "Portal Implementation Status",
+      "subtitle": "Status on implementation of Innovation Procurement in Maharashtra as on 21-09-2026",
+      "headers": {
+        "activities": "Activities",
+        "it": "IT Department",
+        "health": "Health Dept",
+        "transport": "Transport Dept",
+        "validated": "Total Validated",
+        "total": "Grand Total"
+      },
+      "rows": {
+        "published": "Challenges Published",
+        "applications": "Startup Applications Received",
+        "pilots": "Active Pilots Ongoing",
+        "procured": "Solutions Successfully Procured"
+      }
+    },
+    "workflow": {
+      "title": "Process Workflow",
+      "startup": {
+        "title": "I. Startup Journey",
+        "s1_title": "Discover",
+        "s1_desc": "Browse open operational challenges published by verified government departments.",
+        "s2_title": "Submit Proposal",
+        "s2_desc": "Provide technical architecture, financial estimates, and compliance evidence.",
+        "s3_title": "Evaluation",
+        "s3_desc": "Expert committees conduct strict technical and financial reviews.",
+        "s4_title": "Pilot Phase",
+        "s4_desc": "Deploy the solution in a controlled government environment for validation.",
+        "s5_title": "Procurement",
+        "s5_desc": "Validated pilots are eligible for direct procurement orders at scale."
+      },
+      "gov": {
+        "title": "II. Department Journey",
+        "s1_title": "Identify Problem",
+        "s1_desc": "Define an operational hurdle that requires technological intervention.",
+        "s2_title": "Publish Challenge",
+        "s2_desc": "Broadcast the precise requirement to the registry of verified startups.",
+        "s3_title": "Technical Review",
+        "s3_desc": "Shortlist incoming proposals based on technical feasibility and cost.",
+        "s4_title": "Fund Pilot",
+        "s4_desc": "Allocate initial budget to test the proposed solution in the field.",
+        "s5_title": "Evidence-Based Procurement",
+        "s5_desc": "Issue procurement orders for solutions that meet independent validation KPIs."
+      }
+    },
+    "challenges": {
+      "title": "Active Challenges",
+      "subtitle": "Latest problem statements requiring innovative solutions.",
+      "viewAll": "View Register →",
+      "cardBudget": "Pilot Budget",
+      "cardDeadline": "Deadline",
+      "accepting": "Accepting Proposals",
+      "c1_dept": "Department of Transport",
+      "c1_title": "AI-Driven Traffic Congestion Management",
+      "c2_dept": "Department of Health",
+      "c2_title": "Remote Vitals Monitoring for Rural Clinics",
+      "c3_dept": "Department of Revenue",
+      "c3_title": "Blockchain for Transparent Land Records"
+    },
+    "sectors": {
+      "title": "Focus Innovation Sectors",
+      "subtitle": "The Government of Maharashtra is actively seeking technology solutions across these critical public service domains.",
+      "s1": "Health Technology",
+      "s2": "Education Technology",
+      "s3": "Smart Mobility & Transport",
+      "s4": "Agricultural Technology",
+      "s5": "Financial Technology",
+      "s6": "E-Governance Solutions",
+      "s7": "Waste Management",
+      "s8": "Renewable Energy",
+      "s9": "Urban Planning"
+    },
+    "footer": {
+      "desc": "An official initiative by the Government of Maharashtra to bridge the gap between public sector challenges and cutting-edge startup innovations, ensuring rapid, transparent, and evidence-based procurement.",
+      "quickLinks": "Quick Links",
+      "links": {
+        "about": "About the Initiative",
+        "registration": "Startup Registration",
+        "faq": "Department FAQs",
+        "policy": "Procurement Policy 2026",
+        "rti": "RTI Information"
+      },
+      "contact": "Contact Us",
+      "office": "Office:",
+      "address": "Mantralaya, Mumbai, Maharashtra 400032",
+      "email": "Email:",
+      "phone": "Phone:",
+      "copyright": "© 2026 Government of Maharashtra. All rights reserved. Designed and developed for official use.",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use",
+      "accessibility": "Accessibility Statement"
+    }
+  },
+  "chatbot": {
+    "help": "Help & Support",
+    "assistant": "Portal Assistant",
+    "suggested": "Suggested Topics",
+    "placeholder": "Type your question...",
+    "fallback": "I can only answer the predefined questions listed above for this demonstration.",
+    "welcome": "Hello. I am the Portal Assistant. How can I help you today?",
+    "q1": "How do I register as a Startup?",
+    "a1": "To register, click the 'Sign In' or 'Register' button at the top right. You will need your company details, DPIIT recognition number, and PAN card.",
+    "q2": "What is the evaluation process?",
+    "a2": "Once you submit a solution to a challenge, it is first screened for eligibility, then evaluated by a technical expert committee. If shortlisted, you will be invited for a pilot.",
+    "q3": "How are pilots funded?",
+    "a3": "Pilots are generally funded by the respective government department based on the financial estimate you provide during your application, subject to committee approval.",
+    "q4": "What is a DPIIT recognition number?",
+    "a4": "It is a unique number issued by the Department for Promotion of Industry and Internal Trade (DPIIT) to eligible startups in India."
+  },
+  "challengesPage": {
+    "pageTitle": "Innovation Challenges Registry",
+    "pageDesc": "Browse all active and upcoming operational challenges published by various government departments. Verified startups can submit technical and financial proposals for these problem statements.",
+    "filters": {
+      "all": "All",
+      "accepting": "Accepting Proposals",
+      "upcoming": "Upcoming",
+      "closed": "Closed"
+    },
+    "searchPlaceholder": "Search by keywords...",
+    "searchBtn": "Search",
+    "budget": "Pilot Budget",
+    "deadline": "Deadline",
+    "viewDetails": "View Full Details & Submit →",
+    "noResults": "No challenges found matching this criteria.",
+    "data": {
+      "c1_desc": "Looking for a comprehensive AI solution to integrate with existing CCTV infrastructure to dynamically adjust traffic light timings across 50 major junctions in Pune.",
+      "c2_desc": "We need a low-cost, rugged IoT solution that can capture basic vitals (BP, SpO2, Temp) offline and sync them to a central server when internet is available.",
+      "c3_desc": "Seeking a highly scalable blockchain architecture to digitize and secure land mutations, preventing tampering and providing a public verification ledger.",
+      "c4_dept": "Department of Agriculture",
+      "c4_title": "Predictive Crop Yield Modeling via Satellite",
+      "c4_desc": "Develop machine learning models using ISRO satellite imagery to predict crop yields for 5 major drought-prone districts.",
+      "c5_dept": "Department of Education",
+      "c5_title": "Gamified Marathi Language Learning App",
+      "c5_desc": "Create an interactive mobile application targeting 1st to 4th standard students to improve foundational Marathi literacy."
+    }
+  },
+  "sectorsPage": {
+    "pageTitle": "Strategic Innovation Sectors",
+    "pageDesc": "The Government of Maharashtra has identified 9 core sectors where technological intervention is critical to scaling public service delivery. We actively seek startup partnerships in these domains.",
+    "goal": "Strategic Impact Goal",
+    "data": {
+      "s1_desc": "Focuses on improving rural healthcare access, digital health records, remote monitoring, and affordable diagnostics.",
+      "s1_impact": "Targeting a 30% reduction in rural clinical referral times.",
+      "s2_desc": "Solutions for gamified regional language learning, digital classroom infrastructure, and teacher training platforms.",
+      "s2_impact": "Aiming to improve foundational literacy in 50,000 ZP schools.",
+      "s3_desc": "Traffic congestion management, EV charging infrastructure optimization, and public transport ticketing integration.",
+      "s3_impact": "Reducing average commute times in tier-1 cities by 15%.",
+      "s4_desc": "Precision farming, satellite-based yield prediction, soil health monitoring, and direct-to-market supply chains.",
+      "s4_impact": "Increasing farmer realization prices and reducing post-harvest loss.",
+      "s5_desc": "Direct Benefit Transfer (DBT) leakage prevention, micro-lending for self-help groups, and secure payment gateways.",
+      "s5_impact": "Ensuring 100% transparent and instant beneficiary payouts.",
+      "s6_desc": "Blockchain land records, AI-driven grievance redressal, and unified citizen service portals.",
+      "s6_impact": "Moving towards zero-touch, faceless government services.",
+      "s7_desc": "IoT based bin monitoring, automated segregation, and circular economy tracking systems.",
+      "s7_impact": "Zero-landfill targets for all major municipal corporations by 2030.",
+      "s8_desc": "Smart grid management, peer-to-peer solar trading, and energy efficiency analytics for public buildings.",
+      "s8_impact": "Reducing government infrastructure carbon footprint by 40%.",
+      "s9_desc": "Drone-based surveying, AI property tax assessment, and flood prediction models.",
+      "s9_impact": "Data-driven resilience planning for coastal and low-lying cities."
+    }
+  },
+  "processPage": {
+    "pageTitle": "Procurement Lifecycle & Framework",
+    "pageDesc": "Understanding the end-to-end evidence-based procurement process under the Maharashtra IT Policy 2026. This framework ensures transparency, rigorous evaluation, and rapid deployment of scalable solutions.",
+    "p1Title": "Phase 1: Startup Application",
+    "p2Title": "Phase 2: Government Evaluation",
+    "matrixTitle": "Standard Evaluation Matrix",
+    "matrixCols": {
+      "c1": "Criteria",
+      "c2": "Weightage",
+      "c3": "Description"
+    },
+    "matrixRows": {
+      "r1_c1": "Technical Feasibility",
+      "r1_c3": "Readiness of the technology, architecture robustness, and security standards.",
+      "r2_c1": "Financial Viability",
+      "r2_c3": "Cost-effectiveness of the pilot and scalability costs for statewide deployment.",
+      "r3_c1": "Social Impact",
+      "r3_c3": "Direct benefit to citizens and alignment with departmental goals.",
+      "r4_c1": "Team Expertise",
+      "r4_c3": "Prior experience, DPIIT status, and execution capability of the startup team."
+    }
+  }
+}
