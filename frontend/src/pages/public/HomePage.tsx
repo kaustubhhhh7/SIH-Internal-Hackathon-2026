@@ -187,46 +187,132 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* 6. HOW IT WORKS SECTION */}
-      <section className="bg-gray-50 border-t border-gray-200 py-16">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">From startup recognition to commercial work orders — a transparent 4-stage portal for government innovation.</p>
+      {/* 6. HOW IT WORKS / OFFICIAL STARTUP-TO-GOVERNMENT PROCUREMENT LIFECYCLE */}
+      <section className="bg-gradient-to-b from-[#f8fafc] via-[#edf2f7] to-[#e2e8f0] border-t border-gray-300 py-20 relative overflow-hidden">
+        {/* Subtle background national seal watermark / pattern */}
+        <div className="absolute top-0 right-10 w-96 h-96 bg-blue-900/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-10 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
+          
+          {/* Header Badge & Title */}
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-900/10 border border-blue-900/20 text-blue-950 text-xs font-bold uppercase tracking-widest mb-3">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Standard Operating Procedure (SOP) • Maharashtra Innovation Framework
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0b1f3a] tracking-tight mb-4">
+              Direct Startup-to-Government Procurement Gateway
+            </h2>
+            <p className="text-sm sm:text-base text-gray-700 leading-relaxed font-medium">
+              Architected to dismantle red tape and eliminate legacy tender barriers. Fast-track your deep-tech solutions into active state governance across four transparent phases.
+            </p>
           </div>
           
-          <div className="grid md:grid-cols-4 gap-8 relative">
-            {/* Connecting Line (Desktop only) */}
-            <div className="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-0.5 bg-gray-300 z-0"></div>
+          {/* 4-Stage Lifecycle Grid */}
+          <div className="grid md:grid-cols-4 gap-6 lg:gap-8 relative">
+            {/* Horizontal progress connector line (Desktop only) */}
+            <div className="hidden md:block absolute top-14 left-[10%] right-[10%] h-1 bg-gradient-to-r from-blue-700 via-amber-500 to-emerald-600 rounded z-0 shadow-sm opacity-60"></div>
             
-            {/* Step 1 */}
-            <div className="relative z-10 text-center flex flex-col items-center">
-              <div className="w-16 h-16 bg-white border-4 border-blue-600 rounded-full flex items-center justify-center text-xl font-bold text-blue-800 mb-4 shadow-sm">1</div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">Onboard & Verify</h4>
-              <p className="text-sm text-gray-600 px-3">Create your DPIIT-recognized profile, verify company credentials, and list core innovations.</p>
+            {/* Stage 1 */}
+            <div className="relative z-10 flex flex-col bg-white rounded-xl p-6 border-2 border-blue-900/20 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0c2340] to-blue-800 text-white font-black text-lg flex items-center justify-center shadow-md">
+                  01
+                </div>
+                <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 bg-blue-50 text-blue-800 rounded-full border border-blue-200">
+                  Instant Verification
+                </span>
+              </div>
+              <h3 className="text-base font-bold text-gray-950 mb-2">DPIIT & MSME Onboarding</h3>
+              <p className="text-xs text-gray-600 leading-relaxed mb-4">
+                Authenticate your entity using DPIIT Recognition, GSTIN, and CIN. Zero security deposit (EMD) required for accredited startups.
+              </p>
+              <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between text-[11px] font-semibold text-blue-900">
+                <span>Phase SLA: Instant</span>
+                <span>Rule 149 GFR Compliant</span>
+              </div>
             </div>
             
-            {/* Step 2 */}
-            <div className="relative z-10 text-center flex flex-col items-center">
-              <div className="w-16 h-16 bg-white border-4 border-yellow-500 rounded-full flex items-center justify-center text-xl font-bold text-yellow-600 mb-4 shadow-sm">2</div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">Submit Proposal</h4>
-              <p className="text-sm text-gray-600 px-3">Browse state challenges, submit technical solution bids, and track evaluation in real time.</p>
+            {/* Stage 2 */}
+            <div className="relative z-10 flex flex-col bg-white rounded-xl p-6 border-2 border-amber-500/30 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-600 to-amber-500 text-white font-black text-lg flex items-center justify-center shadow-md">
+                  02
+                </div>
+                <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 bg-amber-50 text-amber-800 rounded-full border border-amber-200">
+                  Merit Evaluation
+                </span>
+              </div>
+              <h3 className="text-base font-bold text-gray-950 mb-2">Targeted Challenge Bid</h3>
+              <p className="text-xs text-gray-600 leading-relaxed mb-4">
+                Apply directly to published departmental problem statements. Proposals are evaluated purely on technical merit and innovation efficacy.
+              </p>
+              <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between text-[11px] font-semibold text-amber-800">
+                <span>Phase SLA: 14 Days</span>
+                <span>Double-Blind Jury</span>
+              </div>
             </div>
             
-            {/* Step 3 */}
-            <div className="relative z-10 text-center flex flex-col items-center">
-              <div className="w-16 h-16 bg-white border-4 border-purple-500 rounded-full flex items-center justify-center text-xl font-bold text-purple-600 mb-4 shadow-sm">3</div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">Deploy Paid PoC</h4>
-              <p className="text-sm text-gray-600 px-3">Shortlisted innovations execute 90-day field trials with government pilot milestone funding.</p>
+            {/* Stage 3 */}
+            <div className="relative z-10 flex flex-col bg-white rounded-xl p-6 border-2 border-purple-500/30 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-800 to-indigo-600 text-white font-black text-lg flex items-center justify-center shadow-md">
+                  03
+                </div>
+                <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 bg-purple-50 text-purple-800 rounded-full border border-purple-200">
+                  Funded Sandbox
+                </span>
+              </div>
+              <h3 className="text-base font-bold text-gray-950 mb-2">Paid Field Trial & PoC</h3>
+              <p className="text-xs text-gray-600 leading-relaxed mb-4">
+                Receive sanctioned milestone grants (up to ₹25 Lakhs) to deploy your pilot across actual district municipal environments over 90 days.
+              </p>
+              <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between text-[11px] font-semibold text-purple-900">
+                <span>Phase SLA: 90 Days</span>
+                <span>Independent Validation</span>
+              </div>
             </div>
             
-            {/* Step 4 */}
-            <div className="relative z-10 text-center flex flex-col items-center">
-              <div className="w-16 h-16 bg-white border-4 border-green-500 rounded-full flex items-center justify-center text-xl font-bold text-green-600 mb-4 shadow-sm">4</div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">Commercial Contract</h4>
-              <p className="text-sm text-gray-600 px-3">Top-performing pilot solutions transition directly to GeM-enabled public procurement contracts.</p>
+            {/* Stage 4 */}
+            <div className="relative z-10 flex flex-col bg-white rounded-xl p-6 border-2 border-emerald-600/30 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-800 to-emerald-600 text-white font-black text-lg flex items-center justify-center shadow-md">
+                  04
+                </div>
+                <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded-full border border-emerald-200">
+                  Statewide Scale
+                </span>
+              </div>
+              <h3 className="text-base font-bold text-gray-950 mb-2">GeM Work Order Award</h3>
+              <p className="text-xs text-gray-600 leading-relaxed mb-4">
+                Validated innovations bypass prior-turnover hurdles and receive direct state commercial purchase orders under Maharashtra Innovation Policy.
+              </p>
+              <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
+                <span>Phase SLA: 21 Days</span>
+                <span>Direct GeM Listing</span>
+              </div>
             </div>
           </div>
+
+          {/* Institutional Compliance Ribbon */}
+          <div className="mt-14 bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200 shadow-sm flex flex-wrap items-center justify-around gap-4 text-center">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span className="text-xs font-semibold text-gray-800">Zero Tender Fees & Prior Experience Exemption</span>
+            </div>
+            <div className="hidden sm:block text-gray-300">|</div>
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+              <span className="text-xs font-semibold text-gray-800">Milestone-linked Escrow Direct Benefit Transfer</span>
+            </div>
+            <div className="hidden sm:block text-gray-300">|</div>
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+              <span className="text-xs font-semibold text-gray-800">100% Transparent Digital Scoring Matrix</span>
+            </div>
+          </div>
+
         </div>
       </section>
     </>

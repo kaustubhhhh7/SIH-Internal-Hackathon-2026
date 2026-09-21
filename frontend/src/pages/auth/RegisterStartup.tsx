@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
-import { ShieldCheck, ArrowRight, CheckCircle, Upload, Eye, EyeOff } from 'lucide-react';
+import { ShieldCheck, ArrowRight, CheckCircle, Upload, Eye, EyeOff, Building2, Award, Lock, FileCheck } from 'lucide-react';
 import { registerStartup } from '../../services/api/auth';
+import emblemLogo from '../../assets/images/Emblem_of_India_(Government_Gazette).svg.webp';
 
 const RegisterStartup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -46,12 +47,36 @@ const RegisterStartup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gov-gray py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    <div className="min-h-screen bg-[#f3f4f8] py-8 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
       <div className="w-full max-w-4xl">
-        <div className="text-center mb-8">
-          <ShieldCheck className="mx-auto h-12 w-12 text-gov-blue" />
-          <h2 className="mt-3 text-page-title text-gov-blue">Startup Registration</h2>
-          <p className="mt-2 text-body text-gray-600">Join the Government of Maharashtra Innovation Procurement Portal</p>
+        {/* National / State Portal Identification Banner */}
+        <div className="bg-[#0c2340] text-white rounded-xl shadow-lg border border-[#1e3a5f] p-6 mb-8 relative overflow-hidden flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-5">
+            <img 
+              src={emblemLogo} 
+              alt="State Emblem of India" 
+              className="h-20 w-auto object-contain brightness-0 invert filter drop-shadow-[0_2px_8px_rgba(255,255,255,0.25)] shrink-0" 
+            />
+            <div>
+              <div className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-400 uppercase tracking-widest">
+                <FileCheck className="w-3.5 h-3.5" /> Department of Skills, Employment & Innovation
+              </div>
+              <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight mt-0.5">
+                Official Startup Recognition & Onboarding Portal
+              </h1>
+              <p className="text-xs text-gray-300 mt-1 font-medium">
+                Direct State Work Orders • Rule 149 GFR Tender Exemption • Milestone Funded Pilots
+              </p>
+            </div>
+          </div>
+          <div className="shrink-0 flex sm:flex-col items-center sm:items-end gap-2 text-right">
+            <span className="px-2.5 py-1 rounded bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-[11px] font-bold flex items-center gap-1.5">
+              <Lock className="w-3 h-3" /> DPIIT Synchronized
+            </span>
+            <Link to="/login" className="text-xs text-blue-300 hover:text-white underline">
+              Already registered? Sign In
+            </Link>
+          </div>
         </div>
 
         {/* Progress Bar */}
