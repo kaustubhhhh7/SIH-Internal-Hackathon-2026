@@ -20,12 +20,35 @@
     "previous": "Previous",
     "login": "Login",
     "logout": "Logout",
-    "register": "Register",
+    "register": "Sign Up",
     "signIn": "Sign In"
   },
   "auth": {
     "loginTitle": "Government of Maharashtra Innovation Procurement Portal",
-    "registerStartup": "Register as Startup"
+    "registerStartup": "Register as Startup",
+    "signInTitle": "Sign in to your Dashboard",
+    "signInSubtitle": "Please enter your authorized credentials to proceed",
+    "designatedRole": "Designated Portal Role",
+    "roles": {
+      "startup": "🚀 Startup / Innovator Organization",
+      "gov": "🏛️ Government Department / Municipal Body",
+      "expert": "🔬 Technical & Financial Expert Evaluator",
+      "validator": "⚖️ Independent Pilot Validator",
+      "procurement": "📑 State Procurement Officer (GeM / Work Orders)",
+      "admin": "🛡️ System Administrator"
+    },
+    "emailLabel": "Email Address / Authorized User ID",
+    "emailPlaceholder": "e.g. founder@startup.co.in or officer@maharashtra.gov.in",
+    "emailRequired": "Valid credentials are required",
+    "passwordLabel": "Secure Password",
+    "passwordRequired": "Password is required",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember this device for 30 days",
+    "loginBtn": "Log In To Secure System",
+    "authenticating": "Authenticating...",
+    "startupPrompt": "Are you a DPIIT-recognized Startup?",
+    "startupPromptSub": "Register in under 5 minutes to submit proposals.",
+    "registerBtn": "Register Startup"
   },
   "landing": {
     "topbar": {
@@ -130,6 +153,55 @@
       "s8": "Renewable Energy",
       "s9": "Urban Planning"
     },
+    "announcements": {
+      "badge": "Announcements",
+      "a1": "Call for Bids: Smart Agriculture & Drone Monitoring Challenge now live (Deadline: Oct 30)",
+      "a2": "Pilot Milestone: 24 Startups successfully completed Phase 1 PoC trials for Urban Infrastructure",
+      "a3": "Fast-Track Procurement: DPIIT-recognized startups receive direct work orders under 2026 Guidelines",
+      "a4": "Success Story: HealthTech startup secures ₹2.5Cr direct state government deployment contract",
+      "a5": "Validation Panel: State Innovation Committee review meeting scheduled for Oct 15th"
+    },
+    "explore": {
+      "processDesc": "Understand the end-to-end procurement lifecycle for startups."
+    },
+    "sop": {
+      "badge": "Standard Operating Procedure (SOP) • Maharashtra Innovation Framework",
+      "title": "Direct Startup-to-Government Procurement Gateway",
+      "subtitle": "Architected to dismantle red tape and eliminate legacy tender barriers. Fast-track your deep-tech solutions into active state governance across four transparent phases.",
+      "stage1": {
+        "tag": "Instant Verification",
+        "title": "DPIIT & MSME Onboarding",
+        "desc": "Authenticate your entity using DPIIT Recognition, GSTIN, and CIN. Zero security deposit (EMD) required for accredited startups.",
+        "sla": "Phase SLA: Instant",
+        "rule": "Rule 149 GFR Compliant"
+      },
+      "stage2": {
+        "tag": "Merit Evaluation",
+        "title": "Targeted Challenge Bid",
+        "desc": "Apply directly to published departmental problem statements. Proposals are evaluated purely on technical merit and innovation efficacy.",
+        "sla": "Phase SLA: 14 Days",
+        "rule": "Double-Blind Jury"
+      },
+      "stage3": {
+        "tag": "Funded Sandbox",
+        "title": "Paid Field Trial & PoC",
+        "desc": "Receive sanctioned milestone grants (up to ₹25 Lakhs) to deploy your pilot across actual district municipal environments over 90 days.",
+        "sla": "Phase SLA: 90 Days",
+        "rule": "Independent Validation"
+      },
+      "stage4": {
+        "tag": "Statewide Scale",
+        "title": "GeM Work Order Award",
+        "desc": "Validated innovations bypass prior-turnover hurdles and receive direct state commercial purchase orders under Maharashtra Innovation Policy.",
+        "sla": "Phase SLA: 21 Days",
+        "rule": "Direct GeM Listing"
+      },
+      "ribbon": {
+        "f1": "Zero Tender Fees & Prior Experience Exemption",
+        "f2": "Milestone-linked Escrow Direct Benefit Transfer",
+        "f3": "100% Transparent Digital Scoring Matrix"
+      }
+    },
     "footer": {
       "desc": "An official initiative by the Government of Maharashtra to bridge the gap between public sector challenges and cutting-edge startup innovations, ensuring rapid, transparent, and evidence-based procurement.",
       "quickLinks": "Quick Links",
@@ -223,7 +295,19 @@
     "pageTitle": "Procurement Lifecycle & Framework",
     "pageDesc": "Understanding the end-to-end evidence-based procurement process under the Maharashtra IT Policy 2026. This framework ensures transparency, rigorous evaluation, and rapid deployment of scalable solutions.",
     "p1Title": "Phase 1: Startup Application",
+    "p1_s1_title": "1. Registration & Verification",
+    "p1_s1_desc": "Startups must register using their DPIIT recognition number and PAN. The system automatically verifies credentials against central databases.",
+    "p1_s2_title": "2. Challenge Discovery",
+    "p1_s2_desc": "Startups browse the Challenge Registry and select problem statements that align with their core technological competencies.",
+    "p1_s3_title": "3. Proposal Submission",
+    "p1_s3_desc": "Submission of a detailed Technical Architecture, Financial Estimate for the pilot, and Data Privacy compliance certificates.",
     "p2Title": "Phase 2: Government Evaluation",
+    "p2_s1_title": "1. Technical Screening",
+    "p2_s1_desc": "An expert committee reviews the technical feasibility, scalability, and security architecture of the proposed solution.",
+    "p2_s2_title": "2. Pilot Funding Approval",
+    "p2_s2_desc": "Shortlisted startups are called for presentations. The department sanctions an initial budget to conduct a live pilot.",
+    "p2_s3_title": "3. Validation & Procurement",
+    "p2_s3_desc": "If the pilot successfully meets the predefined KPIs, the department issues a direct procurement order under the IT Policy mandate.",
     "matrixTitle": "Standard Evaluation Matrix",
     "matrixCols": {
       "c1": "Criteria",
@@ -240,5 +324,104 @@
       "r4_c1": "Team Expertise",
       "r4_c3": "Prior experience, DPIIT status, and execution capability of the startup team."
     }
+  },
+  "raiseTicket": {
+    "pageTitle": "Raise a Ticket",
+    "pageDesc": "Identify an operational challenge or issue in public services? Raise a ticket here. Valid submissions will be reviewed by government departments and may be posted as official innovation challenges.",
+    "cardHeader": "Issue Details",
+    "note": "Note: This form is for proposing new problem statements and highlighting public operational issues. Do not use this form for technical support regarding the portal itself.",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "email": "Email Address",
+    "emailPlaceholder": "Enter your email address",
+    "deptLabel": "Relevant Department (Optional)",
+    "deptSelect": "Select a department...",
+    "depts": {
+      "agri": "Agriculture & Farmers Welfare",
+      "health": "Public Health Department",
+      "edu": "School Education & Sports",
+      "transport": "Transport Department",
+      "urban": "Urban Development",
+      "other": "Other / Not Sure"
+    },
+    "titleLabel": "Issue Title / Short Summary",
+    "titlePlaceholder": "E.g., Inefficient traffic management at major intersections",
+    "descLabel": "Detailed Description of the Issue",
+    "descSub": "Please explain the operational challenge, who is affected, and why it requires an innovative solution.",
+    "descPlaceholder": "Describe the challenge in detail...",
+    "submitBtn": "Submit Ticket",
+    "successTitle": "Ticket Raised Successfully!",
+    "successMessage": "Thank you for bringing this to our attention. Your issue has been logged with ticket ID",
+    "successReview": "The relevant government department will review your submission. If validated, this may be published as a new challenge for startups to solve.",
+    "returnHome": "Return to Homepage"
+  },
+  "registerStartup": {
+    "deptName": "Department of Skills, Employment & Innovation",
+    "bannerTitle": "Official Startup Recognition & Onboarding Portal",
+    "bannerSub": "Direct State Work Orders • Rule 149 GFR Tender Exemption • Milestone Funded Pilots",
+    "dpiitSync": "DPIIT Synchronized",
+    "alreadyRegistered": "Already registered? Sign In",
+    "steps": {
+      "s1": "Organisation",
+      "s2": "Category",
+      "s3": "Solution",
+      "s4": "Documents"
+    },
+    "step1": {
+      "title": "Organisation Details",
+      "companyName": "Company Name",
+      "companyNameReq": "Company Name is required",
+      "dpiit": "DPIIT Recognition Number",
+      "dpiitReq": "DPIIT Number is required",
+      "dpiitPattern": "Must start with DIPP followed by numbers",
+      "pan": "PAN Number",
+      "panReq": "PAN Number is required",
+      "panPattern": "Invalid PAN format",
+      "authName": "Authorised Person Name",
+      "authNameReq": "Authorised Person Name is required",
+      "mobile": "Mobile Number",
+      "mobileReq": "Mobile Number is required",
+      "mobilePattern": "Must be exactly 10 digits",
+      "email": "Email Address (Username)",
+      "emailReq": "Email is required",
+      "emailPattern": "Invalid email format",
+      "password": "Password",
+      "passwordReq": "Password is required",
+      "passwordMin": "Password must be at least 8 characters"
+    },
+    "step2": {
+      "title": "Technology / Industry Category",
+      "subtitle": "Select the primary category that describes your startup's core technology.",
+      "cats": {
+        "mfg": "Advanced Manufacturing & Robotics",
+        "agri": "Agriculture Tech & New Foods",
+        "ai": "Artificial Intelligence / Big Data",
+        "cyber": "Cybersecurity",
+        "health": "Health & Life Sciences",
+        "clean": "CleanTech / Renewables",
+        "other": "Other"
+      }
+    },
+    "step3": {
+      "title": "Startup Solution Details",
+      "solutionName": "Product / Solution Name",
+      "desc": "Description",
+      "problem": "Problem Solved"
+    },
+    "step4": {
+      "title": "Supporting Documents",
+      "subtitle": "Upload your DPIIT Certificate, Company Incorporation document, and any relevant brochures.",
+      "uploadFile": "Upload a file",
+      "dragDrop": "or drag and drop",
+      "formats": "PDF, PNG, JPG up to 10MB"
+    },
+    "nav": {
+      "previous": "Previous",
+      "backToLogin": "Back to Login",
+      "submitting": "Submitting...",
+      "nextStep": "Next Step",
+      "submitReg": "Submit Registration"
+    },
+    "successAlert": "Startup registered successfully! You can now log in."
   }
 }

@@ -31,3 +31,14 @@ export const login = async (payload: LoginPayload) => {
   const response = await api.post('/api/auth/login', payload);
   return response.data;
 };
+
+export const getMyProfile = async () => {
+  const response = await api.get('/api/users/me');
+  return response.data;
+};
+
+export const getMyStartupProfile = async () => {
+  const response = await api.get('/api/users/me/startup-profile');
+  return response.data;
+};
+

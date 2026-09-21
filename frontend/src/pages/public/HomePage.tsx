@@ -84,15 +84,15 @@ const HomePage = () => {
       {/* 4.5. LATEST ANNOUNCEMENTS TICKER */}
       <div className="bg-blue-900 border-b border-blue-950 flex items-center relative overflow-hidden z-10 h-10 shadow-inner">
         <div className="bg-yellow-500 text-yellow-950 font-extrabold px-4 md:px-6 h-full flex items-center text-xs md:text-sm uppercase tracking-wider shadow-[2px_0_10px_rgba(0,0,0,0.2)] z-20 relative shrink-0">
-          Announcements
+          {t('landing.announcements.badge')}
         </div>
         <div className="flex-1 overflow-hidden relative h-full flex items-center">
           <div className="animate-marquee whitespace-nowrap text-white text-xs md:text-sm font-medium tracking-wide">
-            <span className="mx-8"><span className="text-yellow-400 mr-2">📢</span>Call for Bids: Smart Agriculture & Drone Monitoring Challenge now live (Deadline: Oct 30)</span>
-            <span className="mx-8"><span className="text-yellow-400 mr-2">🚀</span>Pilot Milestone: 24 Startups successfully completed Phase 1 PoC trials for Urban Infrastructure</span>
-            <span className="mx-8"><span className="text-yellow-400 mr-2">⚡</span>Fast-Track Procurement: DPIIT-recognized startups receive direct work orders under 2026 Guidelines</span>
-            <span className="mx-8"><span className="text-yellow-400 mr-2">🏆</span>Success Story: HealthTech startup secures ₹2.5Cr direct state government deployment contract</span>
-            <span className="mx-8"><span className="text-yellow-400 mr-2">📅</span>Validation Panel: State Innovation Committee review meeting scheduled for Oct 15th</span>
+            <span className="mx-8"><span className="text-yellow-400 mr-2">📢</span>{t('landing.announcements.a1')}</span>
+            <span className="mx-8"><span className="text-yellow-400 mr-2">🚀</span>{t('landing.announcements.a2')}</span>
+            <span className="mx-8"><span className="text-yellow-400 mr-2">⚡</span>{t('landing.announcements.a3')}</span>
+            <span className="mx-8"><span className="text-yellow-400 mr-2">🏆</span>{t('landing.announcements.a4')}</span>
+            <span className="mx-8"><span className="text-yellow-400 mr-2">📅</span>{t('landing.announcements.a5')}</span>
           </div>
         </div>
       </div>
@@ -181,7 +181,7 @@ const HomePage = () => {
               <h3 className="text-xl font-bold text-blue-900 mb-3 flex justify-between items-center">
                 {t('landing.header.nav.process')} <span className="text-blue-500 group-hover:translate-x-2 transition-transform">&rarr;</span>
               </h3>
-              <p className="text-body text-gray-600 leading-relaxed">Understand the end-to-end procurement lifecycle for startups.</p>
+              <p className="text-body text-gray-600 leading-relaxed">{t('landing.explore.processDesc')}</p>
             </div>
           </Link>
         </div>
@@ -199,13 +199,13 @@ const HomePage = () => {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-900/10 border border-blue-900/20 text-blue-950 text-xs font-bold uppercase tracking-widest mb-3">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              Standard Operating Procedure (SOP) • Maharashtra Innovation Framework
+              {t('landing.sop.badge')}
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0b1f3a] tracking-tight mb-4">
-              Direct Startup-to-Government Procurement Gateway
+              {t('landing.sop.title')}
             </h2>
             <p className="text-sm sm:text-base text-gray-700 leading-relaxed font-medium">
-              Architected to dismantle red tape and eliminate legacy tender barriers. Fast-track your deep-tech solutions into active state governance across four transparent phases.
+              {t('landing.sop.subtitle')}
             </p>
           </div>
           
@@ -221,16 +221,16 @@ const HomePage = () => {
                   01
                 </div>
                 <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 bg-blue-50 text-blue-800 rounded-full border border-blue-200">
-                  Instant Verification
+                  {t('landing.sop.stage1.tag')}
                 </span>
               </div>
-              <h3 className="text-base font-bold text-gray-950 mb-2">DPIIT & MSME Onboarding</h3>
+              <h3 className="text-base font-bold text-gray-950 mb-2">{t('landing.sop.stage1.title')}</h3>
               <p className="text-xs text-gray-600 leading-relaxed mb-4">
-                Authenticate your entity using DPIIT Recognition, GSTIN, and CIN. Zero security deposit (EMD) required for accredited startups.
+                {t('landing.sop.stage1.desc')}
               </p>
               <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between text-[11px] font-semibold text-blue-900">
-                <span>Phase SLA: Instant</span>
-                <span>Rule 149 GFR Compliant</span>
+                <span>{t('landing.sop.stage1.sla')}</span>
+                <span>{t('landing.sop.stage1.rule')}</span>
               </div>
             </div>
             
@@ -241,16 +241,16 @@ const HomePage = () => {
                   02
                 </div>
                 <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 bg-amber-50 text-amber-800 rounded-full border border-amber-200">
-                  Merit Evaluation
+                  {t('landing.sop.stage2.tag')}
                 </span>
               </div>
-              <h3 className="text-base font-bold text-gray-950 mb-2">Targeted Challenge Bid</h3>
+              <h3 className="text-base font-bold text-gray-950 mb-2">{t('landing.sop.stage2.title')}</h3>
               <p className="text-xs text-gray-600 leading-relaxed mb-4">
-                Apply directly to published departmental problem statements. Proposals are evaluated purely on technical merit and innovation efficacy.
+                {t('landing.sop.stage2.desc')}
               </p>
               <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between text-[11px] font-semibold text-amber-800">
-                <span>Phase SLA: 14 Days</span>
-                <span>Double-Blind Jury</span>
+                <span>{t('landing.sop.stage2.sla')}</span>
+                <span>{t('landing.sop.stage2.rule')}</span>
               </div>
             </div>
             
@@ -261,16 +261,16 @@ const HomePage = () => {
                   03
                 </div>
                 <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 bg-purple-50 text-purple-800 rounded-full border border-purple-200">
-                  Funded Sandbox
+                  {t('landing.sop.stage3.tag')}
                 </span>
               </div>
-              <h3 className="text-base font-bold text-gray-950 mb-2">Paid Field Trial & PoC</h3>
+              <h3 className="text-base font-bold text-gray-950 mb-2">{t('landing.sop.stage3.title')}</h3>
               <p className="text-xs text-gray-600 leading-relaxed mb-4">
-                Receive sanctioned milestone grants (up to ₹25 Lakhs) to deploy your pilot across actual district municipal environments over 90 days.
+                {t('landing.sop.stage3.desc')}
               </p>
               <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between text-[11px] font-semibold text-purple-900">
-                <span>Phase SLA: 90 Days</span>
-                <span>Independent Validation</span>
+                <span>{t('landing.sop.stage3.sla')}</span>
+                <span>{t('landing.sop.stage3.rule')}</span>
               </div>
             </div>
             
@@ -281,16 +281,16 @@ const HomePage = () => {
                   04
                 </div>
                 <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded-full border border-emerald-200">
-                  Statewide Scale
+                  {t('landing.sop.stage4.tag')}
                 </span>
               </div>
-              <h3 className="text-base font-bold text-gray-950 mb-2">GeM Work Order Award</h3>
+              <h3 className="text-base font-bold text-gray-950 mb-2">{t('landing.sop.stage4.title')}</h3>
               <p className="text-xs text-gray-600 leading-relaxed mb-4">
-                Validated innovations bypass prior-turnover hurdles and receive direct state commercial purchase orders under Maharashtra Innovation Policy.
+                {t('landing.sop.stage4.desc')}
               </p>
               <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between text-[11px] font-semibold text-emerald-800">
-                <span>Phase SLA: 21 Days</span>
-                <span>Direct GeM Listing</span>
+                <span>{t('landing.sop.stage4.sla')}</span>
+                <span>{t('landing.sop.stage4.rule')}</span>
               </div>
             </div>
           </div>
@@ -299,17 +299,17 @@ const HomePage = () => {
           <div className="mt-14 bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200 shadow-sm flex flex-wrap items-center justify-around gap-4 text-center">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-              <span className="text-xs font-semibold text-gray-800">Zero Tender Fees & Prior Experience Exemption</span>
+              <span className="text-xs font-semibold text-gray-800">{t('landing.sop.ribbon.f1')}</span>
             </div>
             <div className="hidden sm:block text-gray-300">|</div>
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
-              <span className="text-xs font-semibold text-gray-800">Milestone-linked Escrow Direct Benefit Transfer</span>
+              <span className="text-xs font-semibold text-gray-800">{t('landing.sop.ribbon.f2')}</span>
             </div>
             <div className="hidden sm:block text-gray-300">|</div>
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-              <span className="text-xs font-semibold text-gray-800">100% Transparent Digital Scoring Matrix</span>
+              <span className="text-xs font-semibold text-gray-800">{t('landing.sop.ribbon.f3')}</span>
             </div>
           </div>
 

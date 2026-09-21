@@ -22,18 +22,18 @@ const ProcessPage = () => {
           <div className="space-y-8 pl-4 border-l-2 border-blue-200">
             <div className="relative">
               <div className="absolute -left-[25px] top-1 h-4 w-4 bg-blue-800 rounded-full border-4 border-white"></div>
-              <h3 className="text-base font-semibold text-gray-900">1. Registration & Verification</h3>
-              <p className="text-sm text-gray-700 mt-2">Startups must register using their DPIIT recognition number and PAN. The system automatically verifies credentials against central databases.</p>
+              <h3 className="text-base font-semibold text-gray-900">{t('processPage.p1_s1_title')}</h3>
+              <p className="text-sm text-gray-700 mt-2">{t('processPage.p1_s1_desc')}</p>
             </div>
             <div className="relative">
               <div className="absolute -left-[25px] top-1 h-4 w-4 bg-blue-800 rounded-full border-4 border-white"></div>
-              <h3 className="text-base font-semibold text-gray-900">2. Challenge Discovery</h3>
-              <p className="text-sm text-gray-700 mt-2">Startups browse the Challenge Registry and select problem statements that align with their core technological competencies.</p>
+              <h3 className="text-base font-semibold text-gray-900">{t('processPage.p1_s2_title')}</h3>
+              <p className="text-sm text-gray-700 mt-2">{t('processPage.p1_s2_desc')}</p>
             </div>
             <div className="relative">
               <div className="absolute -left-[25px] top-1 h-4 w-4 bg-blue-800 rounded-full border-4 border-white"></div>
-              <h3 className="text-base font-semibold text-gray-900">3. Proposal Submission</h3>
-              <p className="text-sm text-gray-700 mt-2">Submission of a detailed Technical Architecture, Financial Estimate for the pilot, and Data Privacy compliance certificates.</p>
+              <h3 className="text-base font-semibold text-gray-900">{t('processPage.p1_s3_title')}</h3>
+              <p className="text-sm text-gray-700 mt-2">{t('processPage.p1_s3_desc')}</p>
             </div>
           </div>
         </div>
@@ -46,18 +46,18 @@ const ProcessPage = () => {
           <div className="space-y-8 pl-4 border-l-2 border-gray-300">
             <div className="relative">
               <div className="absolute -left-[25px] top-1 h-4 w-4 bg-gray-800 rounded-full border-4 border-white"></div>
-              <h3 className="text-base font-semibold text-gray-900">1. Technical Screening</h3>
-              <p className="text-sm text-gray-700 mt-2">An expert committee reviews the technical feasibility, scalability, and security architecture of the proposed solution.</p>
+              <h3 className="text-base font-semibold text-gray-900">{t('processPage.p2_s1_title')}</h3>
+              <p className="text-sm text-gray-700 mt-2">{t('processPage.p2_s1_desc')}</p>
             </div>
             <div className="relative">
               <div className="absolute -left-[25px] top-1 h-4 w-4 bg-gray-800 rounded-full border-4 border-white"></div>
-              <h3 className="text-base font-semibold text-gray-900">2. Pilot Funding Approval</h3>
-              <p className="text-sm text-gray-700 mt-2">Shortlisted startups are called for presentations. The department sanctions an initial budget to conduct a live pilot.</p>
+              <h3 className="text-base font-semibold text-gray-900">{t('processPage.p2_s2_title')}</h3>
+              <p className="text-sm text-gray-700 mt-2">{t('processPage.p2_s2_desc')}</p>
             </div>
             <div className="relative">
               <div className="absolute -left-[25px] top-1 h-4 w-4 bg-gray-800 rounded-full border-4 border-white"></div>
-              <h3 className="text-base font-semibold text-gray-900">3. Validation & Procurement</h3>
-              <p className="text-sm text-gray-700 mt-2">If the pilot successfully meets the predefined KPIs, the department issues a direct procurement order under the IT Policy mandate.</p>
+              <h3 className="text-base font-semibold text-gray-900">{t('processPage.p2_s3_title')}</h3>
+              <p className="text-sm text-gray-700 mt-2">{t('processPage.p2_s3_desc')}</p>
             </div>
           </div>
         </div>

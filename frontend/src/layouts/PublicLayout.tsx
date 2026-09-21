@@ -72,11 +72,11 @@ const PublicLayout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+    <div className={`bg-gray-50 flex flex-col font-sans ${location.pathname === '/login' ? 'h-screen overflow-hidden' : 'min-h-screen'}`}>
       
       {/* 0. SKIP TO MAIN CONTENT ACCESSIBILITY LINK */}
       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-white focus:text-blue-800">
-        Skip to Main Content
+        {i18n.language === 'mr' ? 'मुख्य सामग्रीवर जा' : 'Skip to Main Content'}
       </a>
 
       {/* 1. TOP UTILITY BAR */}
@@ -84,7 +84,7 @@ const PublicLayout = () => {
         <div className="hidden sm:flex items-center space-x-3 font-medium">
           <span className="mr-2">{t('landing.topbar.fullTitle')}</span>
           <Link to="/raise-ticket" className="hover:bg-blue-50 text-blue-800 px-2.5 py-0.5 rounded-sm border border-blue-200 bg-white shadow-sm transition-colors flex items-center">
-            Raise a Ticket
+            {i18n.language === 'mr' ? 'तक्रार नोंदवा' : 'Raise a Ticket'}
           </Link>
           <a 
             href="#main-content" 
@@ -96,13 +96,13 @@ const PublicLayout = () => {
             }}
             className="hover:bg-gray-100 text-gray-700 px-2.5 py-0.5 rounded-sm border border-gray-200 bg-white shadow-sm transition-colors flex items-center"
           >
-            Skip to Main Content
+            {i18n.language === 'mr' ? 'मुख्य सामग्रीवर जा' : 'Skip to Main Content'}
           </a>
         </div>
         <div className="sm:hidden flex items-center space-x-2 font-medium">
           <span className="mr-2">{t('landing.topbar.shortTitle')}</span>
           <Link to="/raise-ticket" className="hover:bg-blue-50 text-blue-800 px-2 py-0.5 rounded-sm border border-blue-200 bg-white shadow-sm transition-colors text-[10px]">
-            Ticket
+            {i18n.language === 'mr' ? 'तक्रार' : 'Ticket'}
           </Link>
         </div>
         <div className="flex items-center space-x-2 sm:space-x-4">
@@ -190,7 +190,7 @@ const PublicLayout = () => {
                   type="text" 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Looking for something?" 
+                  placeholder={i18n.language === 'mr' ? 'काहीतरी शोधत आहात?' : 'Looking for something?'} 
                   className="w-48 lg:w-64 pl-3.5 pr-8 py-1 h-8 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-xs transition-all bg-gray-50/50 hover:bg-white focus:bg-white"
                 />
                 <button type="submit" className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-blue-800">
@@ -198,15 +198,16 @@ const PublicLayout = () => {
                 </button>
               </form>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 <Link to="/login">
-                  <button className="flex items-center justify-center font-semibold text-gray-700 border border-gray-300 hover:bg-gray-50 px-3.5 h-8 rounded text-xs transition-colors whitespace-nowrap uppercase tracking-wider">
-                    Log In
+                  <button className="flex items-center justify-center font-semibold text-slate-700 hover:text-blue-900 border border-slate-300 hover:border-blue-900 bg-white hover:bg-blue-50/50 px-4 h-8 rounded-md text-xs transition-all shadow-xs hover:shadow-sm whitespace-nowrap tracking-wider uppercase cursor-pointer">
+                    {t('common.login')}
                   </button>
                 </Link>
                 <Link to="/register/startup">
-                  <button className="flex items-center justify-center font-bold text-red-700 border-[1.5px] border-red-700 hover:bg-red-50 px-3.5 h-8 rounded text-xs transition-colors whitespace-nowrap uppercase tracking-wider">
-                    Sign Up <LogIn className="h-3.5 w-3.5 ml-1.5 stroke-[2.5]" />
+                  <button className="flex items-center justify-center gap-1.5 font-bold text-white bg-gradient-to-r from-[#0c2340] to-[#143763] hover:from-[#143763] hover:to-[#1a467e] border border-[#0c2340] px-4 h-8 rounded-md text-xs transition-all shadow-sm hover:shadow-md whitespace-nowrap tracking-wider uppercase cursor-pointer">
+                    <span>{t('common.register')}</span>
+                    <LogIn className="h-3.5 w-3.5 stroke-[2.2]" />
                   </button>
                 </Link>
               </div>
@@ -229,16 +230,17 @@ const PublicLayout = () => {
         )}
       </div>
 
-      <main id="main-content" className="flex-grow w-full bg-white flex flex-col scroll-mt-20">
+      <main id="main-content" className={`w-full bg-white flex flex-col scroll-mt-20 ${location.pathname === '/login' ? 'flex-1 overflow-hidden' : 'flex-grow'}`}>
         {/* Child Routes injected here */}
         <Outlet />
       </main>
 
-      {/* 9. EXPANDED FOOTER */}
-      <footer className="bg-[#1a1a1a] text-white pt-12 pb-8 border-t-4 border-blue-800 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 mb-10">
-            <div className="col-span-1 md:col-span-2">
+      {/* 9. EXPANDED FOOTER (hidden on /login) */}
+      {location.pathname !== '/login' && (
+        <footer className="bg-[#1a1a1a] text-white pt-12 pb-8 border-t-4 border-blue-800 mt-auto">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-4 gap-8 mb-10">
+              <div className="col-span-1 md:col-span-2">
               <div className="flex items-center space-x-4 mb-4 border-b border-gray-700 pb-4 pr-12 w-fit">
                 <img src={emblemLogo} alt="Emblem" className="h-10 w-auto object-contain bg-white rounded-full p-1" />
                 <div className="flex flex-col">
@@ -291,6 +293,7 @@ const PublicLayout = () => {
           </div>
         </div>
       </footer>
+    )}
 
       {/* Floating Chatbot */}
       <Chatbot />

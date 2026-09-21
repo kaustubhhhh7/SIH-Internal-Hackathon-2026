@@ -47,12 +47,11 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register/startup" element={<RegisterStartup />} />
-          
-          {/* Public Routes with Shared Layout */}
+          {/* Public Routes with Shared Government Navbar & Layout */}
           <Route element={<PublicLayout />}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register/startup" element={<RegisterStartup />} />
             <Route path="/challenges" element={<ChallengesPage />} />
             <Route path="/sectors" element={<SectorsPage />} />
             <Route path="/process" element={<ProcessPage />} />
