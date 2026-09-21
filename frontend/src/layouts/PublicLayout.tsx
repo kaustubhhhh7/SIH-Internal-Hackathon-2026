@@ -18,13 +18,14 @@ const PublicLayout = () => {
     if (searchQuery.trim()) {
       // Use native browser find (like Ctrl+F)
       const query = searchQuery.trim();
-      const found = window.find(query);
-      
-      // If not found, try wrapping around from the top
-      if (!found) {
-        window.getSelection()?.removeAllRanges();
-        window.scrollTo(0, 0);
-        window.find(query);
+      const win = window as any;
+      if (typeof win.find === 'function') {
+        const found = win.find(query);
+        if (!found) {
+          window.getSelection()?.removeAllRanges();
+          window.scrollTo(0, 0);
+          win.find(query);
+        }
       }
     }
   };
@@ -219,11 +220,13 @@ const PublicLayout = () => {
         <div className="px-4 text-nav text-red-700 border-r border-gray-300 mr-2">
           {t('landing.marquee.title')}
         </div>
-        <marquee className="flex-1" scrollamount="5">
-          <span className="mx-8 font-semibold text-gray-900">{t('landing.marquee.m1')}</span>
-          <span className="mx-8 text-gray-700">{t('landing.marquee.m2')}</span>
-          <span className="mx-8 text-gray-700">{t('landing.marquee.m3')}</span>
-        </marquee>
+        {React.createElement('marquee', { className: 'flex-1', scrollamount: '5' },
+          <>
+            <span className="mx-8 font-semibold text-gray-900">{t('landing.marquee.m1')}</span>
+            <span className="mx-8 text-gray-700">{t('landing.marquee.m2')}</span>
+            <span className="mx-8 text-gray-700">{t('landing.marquee.m3')}</span>
+          </>
+        )}
       </div>
 
       <main id="main-content" className="flex-grow w-full bg-white flex flex-col scroll-mt-20">

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
-import { ShieldCheck, Eye, EyeOff, Lock, Building2, Award, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Eye, EyeOff, Lock, Building2, Award, CheckCircle2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import emblemLogo from '../../assets/images/Emblem_of_India_(Government_Gazette).svg.webp';
 
@@ -117,9 +117,6 @@ const Login = () => {
           {/* Right Form Column */}
           <div className="md:col-span-7 p-8 lg:p-10 flex flex-col justify-center bg-white">
             <div className="mb-6">
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-blue-50 border border-blue-200 text-blue-800 text-[11px] font-semibold tracking-wide uppercase mb-3">
-                <Sparkles className="w-3 h-3 text-blue-600" /> Official Access Portal
-              </div>
               <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Sign in to your Dashboard</h2>
               <p className="text-xs text-gray-500 mt-1">Please enter your authorized credentials to proceed to the secure portal</p>
             </div>
