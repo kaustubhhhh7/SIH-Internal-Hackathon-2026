@@ -42,25 +42,35 @@ const HomePage = () => {
               />
             ))}
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/20 to-transparent pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#061426] via-[#061426]/85 to-[#061426]/40 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-radial-at-c from-transparent via-[#061426]/30 to-[#061426]/80 pointer-events-none"></div>
           
-          <div className="absolute inset-0 flex flex-col justify-end pb-16 md:pb-28 px-4 sm:px-8 lg:px-12 max-w-7xl mr-auto">
-            <h1 className="text-3xl md:text-4xl lg:text-[40px] font-bold tracking-tight text-white mb-4 max-w-3xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] leading-tight">
+          <div className="absolute inset-0 flex flex-col justify-end pb-14 md:pb-20 px-6 sm:px-10 lg:px-16 max-w-7xl mr-auto">
+            {/* Government Authority Badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0b1f3a]/80 backdrop-blur-md border border-amber-400/40 rounded-xs w-fit mb-4 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+              <span className="text-[11px] font-bold text-amber-300 uppercase tracking-widest">
+                {t('landing.hero.badge')}
+              </span>
+            </div>
+
+            <h1 className="text-3xl md:text-5xl lg:text-[48px] font-black tracking-tight text-white mb-3 max-w-3xl leading-[1.15] drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
               {t('landing.hero.title')}
             </h1>
-            <p className="text-sm md:text-base text-gray-100 mb-8 max-w-2xl drop-shadow-[0_1px_4px_rgba(0,0,0,0.7)] font-medium">
+            <p className="text-sm md:text-base text-slate-100 mb-8 max-w-2xl font-medium leading-relaxed drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
               {t('landing.hero.subtitle')}
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap items-center gap-4">
               <Link to="/register/startup">
-                <Button className="bg-yellow-500 hover:bg-yellow-600 text-yellow-900 text-nav px-6 py-2 border-none rounded-sm shadow-sm transition-all">
-                  {t('landing.hero.registerBtn')}
-                </Button>
+                <button className="bg-amber-500 hover:bg-amber-600 text-[#0c2340] text-xs md:text-sm font-bold tracking-wider uppercase px-7 py-3.5 rounded-xs shadow-lg transition-all flex items-center gap-2 cursor-pointer border border-amber-400 active:translate-y-0.5">
+                  <span>{t('landing.hero.registerBtn')}</span>
+                  <span className="text-base leading-none font-bold">&rarr;</span>
+                </button>
               </Link>
               <Link to="/process">
-                <Button variant="ghost" className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-blue-900 text-nav px-6 py-2 rounded-sm shadow-sm transition-all">
+                <button className="bg-[#0b1f3a]/70 hover:bg-[#0b1f3a] text-white text-xs md:text-sm font-bold tracking-wider uppercase px-7 py-3.5 rounded-xs border border-white/40 backdrop-blur-sm transition-all cursor-pointer shadow-md active:translate-y-0.5">
                   {t('landing.hero.learnBtn')}
-                </Button>
+                </button>
               </Link>
             </div>
           </div>

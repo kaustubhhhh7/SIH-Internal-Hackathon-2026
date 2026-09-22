@@ -60,76 +60,137 @@ const ChallengesPage = () => {
   const filteredChallenges = CHALLENGES.filter(c => filter === 'All' || c.status === filter);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
-      <div className="mb-10 pb-6 border-b border-gray-300">
-        <h1 className="text-2xl font-semibold text-gray-900 mb-2">{t('challengesPage.pageTitle')}</h1>
-        <p className="text-gray-600 max-w-3xl">
-          {t('challengesPage.pageDesc')}
-        </p>
-      </div>
+    <div className="min-h-screen bg-[#f1f3f6] py-10 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+      <div className="w-full max-w-6xl">
+        {/* Official Header Banner */}
+        <div className="bg-[#0b1f3a] text-white rounded-t-sm border-t-4 border-amber-500 p-6 shadow-xs mb-0">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <div className="text-[11px] font-bold text-amber-400 uppercase tracking-widest mb-1">
+                Government Procurement & Innovation Portal • Problem Statement Registry
+              </div>
+              <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                {t('challengesPage.pageTitle')}
+              </h1>
+              <p className="text-xs text-slate-300 mt-1 max-w-3xl leading-relaxed">
+                {t('challengesPage.pageDesc')}
+              </p>
+            </div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 border border-white/20 rounded-xs text-[11px] font-mono font-bold text-slate-200 shrink-0">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              {filteredChallenges.length} Active Notice{filteredChallenges.length !== 1 ? 's' : ''}
+            </div>
+          </div>
+        </div>
 
-      {/* Filters */}
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-        <div className="flex flex-wrap gap-2">
-          {['All', t('challengesPage.filters.accepting'), t('challengesPage.filters.upcoming'), t('challengesPage.filters.closed')].map(f => (
-            <button 
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`px-4 py-1.5 text-sm font-bold uppercase tracking-wide border ${filter === f || (filter === 'All' && f === 'All') ? 'bg-blue-800 text-white border-blue-800' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'}`}
+        {/* Filter & Search Bar */}
+        <div className="bg-white border-x border-b border-gray-300 p-4 mb-6 shadow-2xs flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4">
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="text-xs font-bold text-gray-500 uppercase tracking-wider mr-2 hidden sm:inline">Status:</span>
+            {['All', t('challengesPage.filters.accepting'), t('challengesPage.filters.upcoming'), t('challengesPage.filters.closed')].map(f => (
+              <button 
+                key={f}
+                onClick={() => setFilter(f)}
+                className={`px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider rounded-xs border transition-all ${
+                  filter === f || (filter === 'All' && f === 'All') 
+                    ? 'bg-[#0b1f3a] text-white border-[#0b1f3a] shadow-xs' 
+                    : 'bg-slate-50 text-gray-700 border-gray-300 hover:bg-slate-100'
+                }`}
+              >
+                {f === 'All' ? t('challengesPage.filters.all') : f}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center space-x-2 w-full md:w-auto">
+            <input 
+              type="text" 
+              placeholder={t('challengesPage.searchPlaceholder')} 
+              className="border border-gray-300 px-3 py-1.5 text-xs w-full md:w-64 focus:outline-none focus:ring-1 focus:ring-[#0b1f3a] focus:border-[#0b1f3a] rounded-xs bg-slate-50"
+            />
+            <Button className="rounded-xs bg-[#0b1f3a] hover:bg-[#15345c] text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 h-auto shrink-0">
+              {t('challengesPage.searchBtn')}
+            </Button>
+          </div>
+        </div>
+
+        {/* List of Challenges */}
+        <div className="space-y-4">
+          {filteredChallenges.map((challenge) => (
+            <div 
+              key={challenge.id} 
+              className="border border-gray-300 bg-white p-5 sm:p-6 rounded-sm shadow-2xs hover:border-[#0b1f3a]/40 hover:shadow-xs transition-all relative overflow-hidden"
             >
-              {f === 'All' ? t('challengesPage.filters.all') : f}
-            </button>
+              {/* Top Accent Line based on status */}
+              <div 
+                className={`absolute top-0 left-0 right-0 h-1 ${
+                  challenge.status === t('challengesPage.filters.accepting') 
+                    ? 'bg-emerald-600' 
+                    : challenge.status === t('challengesPage.filters.upcoming') 
+                    ? 'bg-amber-500' 
+                    : 'bg-slate-400'
+                }`}
+              />
+
+              <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-3 gap-3">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className={`text-[10px] font-bold text-white px-2 py-0.5 uppercase tracking-wider rounded-2xs inline-block ${
+                      challenge.status === t('challengesPage.filters.accepting') 
+                        ? 'bg-emerald-700' 
+                        : challenge.status === t('challengesPage.filters.upcoming') 
+                        ? 'bg-amber-600' 
+                        : 'bg-slate-600'
+                    }`}>
+                      {challenge.status}
+                    </span>
+                    <span className="text-[11px] font-bold text-gray-500 uppercase tracking-widest font-mono">
+                      CHAL-{2026000 + challenge.id}
+                    </span>
+                  </div>
+                  <span className="block text-xs font-bold text-amber-700 uppercase tracking-wider pt-1">
+                    {challenge.dept}
+                  </span>
+                  <h3 className="text-base sm:text-lg font-bold text-[#0b1f3a] hover:text-blue-900 transition-colors">
+                    {challenge.title}
+                  </h3>
+                </div>
+                
+                <div className="sm:text-right flex-shrink-0 bg-slate-50 border border-gray-200 p-2.5 rounded-xs sm:min-w-[170px]">
+                  <div className="mb-1.5">
+                    <span className="block text-gray-500 text-[10px] uppercase font-bold tracking-wider">{t('challengesPage.budget')}</span>
+                    <span className="font-bold text-gray-900 text-xs sm:text-sm font-mono">{challenge.budget}</span>
+                  </div>
+                  <div>
+                    <span className="block text-gray-500 text-[10px] uppercase font-bold tracking-wider">{t('challengesPage.deadline')}</span>
+                    <span className="font-semibold text-rose-700 text-xs font-mono">{challenge.deadline}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <p className="text-gray-700 text-xs sm:text-sm mb-5 leading-relaxed font-normal">
+                {challenge.description}
+              </p>
+
+              <div className="border-t border-gray-200 pt-3.5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <div className="flex items-center gap-4 text-[11px] text-gray-500">
+                  <span>Eligibility: <strong>DPIIT Recognized</strong></span>
+                  <span>•</span>
+                  <span>Fast-track Pilot SLA: <strong>30 Days</strong></span>
+                </div>
+                <Link to="/login" className="w-full sm:w-auto">
+                  <Button variant="outline" className="w-full sm:w-auto text-[#0b1f3a] border-[#0b1f3a] hover:bg-[#0b1f3a] hover:text-white rounded-xs text-[11px] uppercase tracking-wider font-bold px-4 py-1.5 h-auto transition-all">
+                    {t('challengesPage.viewDetails')} &rarr;
+                  </Button>
+                </Link>
+              </div>
+            </div>
           ))}
-        </div>
-        <div className="flex space-x-2 w-full sm:w-auto">
-          <input 
-            type="text" 
-            placeholder={t('challengesPage.searchPlaceholder')} 
-            className="border border-gray-400 px-3 py-1.5 text-sm w-full sm:w-64 focus:outline-none focus:border-blue-800"
-          />
-          <Button className="rounded-none bg-gray-800">{t('challengesPage.searchBtn')}</Button>
-        </div>
-      </div>
-
-      {/* List */}
-      <div className="space-y-6">
-        {filteredChallenges.map((challenge) => (
-          <div key={challenge.id} className="border border-gray-300 bg-white p-6 hover:shadow-md transition-shadow">
-            <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-4 gap-4">
-              <div>
-                <span className={`text-[10px] font-bold text-white px-2 py-0.5 uppercase tracking-wider inline-block w-fit mb-2 ${challenge.status === t('challengesPage.filters.accepting') ? 'bg-green-700' : challenge.status === t('challengesPage.filters.upcoming') ? 'bg-yellow-600' : 'bg-red-700'}`}>
-                  {challenge.status}
-                </span>
-                <span className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">{challenge.dept}</span>
-                <h3 className="text-xl font-bold text-blue-900">{challenge.title}</h3>
-              </div>
-              <div className="sm:text-right flex-shrink-0">
-                <span className="block text-gray-500 text-[10px] uppercase font-bold tracking-wider">{t('challengesPage.budget')}</span>
-                <span className="font-semibold text-gray-900 block mb-2">{challenge.budget}</span>
-                <span className="block text-gray-500 text-[10px] uppercase font-bold tracking-wider">{t('challengesPage.deadline')}</span>
-                <span className="font-semibold text-red-700 block">{challenge.deadline}</span>
-              </div>
+          {filteredChallenges.length === 0 && (
+            <div className="p-12 text-center text-gray-500 bg-white border border-gray-300 rounded-sm">
+              <p className="font-semibold text-sm">{t('challengesPage.noResults')}</p>
             </div>
-            
-            <p className="text-gray-700 text-sm mb-6 leading-relaxed max-w-4xl">
-              {challenge.description}
-            </p>
-
-            <div className="border-t border-gray-200 pt-4 flex justify-between items-center">
-              <span className="text-xs text-gray-500 font-mono">ID: CHAL-{2026000 + challenge.id}</span>
-              <Link to="/login">
-                <Button variant="outline" className="text-blue-800 border-blue-800 rounded-none text-xs uppercase tracking-wide font-bold">
-                  {t('challengesPage.viewDetails')}
-                </Button>
-              </Link>
-            </div>
-          </div>
-        ))}
-        {filteredChallenges.length === 0 && (
-          <div className="p-12 text-center text-gray-500 bg-gray-50 border border-gray-300">
-            {t('challengesPage.noResults')}
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
