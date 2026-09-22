@@ -9,6 +9,13 @@ import ChallengesPage from './pages/public/ChallengesPage';
 import SectorsPage from './pages/public/SectorsPage';
 import ProcessPage from './pages/public/ProcessPage';
 import RaiseTicket from './pages/public/RaiseTicket';
+import StartupRunway from './pages/public/StartupRunway';
+import ProductShowcase from './pages/public/ProductShowcase';
+import AddProduct from './pages/startup/AddProduct';
+import RequestTestingSandbox from './pages/gov/RequestTestingSandbox';
+import SandboxTrials from './pages/gov/SandboxTrials';
+import SandboxTrialDetails from './pages/gov/SandboxTrialDetails';
+import IssuePurchaseOrder from './pages/procurement/IssuePurchaseOrder';
 
 import Login from './pages/auth/Login';
 import RegisterStartup from './pages/auth/RegisterStartup';
@@ -54,6 +61,8 @@ function App() {
             <Route path="/register/startup" element={<RegisterStartup />} />
             <Route path="/challenges" element={<ChallengesPage />} />
             <Route path="/sectors" element={<SectorsPage />} />
+            <Route path="/runway" element={<StartupRunway />} />
+            <Route path="/showcase" element={<ProductShowcase />} />
             <Route path="/process" element={<ProcessPage />} />
             <Route path="/raise-ticket" element={<RaiseTicket />} />
           </Route>
@@ -65,6 +74,11 @@ function App() {
             <Route path="/startup/dashboard" element={
               <ProtectedRoute allowedRoles={['STARTUP']}>
                 <StartupDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/startup/products/add" element={
+              <ProtectedRoute allowedRoles={['STARTUP']}>
+                <AddProduct />
               </ProtectedRoute>
             } />
             <Route path="/startup/challenges" element={
@@ -84,9 +98,34 @@ function App() {
                 <GovDashboard />
               </ProtectedRoute>
             } />
+            <Route path="/gov/challenges" element={
+              <ProtectedRoute allowedRoles={['GOVERNMENT_DEPARTMENT']}>
+                <GovDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/gov/challenges/:id" element={
+              <ProtectedRoute allowedRoles={['GOVERNMENT_DEPARTMENT']}>
+                <ChallengeDetails />
+              </ProtectedRoute>
+            } />
             <Route path="/gov/challenges/create" element={
               <ProtectedRoute allowedRoles={['GOVERNMENT_DEPARTMENT']}>
                 <CreateChallenge />
+              </ProtectedRoute>
+            } />
+            <Route path="/gov/request-sandbox" element={
+              <ProtectedRoute allowedRoles={['GOVERNMENT_DEPARTMENT', 'PROCUREMENT_OFFICER', 'ADMINISTRATOR']}>
+                <RequestTestingSandbox />
+              </ProtectedRoute>
+            } />
+            <Route path="/gov/sandbox-trials" element={
+              <ProtectedRoute allowedRoles={['GOVERNMENT_DEPARTMENT', 'INDEPENDENT_VALIDATOR', 'ADMINISTRATOR']}>
+                <SandboxTrials />
+              </ProtectedRoute>
+            } />
+            <Route path="/gov/sandbox-trials/:id" element={
+              <ProtectedRoute allowedRoles={['GOVERNMENT_DEPARTMENT', 'INDEPENDENT_VALIDATOR', 'ADMINISTRATOR']}>
+                <SandboxTrialDetails />
               </ProtectedRoute>
             } />
             
@@ -120,6 +159,11 @@ function App() {
             <Route path="/procurement/dashboard" element={
               <ProtectedRoute allowedRoles={['PROCUREMENT_OFFICER']}>
                 <ProcurementDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/procurement/issue-po" element={
+              <ProtectedRoute allowedRoles={['PROCUREMENT_OFFICER', 'GOVERNMENT_DEPARTMENT', 'ADMINISTRATOR']}>
+                <IssuePurchaseOrder />
               </ProtectedRoute>
             } />
           </Route>

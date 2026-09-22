@@ -26,7 +26,24 @@ namespace GovPortal.API.Controllers
             _referenceGenerator = referenceGenerator;
         }
 
-        private Guid GetUserId() => Guid.Parse(User.FindFirst("UserId")?.Value ?? Guid.Empty.ToString());
+        private Guid GetUserId()
+        {
+            var claimVal = User.FindFirst("UserId")?.Value 
+                        ?? User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
+                        ?? User.FindFirst("sub")?.Value;
+
+            return Guid.TryParse(claimVal, out var id) ? id : Guid.Empty;
+        }
+
+        private async Task<Department?> GetUserDepartmentAsync(Guid userId)
+        {
+            // First check user's direct DepartmentId
+            var user = await _context.Users.Include(u => u.Department).FirstOrDefaultAsync(u => u.Id == userId);
+            if (user?.Department != null) return user.Department;
+
+            // Fallback to checking Department navigation collection
+            return await _context.Departments.FirstOrDefaultAsync(d => d.Users.Any(u => u.Id == userId));
+        }
 
         [HttpGet("department")]
         [Authorize(Roles = "GOVERNMENT_DEPARTMENT")]
@@ -35,12 +52,12 @@ namespace GovPortal.API.Controllers
             [FromQuery] int pageSize = 20)
         {
             var userId = GetUserId();
-            var department = await _context.Departments.FirstOrDefaultAsync(d => d.Users.Any(u => u.Id == userId));
+            var department = await GetUserDepartmentAsync(userId);
             if (department == null) return Forbid();
 
             var query = _context.Challenges
                 .Where(c => c.DepartmentId == department.Id)
-                .OrderByDescending(c => c.UpdatedAt);
+                .OrderByDescending(c => c.CreatedAt);
 
             var totalItems = await query.CountAsync();
             var items = await query
@@ -72,7 +89,7 @@ namespace GovPortal.API.Controllers
         public async Task<ActionResult<ChallengeDetailsDto>> CreateChallenge(CreateChallengeDto dto)
         {
             var userId = GetUserId();
-            var department = await _context.Departments.FirstOrDefaultAsync(d => d.Users.Any(u => u.Id == userId));
+            var department = await GetUserDepartmentAsync(userId);
             if (department == null) return Forbid();
 
             var challenge = new Challenge
@@ -151,7 +168,7 @@ namespace GovPortal.API.Controllers
             {
                 if (isGov)
                 {
-                    var department = await _context.Departments.FirstOrDefaultAsync(d => d.Users.Any(u => u.Id == userId));
+                    var department = await GetUserDepartmentAsync(userId);
                     if (department == null || challenge.DepartmentId != department.Id) return Forbid();
                 }
                 else
@@ -208,7 +225,7 @@ namespace GovPortal.API.Controllers
         public async Task<ActionResult> UpdateChallenge(Guid id, UpdateChallengeDto dto)
         {
             var userId = GetUserId();
-            var department = await _context.Departments.FirstOrDefaultAsync(d => d.Users.Any(u => u.Id == userId));
+            var department = await GetUserDepartmentAsync(userId);
             
             var challenge = await _context.Challenges
                 .Include(c => c.TechnologyCategories)
@@ -276,7 +293,7 @@ namespace GovPortal.API.Controllers
         public async Task<ActionResult> UpdateChallengeStatus(Guid id, [FromQuery] string action)
         {
             var userId = GetUserId();
-            var department = await _context.Departments.FirstOrDefaultAsync(d => d.Users.Any(u => u.Id == userId));
+            var department = await GetUserDepartmentAsync(userId);
             
             var challenge = await _context.Challenges.FirstOrDefaultAsync(c => c.Id == id);
             if (challenge == null) return NotFound();

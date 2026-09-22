@@ -2,16 +2,19 @@ import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { Building, MapPin, Target, Bookmark, BookmarkCheck, ArrowRight, Shield, Database, Users, CheckCircle } from 'lucide-react';
-import { startupChallengeApi } from '../../services/api/challenges';
+import { startupChallengeApi, govChallengeApi } from '../../services/api/challenges';
 
 const ChallengeDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState('');
+  const userRole = localStorage.getItem('userRole');
 
   const { data: challenge, isLoading, error, refetch } = useQuery({
-    queryKey: ['challenge', id],
-    queryFn: () => startupChallengeApi.getChallenge(id!),
+    queryKey: ['challenge', id, userRole],
+    queryFn: () => userRole === 'GOVERNMENT_DEPARTMENT' 
+      ? govChallengeApi.getChallenge(id!)
+      : startupChallengeApi.getChallenge(id!),
     enabled: !!id,
   });
 

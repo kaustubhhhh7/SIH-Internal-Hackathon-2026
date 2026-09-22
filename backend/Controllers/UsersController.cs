@@ -30,6 +30,7 @@ namespace GovPortal.API.Controllers
             var user = await _context.Users
                 .Include(u => u.UserRoles)
                 .ThenInclude(ur => ur.Role)
+                .Include(u => u.Department)
                 .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user == null)
@@ -50,6 +51,12 @@ namespace GovPortal.API.Controllers
                     user.Email,
                     user.MobileNumber,
                     roles = user.UserRoles.Select(ur => ur.Role.Name).ToList(),
+                    department = user.Department != null ? new
+                    {
+                        user.Department.Id,
+                        user.Department.Name,
+                        user.Department.Description
+                    } : null,
                     startupProfile = startup != null ? new
                     {
                         startup.Id,

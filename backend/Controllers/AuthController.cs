@@ -151,9 +151,16 @@ namespace GovPortal.API.Controllers
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim("UserId", user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Email, user.Email)
             };
+
+            if (user.DepartmentId.HasValue)
+            {
+                claims.Add(new Claim("DepartmentId", user.DepartmentId.Value.ToString()));
+            }
 
             foreach (var userRole in user.UserRoles)
             {

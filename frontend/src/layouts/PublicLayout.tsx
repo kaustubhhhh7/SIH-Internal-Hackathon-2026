@@ -178,6 +178,11 @@ const PublicLayout = () => {
             {/* Navigation Links - Pushed Left Uppercase */}
             <nav className="hidden lg:flex flex-1 items-center justify-start space-x-5 xl:space-x-8 pl-6 lg:pl-10 text-xs lg:text-[13px] font-semibold tracking-wide uppercase">
               <Link to="/" className={navLinkClass('/')}>{t('landing.header.nav.home')}</Link>
+              <Link to="/runway" className={`flex items-center gap-1.5 ${navLinkClass('/runway')}`}>
+                <span>Startup Runway</span>
+                <span className="text-[10px] font-bold bg-amber-400 text-slate-900 px-1.5 py-0.2 rounded-xs shadow-2xs">GeM</span>
+              </Link>
+              <Link to="/showcase" className={navLinkClass('/showcase')}>Products Showcase</Link>
               <Link to="/challenges" className={navLinkClass('/challenges')}>{t('landing.header.nav.challenges')}</Link>
               <Link to="/sectors" className={navLinkClass('/sectors')}>{t('landing.header.nav.sectors')}</Link>
               <Link to="/process" className={navLinkClass('/process')}>{t('landing.header.nav.process')}</Link>
@@ -230,7 +235,7 @@ const PublicLayout = () => {
         )}
       </div>
 
-      <main id="main-content" className={`w-full bg-white flex flex-col scroll-mt-20 ${location.pathname === '/login' ? 'flex-1 overflow-hidden' : 'flex-grow'}`}>
+      <main id="main-content" className={`w-full bg-white flex flex-col flex-1 scroll-mt-20`}>
         {/* Child Routes injected here */}
         <Outlet />
       </main>

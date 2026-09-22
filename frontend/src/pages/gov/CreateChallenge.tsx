@@ -72,10 +72,20 @@ const CreateChallenge = () => {
     setError('');
     
     try {
-      await govChallengeApi.createChallenge(formData);
-      navigate('/gov');
+      const payload: CreateChallengeDto = {
+        ...formData,
+        estimatedBudget: formData.estimatedBudget ? Number(formData.estimatedBudget) : null,
+        publicationDate: formData.publicationDate ? new Date(formData.publicationDate).toISOString() : null,
+        submissionOpeningDate: formData.submissionOpeningDate ? new Date(formData.submissionOpeningDate).toISOString() : null,
+        submissionClosingDate: formData.submissionClosingDate ? new Date(formData.submissionClosingDate).toISOString() : null,
+        technologyCategoryIds: formData.technologyCategoryIds || []
+      };
+
+      await govChallengeApi.createChallenge(payload);
+      navigate('/gov/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to create challenge');
+      console.error('Challenge creation failed:', err);
+      setError(err.response?.data?.message || err.message || 'Failed to create challenge');
       setIsSubmitting(false);
     }
   };
@@ -271,28 +281,43 @@ const CreateChallenge = () => {
       </div>
 
       {/* Stepper */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between overflow-x-auto pb-4 hide-scrollbar">
-          {steps.map((step, index) => (
-            <div key={step.id} className="flex flex-col items-center relative z-10">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-small transition-colors border-2 
-                ${currentStep > step.id ? 'bg-green-500 border-green-500 text-white' : 
-                  currentStep === step.id ? 'bg-gov-blue border-gov-blue text-white' : 
-                  'bg-white border-gray-300 text-gray-500'}`}
-              >
-                {currentStep > step.id ? <Check className="w-5 h-5" /> : step.id}
+      <div className="mb-8 bg-white p-6 rounded-xl border border-gray-200 shadow-xs">
+        <div className="relative flex items-center justify-between">
+          {/* Background Connecting Line */}
+          <div className="absolute top-5 left-6 right-6 h-0.5 bg-gray-200 -z-0">
+            <div 
+              className="h-full bg-gov-blue transition-all duration-300"
+              style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
+            />
+          </div>
+
+          {steps.map((step) => {
+            const isCompleted = currentStep > step.id;
+            const isCurrent = currentStep === step.id;
+            return (
+              <div key={step.id} className="flex flex-col items-center relative z-10 flex-1">
+                <div 
+                  className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs transition-all shadow-xs border-2 
+                    ${isCompleted 
+                      ? 'bg-emerald-600 border-emerald-600 text-white' 
+                      : isCurrent 
+                        ? 'bg-gov-blue border-gov-blue text-white ring-4 ring-blue-100' 
+                        : 'bg-white border-gray-300 text-gray-500'}`}
+                >
+                  {isCompleted ? <Check className="w-4 h-4 stroke-[3]" /> : step.id}
+                </div>
+                <span className={`text-[11px] sm:text-xs mt-2 font-medium text-center transition-colors px-1 ${
+                  isCurrent 
+                    ? 'text-gov-blue font-bold' 
+                    : isCompleted 
+                      ? 'text-gray-800' 
+                      : 'text-gray-400'
+                }`}>
+                  {step.title}
+                </span>
               </div>
-              <span className={`text-caption mt-2 font-medium whitespace-nowrap ${currentStep === step.id ? 'text-gov-blue' : 'text-gray-500'}`}>
-                {step.title}
-              </span>
-              {index < steps.length - 1 && (
-                <div className={`absolute top-5 left-10 w-[calc(100%+2rem)] h-0.5 -z-10 
-                  ${currentStep > step.id ? 'bg-green-500' : 'bg-gray-200'}`} 
-                  style={{ width: 'calc(100vw / 7)' }} 
-                />
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 

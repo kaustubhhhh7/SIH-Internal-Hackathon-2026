@@ -54,6 +54,13 @@ const Login = () => {
           const userRes = await getMyProfile();
           const primaryRole = userRes?.data?.roles?.[0] || data.role || 'STARTUP';
           localStorage.setItem('userRole', primaryRole);
+          if (userRes?.data?.username) {
+            localStorage.setItem('userName', userRes.data.username);
+          }
+          if (userRes?.data?.department?.name) {
+            localStorage.setItem('userDepartment', userRes.data.department.name);
+            localStorage.setItem('userName', userRes.data.department.name);
+          }
           if (userRes?.data?.startupProfile) {
             localStorage.setItem('startupProfile', JSON.stringify(userRes.data.startupProfile));
           }
@@ -67,11 +74,9 @@ const Login = () => {
       localStorage.setItem('userRole', selectedRole);
       redirectToDashboard(selectedRole);
     } catch (err: any) {
-      console.warn('Fallback navigation triggered:', err);
-      const selectedRole = data.role || 'STARTUP';
-      localStorage.setItem('token', 'demo-token-' + Date.now());
-      localStorage.setItem('userRole', selectedRole);
-      redirectToDashboard(selectedRole);
+      console.error('Login error:', err);
+      const msg = err.response?.data?.message || 'Login failed. Please verify your credentials or server connection.';
+      setErrorMessage(msg);
     } finally {
       setIsSubmitting(false);
     }
@@ -90,8 +95,8 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-[#f4f6f9] min-h-[calc(100vh-4rem)] py-12 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
-      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+    <div className="bg-[#f4f6f9] flex-1 w-full py-8 px-4 sm:px-6 lg:px-8 flex items-center justify-center m-auto">
+      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch my-auto">
         
         {/* LEFT PANEL: Professional Demo Persona Switcher */}
         <div className="md:col-span-5 bg-white border border-slate-200 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] p-6 flex flex-col justify-between">
@@ -105,9 +110,10 @@ const Login = () => {
                   Test Personas
                 </span>
               </div>
-              <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                Live Demo
-              </span>
+              <div className="flex items-center gap-1.5 text-[11px] font-mono font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded-sm border border-slate-200">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                <span>SANDBOX ENV</span>
+              </div>
             </div>
 
             <p className="text-[12px] text-slate-500 mt-3 mb-3.5 leading-relaxed">
@@ -160,7 +166,7 @@ const Login = () => {
           <div>
             {/* Header */}
             <div className="mb-6 pb-4 border-b border-slate-100">
-              <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-slate-600 uppercase tracking-wider mb-2 bg-slate-100 px-2.5 py-1 rounded-full">
+              <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#0c2340] tracking-wider uppercase mb-2.5 bg-slate-100 border border-slate-200/80 px-2.5 py-1 rounded-sm">
                 <ShieldCheck className="w-3.5 h-3.5 text-blue-900" />
                 <span>Government of Maharashtra</span>
               </div>
@@ -168,7 +174,7 @@ const Login = () => {
                 Sign In to IPP Portal
               </h1>
               <p className="text-xs text-slate-500 mt-1">
-                Innovation Procurement Platform • Authorized Access
+                Innovation Procurement Platform • Official Startup & Department Access
               </p>
             </div>
 

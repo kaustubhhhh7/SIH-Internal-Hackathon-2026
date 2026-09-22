@@ -65,7 +65,21 @@ export interface ChallengeDetailsDto extends CreateChallengeDto {
   updatedAt: string;
 }
 
+export interface GovDashboardStats {
+  activeChallenges: number;
+  totalApplications: number;
+  underEvaluation: number;
+  activePilots: number;
+  recentChallenges: ChallengeListDto[];
+  departmentName: string;
+}
+
 export const govChallengeApi = {
+  getGovDashboard: async () => {
+    const response = await api.get<GovDashboardStats>('/api/gov/dashboard');
+    return response.data;
+  },
+
   getDepartmentChallenges: async (page = 1, pageSize = 20) => {
     const response = await api.get<PaginatedResponse<ChallengeListDto>>('/api/challenges/department', {
       params: { page, pageSize }

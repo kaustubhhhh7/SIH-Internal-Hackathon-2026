@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Menu, X, Globe, User, LogOut, Bell, FileText, Settings, Activity } from 'lucide-react';
+import { Menu, X, Globe, User, LogOut, Bell, FileText, Settings, Activity, ShoppingBag, FlaskConical, PlusCircle } from 'lucide-react';
 
 const MainLayout = () => {
   const { t, i18n } = useTranslation();
@@ -10,9 +10,9 @@ const MainLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
 
-  // Mock user details
+  // User details
   const userRole = localStorage.getItem('userRole') || 'STARTUP';
-  const userName = 'Demo User';
+  const userName = localStorage.getItem('userName') || (userRole === 'GOVERNMENT_DEPARTMENT' ? 'Department of Transport' : 'Demo User');
 
   const toggleLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
@@ -23,6 +23,9 @@ const MainLayout = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userDepartment');
+    localStorage.removeItem('startupProfile');
     navigate('/login');
   };
 
@@ -32,27 +35,44 @@ const MainLayout = () => {
       case 'STARTUP':
         return [
           { name: 'Dashboard', path: '/startup/dashboard', icon: <Activity className="w-5 h-5 mr-3" /> },
+          { name: 'List Product (Runway)', path: '/startup/products/add', icon: <PlusCircle className="w-5 h-5 mr-3" /> },
+          { name: 'Products Showcase', path: '/showcase', icon: <ShoppingBag className="w-5 h-5 mr-3" /> },
           { name: 'Find Challenges', path: '/startup/challenges', icon: <FileText className="w-5 h-5 mr-3" /> },
           { name: 'My Applications', path: '/startup/applications', icon: <FileText className="w-5 h-5 mr-3" /> },
-          { name: 'Documents', path: '/startup/documents', icon: <FileText className="w-5 h-5 mr-3" /> },
         ];
       case 'GOVERNMENT_DEPARTMENT':
         return [
           { name: 'Dashboard', path: '/gov/dashboard', icon: <Activity className="w-5 h-5 mr-3" /> },
+          { name: 'Startup Showcase', path: '/showcase', icon: <ShoppingBag className="w-5 h-5 mr-3" /> },
+          { name: 'Field Sandbox Trials', path: '/gov/sandbox-trials', icon: <FlaskConical className="w-5 h-5 mr-3" /> },
           { name: 'My Challenges', path: '/gov/challenges', icon: <FileText className="w-5 h-5 mr-3" /> },
         ];
       case 'ADMINISTRATOR':
         return [
           { name: 'Dashboard', path: '/admin/dashboard', icon: <Activity className="w-5 h-5 mr-3" /> },
+          { name: 'Innovation Showcase', path: '/showcase', icon: <ShoppingBag className="w-5 h-5 mr-3" /> },
+          { name: 'Sandbox Register', path: '/gov/sandbox-trials', icon: <FlaskConical className="w-5 h-5 mr-3" /> },
           { name: 'Users & Roles', path: '/admin/users', icon: <User className="w-5 h-5 mr-3" /> },
           { name: 'System Settings', path: '/admin/settings', icon: <Settings className="w-5 h-5 mr-3" /> },
         ];
-      case 'EXPERT_EVALUATOR':
-      case 'INDEPENDENT_VALIDATOR':
       case 'PROCUREMENT_OFFICER':
+        return [
+          { name: 'Dashboard', path: '/procurement/dashboard', icon: <Activity className="w-5 h-5 mr-3" /> },
+          { name: 'Startup Showcase', path: '/showcase', icon: <ShoppingBag className="w-5 h-5 mr-3" /> },
+          { name: 'Direct Purchase Orders', path: '/procurement/issue-po', icon: <FileText className="w-5 h-5 mr-3" /> },
+          { name: 'Sandbox Evaluations', path: '/gov/sandbox-trials', icon: <FlaskConical className="w-5 h-5 mr-3" /> },
+        ];
+      case 'INDEPENDENT_VALIDATOR':
+        return [
+          { name: 'Dashboard', path: '/validator/dashboard', icon: <Activity className="w-5 h-5 mr-3" /> },
+          { name: 'Sandbox Validation', path: '/gov/sandbox-trials', icon: <FlaskConical className="w-5 h-5 mr-3" /> },
+          { name: 'Product Catalogue', path: '/showcase', icon: <ShoppingBag className="w-5 h-5 mr-3" /> },
+        ];
+      case 'EXPERT_EVALUATOR':
       default:
         return [
           { name: 'Dashboard', path: `/${userRole.toLowerCase().split('_')[0]}/dashboard`, icon: <Activity className="w-5 h-5 mr-3" /> },
+          { name: 'Product Showcase', path: '/showcase', icon: <ShoppingBag className="w-5 h-5 mr-3" /> },
         ];
     }
   };

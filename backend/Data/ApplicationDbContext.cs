@@ -33,9 +33,28 @@ namespace GovPortal.API.Data
         public DbSet<ChatSession> ChatSessions { get; set; } = null!;
         public DbSet<ChatMessage> ChatMessages { get; set; } = null!;
         
+        // Sandbox Pilot Trials System
+        public DbSet<SandboxTrial> SandboxTrials { get; set; } = null!;
+        public DbSet<SandboxTrialKPI> SandboxTrialKPIs { get; set; } = null!;
+        public DbSet<KPIMeasurement> KPIMeasurements { get; set; } = null!;
+        public DbSet<TrialMilestone> TrialMilestones { get; set; } = null!;
+        public DbSet<TrialDocument> TrialDocuments { get; set; } = null!;
+        public DbSet<TrialStatusHistory> TrialStatusHistories { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Sandbox Indexing & Cascade Deletes
+            modelBuilder.Entity<SandboxTrial>()
+                .HasIndex(s => s.TrialReferenceNumber)
+                .IsUnique();
+            modelBuilder.Entity<SandboxTrial>()
+                .HasIndex(s => s.Status);
+            modelBuilder.Entity<SandboxTrial>()
+                .HasIndex(s => s.DepartmentId);
+            modelBuilder.Entity<SandboxTrial>()
+                .HasIndex(s => s.StartupProfileId);
 
             // Configure Users
             modelBuilder.Entity<User>()
