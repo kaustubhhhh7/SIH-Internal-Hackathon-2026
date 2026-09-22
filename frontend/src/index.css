@@ -8,7 +8,8 @@
   --color-gov-text: #2d3748;
   --color-gov-border: #e2e8f0;
   
-  --font-sans: 'Inter', sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 @layer base {
