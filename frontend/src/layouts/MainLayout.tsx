@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Menu, X, Globe, User, LogOut, Bell, FileText, Settings, Activity, ShoppingBag, FlaskConical, PlusCircle } from 'lucide-react';
+import { Menu, X, Globe, User, LogOut, Bell, FileText, Settings, Activity, ShoppingBag, FlaskConical, PlusCircle, Building, CheckCircle } from 'lucide-react';
 
 const MainLayout = () => {
   const { t, i18n } = useTranslation();
@@ -50,9 +50,12 @@ const MainLayout = () => {
       case 'ADMINISTRATOR':
         return [
           { name: 'Dashboard', path: '/admin/dashboard', icon: <Activity className="w-5 h-5 mr-3" /> },
-          { name: 'Innovation Showcase', path: '/showcase', icon: <ShoppingBag className="w-5 h-5 mr-3" /> },
-          { name: 'Sandbox Register', path: '/gov/sandbox-trials', icon: <FlaskConical className="w-5 h-5 mr-3" /> },
           { name: 'Users & Roles', path: '/admin/users', icon: <User className="w-5 h-5 mr-3" /> },
+          { name: 'Departments', path: '/admin/departments', icon: <Building className="w-5 h-5 mr-3" /> },
+          { name: 'Startup Verification', path: '/admin/startups', icon: <CheckCircle className="w-5 h-5 mr-3" /> },
+          { name: 'Knowledge Base', path: '/admin/knowledge', icon: <FileText className="w-5 h-5 mr-3" /> },
+          { name: 'Sandbox Register', path: '/gov/sandbox-trials', icon: <FlaskConical className="w-5 h-5 mr-3" /> },
+          { name: 'Innovation Showcase', path: '/showcase', icon: <ShoppingBag className="w-5 h-5 mr-3" /> },
           { name: 'System Settings', path: '/admin/settings', icon: <Settings className="w-5 h-5 mr-3" /> },
         ];
       case 'PROCUREMENT_OFFICER':

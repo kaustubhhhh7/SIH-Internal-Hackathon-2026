@@ -33,9 +33,9 @@ namespace GovPortal.API.Controllers
                 .Include(u => u.Department)
                 .FirstOrDefaultAsync(u => u.Id == userId);
 
-            if (user == null)
+            if (user == null || !user.IsActive)
             {
-                return NotFound(new { success = false, message = "User not found" });
+                return Unauthorized(new { success = false, message = "User account has been deactivated." });
             }
 
             var startup = await _context.StartupProfiles

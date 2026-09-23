@@ -18,10 +18,12 @@ import {
 } from 'lucide-react';
 import { productStore } from '../../services/productStore';
 import type { PurchaseOrder } from '../../services/productStore';
+import { procurementApi } from '../../services/api/procurement';
 
 const IssuePurchaseOrder: React.FC = () => {
   const [searchParams] = useSearchParams();
   const productId = searchParams.get('productId') || 'PRD-ROBO-002';
+  const trialIdParam = searchParams.get('trialId');
   const navigate = useNavigate();
 
   const products = productStore.getProducts();
@@ -41,9 +43,57 @@ const IssuePurchaseOrder: React.FC = () => {
   const gstAmount = totalAmount * 0.18;
   const grandTotal = totalAmount + gstAmount;
 
-  const handlePlaceOrder = (e: React.FormEvent) => {
+  const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    try {
+      const [deptsRes, startupsRes] = await Promise.all([
+        procurementApi.getDepartments().catch(() => ({ data: [] })),
+        procurementApi.getStartups().catch(() => ({ data: [] }))
+      ]);
+
+      const dept = deptsRes.data?.[0];
+      const startup = startupsRes.data?.[0];
+
+      if (dept && startup) {
+        const res = await procurementApi.createOrder({
+          startupProfileId: startup.id,
+          departmentId: dept.id,
+          sandboxTrialId: trialIdParam || undefined,
+          productName: targetProduct.name,
+          itemDescription: targetProduct.description || targetProduct.name,
+          quantity: quantity,
+          unitPrice: targetProduct.price,
+          deliveryConsigneeAddress: deliveryConsigneeAddress,
+          procurementOfficerName: procurementOfficer
+        });
+
+        if (res.data) {
+          const newPO: PurchaseOrder = {
+            id: res.data.id,
+            orderNumber: res.data.orderNumber,
+            productId: targetProduct.id,
+            productName: res.data.productName,
+            startupName: res.data.startupName || startup.companyName,
+            departmentName: res.data.departmentName || dept.name,
+            quantity: res.data.quantity,
+            totalAmount: res.data.totalAmount,
+            rule149ExemptionRef: res.data.rule149ExemptionRef,
+            escrowStatus: (res.data.escrowStatus as any) || 'ESCROW_LOCKED',
+            orderDate: new Date(res.data.orderDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }),
+            status: (res.data.status as any) || 'ORDER_PLACED'
+          };
+
+          productStore.addPurchaseOrder(newPO);
+          setIsSubmitting(false);
+          setCompletedOrder(newPO);
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn('Backend PO creation error, using local fallback:', err);
+    }
 
     const poNumber = `GEM-GOM-2026-PO-${Math.floor(100000 + Math.random() * 900000)}`;
     const exemptionRef = `MH-STARTUP-GFR149-EXEMPT-${Date.now().toString().slice(-6)}`;
@@ -64,11 +114,8 @@ const IssuePurchaseOrder: React.FC = () => {
     };
 
     productStore.addPurchaseOrder(newPO);
-
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setCompletedOrder(newPO);
-    }, 700);
+    setIsSubmitting(false);
+    setCompletedOrder(newPO);
   };
 
   return (
@@ -135,10 +182,10 @@ const IssuePurchaseOrder: React.FC = () => {
 
             <div className="pt-4 flex justify-center gap-3">
               <Link
-                to="/gov/sandbox-trials"
+                to="/procurement/dashboard"
                 className="btn-secondary text-xs uppercase tracking-wider py-2.5 px-4"
               >
-                View in Procurement Register
+                View in Procurement Dashboard
               </Link>
               <Link
                 to="/showcase"

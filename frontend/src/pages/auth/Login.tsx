@@ -67,12 +67,16 @@ const Login = () => {
           
           redirectToDashboard(primaryRole);
           return;
-        } catch (e) {}
+        } catch (e: any) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('userRole');
+          const errMsg = e?.response?.data?.message || 'Account access verification failed.';
+          setErrorMessage(errMsg);
+          return;
+        }
+      } else {
+        setErrorMessage(res.message || 'Login failed.');
       }
-      
-      const selectedRole = data.role || 'STARTUP';
-      localStorage.setItem('userRole', selectedRole);
-      redirectToDashboard(selectedRole);
     } catch (err: any) {
       console.error('Login error:', err);
       const msg = err.response?.data?.message || 'Login failed. Please verify your credentials or server connection.';

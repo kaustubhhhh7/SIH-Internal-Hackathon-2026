@@ -459,6 +459,82 @@ namespace GovPortal.API.Data
                     await context.SaveChangesAsync();
                 }
             }
+
+            // --- Seed Sample Validated Trial & Purchase Orders for Procurement Officer ---
+            if (!context.PurchaseOrders.Any())
+            {
+                var startupProfile = await context.StartupProfiles.FirstOrDefaultAsync();
+                var dept = await context.Departments.FirstOrDefaultAsync();
+                var procurementUser = await context.Users.FirstOrDefaultAsync(u => u.Email == "procurement@maharashtra.gov.in");
+
+                if (startupProfile != null && dept != null)
+                {
+                    var validatedTrial = new SandboxTrial
+                    {
+                        TrialReferenceNumber = "MH-SBX-2026-VAL-019",
+                        Title = "Edge AI Traffic Sensor & Adaptive Flow Control Grid",
+                        Objective = "High transit congestion on Pune-Ahmednagar corridor requiring autonomous edge-triggered light phasing.",
+                        ExpectedOutcomes = "Reduction in peak congestion waiting time by >= 25%, zero manual signal overrides required.",
+                        TestingEnvironment = "Public Urban Roadways - Pune Municipal Corporation Corridor",
+                        Location = "Pune Smart City Corridor (Viman Nagar to Hadapsar)",
+                        DurationDays = 60,
+                        MaximumBudget = 2450000,
+                        DepartmentId = dept.Id,
+                        StartupProfileId = startupProfile.Id,
+                        Status = "VALIDATED",
+                        CreatedBy = procurementUser?.Id.ToString() ?? "SYSTEM"
+                    };
+
+                    context.SandboxTrials.Add(validatedTrial);
+                    await context.SaveChangesAsync();
+
+                    var po1 = new PurchaseOrder
+                    {
+                        OrderNumber = "GEM-GOM-2026-PO-738291",
+                        StartupProfileId = startupProfile.Id,
+                        DepartmentId = dept.Id,
+                        SandboxTrialId = validatedTrial.Id,
+                        ProductName = "Edge AI Traffic Signal Optimizer (Industrial Series 4)",
+                        ItemDescription = "Industrial IP67 edge vision compute modules with NPU acceleration and cellular telemetry backhaul for adaptive junction control.",
+                        Quantity = 12,
+                        UnitPrice = 150000,
+                        GstAmount = 324000,
+                        TotalAmount = 2124000,
+                        Rule149ExemptionRef = "MH-STARTUP-GFR149-EXEMPT-20260920-48201",
+                        DeliveryConsigneeAddress = "Executive Engineer, Pune Urban Transport Division, Pune 411001",
+                        ProcurementOfficerName = "Er. Anil Deshmukh, Chief Procurement Officer",
+                        EscrowStatus = "ADVANCE_DISBURSED_40",
+                        Status = "HARDWARE_DISPATCHED",
+                        OrderDate = DateTime.UtcNow.AddDays(-5),
+                        MilestoneNotes = "40% advance tranche released via State Escrow DBT upon proof of carrier dispatch consignment.",
+                        CreatedBy = procurementUser?.Id.ToString() ?? "SYSTEM"
+                    };
+
+                    var po2 = new PurchaseOrder
+                    {
+                        OrderNumber = "GEM-GOM-2026-PO-910482",
+                        StartupProfileId = startupProfile.Id,
+                        DepartmentId = dept.Id,
+                        ProductName = "Automated Real-Time Fleet Air Quality & Sound Monitor",
+                        ItemDescription = "Connected vehicular tailpipe and ambient sensor packs with real-time pollution geo-tagging for municipal buses.",
+                        Quantity = 8,
+                        UnitPrice = 85000,
+                        GstAmount = 122400,
+                        TotalAmount = 802400,
+                        Rule149ExemptionRef = "MH-STARTUP-GFR149-EXEMPT-20260915-19402",
+                        DeliveryConsigneeAddress = "MSRTC Central Workshop, Dapodi, Pune 411012",
+                        ProcurementOfficerName = "Er. Anil Deshmukh, Chief Procurement Officer",
+                        EscrowStatus = "ACCEPTANCE_DISBURSED_40",
+                        Status = "INSPECTED_DELIVERED",
+                        OrderDate = DateTime.UtcNow.AddDays(-12),
+                        MilestoneNotes = "Tranche 2 (40%) disbursed following physical consignee inspection and bench calibration.",
+                        CreatedBy = procurementUser?.Id.ToString() ?? "SYSTEM"
+                    };
+
+                    context.PurchaseOrders.AddRange(po1, po2);
+                    await context.SaveChangesAsync();
+                }
+            }
         }
     }
 }

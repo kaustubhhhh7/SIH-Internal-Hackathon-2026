@@ -90,6 +90,11 @@ namespace GovPortal.API.Controllers
                 return Unauthorized(new { success = false, message = "Invalid credentials." });
             }
 
+            if (!user.IsActive)
+            {
+                return Unauthorized(new { success = false, message = "Account is deactivated. Please contact the system administrator." });
+            }
+
             var token = GenerateJwtToken(user);
             
             // Generate refresh token

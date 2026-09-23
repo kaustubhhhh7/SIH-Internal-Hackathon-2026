@@ -40,10 +40,16 @@ namespace GovPortal.API.Data
         public DbSet<TrialMilestone> TrialMilestones { get; set; } = null!;
         public DbSet<TrialDocument> TrialDocuments { get; set; } = null!;
         public DbSet<TrialStatusHistory> TrialStatusHistories { get; set; } = null!;
+        public DbSet<PurchaseOrder> PurchaseOrders { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Purchase Order Indexing
+            modelBuilder.Entity<PurchaseOrder>()
+                .HasIndex(p => p.OrderNumber)
+                .IsUnique();
 
             // Sandbox Indexing & Cascade Deletes
             modelBuilder.Entity<SandboxTrial>()

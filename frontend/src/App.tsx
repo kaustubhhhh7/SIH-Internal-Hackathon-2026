@@ -135,6 +135,26 @@ function App() {
                 <AdminDashboard />
               </ProtectedRoute>
             } />
+            <Route path="/admin/users" element={
+              <ProtectedRoute allowedRoles={['ADMINISTRATOR']}>
+                <AdminDashboard defaultTab="users" />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/departments" element={
+              <ProtectedRoute allowedRoles={['ADMINISTRATOR']}>
+                <AdminDashboard defaultTab="departments" />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/startups" element={
+              <ProtectedRoute allowedRoles={['ADMINISTRATOR']}>
+                <AdminDashboard defaultTab="startups" />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/settings" element={
+              <ProtectedRoute allowedRoles={['ADMINISTRATOR']}>
+                <AdminDashboard defaultTab="settings" />
+              </ProtectedRoute>
+            } />
             <Route path="/admin/knowledge" element={
               <ProtectedRoute allowedRoles={['ADMINISTRATOR']}>
                 <KnowledgeBaseAdmin />
