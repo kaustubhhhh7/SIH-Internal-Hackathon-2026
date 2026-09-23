@@ -19,6 +19,7 @@ import IssuePurchaseOrder from './pages/procurement/IssuePurchaseOrder';
 
 import Login from './pages/auth/Login';
 import RegisterStartup from './pages/auth/RegisterStartup';
+import Unauthorized from './pages/auth/Unauthorized';
 import StartupDashboard from './pages/startup/Dashboard';
 import FindChallenges from './pages/startup/FindChallenges';
 import ChallengeDetails from './pages/startup/ChallengeDetails';
@@ -58,6 +59,7 @@ function App() {
           <Route element={<PublicLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="/register/startup" element={<RegisterStartup />} />
             <Route path="/challenges" element={<ChallengesPage />} />
             <Route path="/sectors" element={<SectorsPage />} />
@@ -72,6 +74,11 @@ function App() {
             
             {/* Startup Routes */}
             <Route path="/startup/dashboard" element={
+              <ProtectedRoute allowedRoles={['STARTUP']}>
+                <StartupDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/startup/applications" element={
               <ProtectedRoute allowedRoles={['STARTUP']}>
                 <StartupDashboard />
               </ProtectedRoute>
@@ -119,12 +126,12 @@ function App() {
               </ProtectedRoute>
             } />
             <Route path="/gov/sandbox-trials" element={
-              <ProtectedRoute allowedRoles={['GOVERNMENT_DEPARTMENT', 'INDEPENDENT_VALIDATOR', 'ADMINISTRATOR']}>
+              <ProtectedRoute allowedRoles={['GOVERNMENT_DEPARTMENT', 'PROCUREMENT_OFFICER', 'INDEPENDENT_VALIDATOR', 'ADMINISTRATOR']}>
                 <SandboxTrials />
               </ProtectedRoute>
             } />
             <Route path="/gov/sandbox-trials/:id" element={
-              <ProtectedRoute allowedRoles={['GOVERNMENT_DEPARTMENT', 'INDEPENDENT_VALIDATOR', 'ADMINISTRATOR']}>
+              <ProtectedRoute allowedRoles={['GOVERNMENT_DEPARTMENT', 'PROCUREMENT_OFFICER', 'INDEPENDENT_VALIDATOR', 'ADMINISTRATOR']}>
                 <SandboxTrialDetails />
               </ProtectedRoute>
             } />
@@ -187,6 +194,9 @@ function App() {
               </ProtectedRoute>
             } />
           </Route>
+
+          {/* Catch-all Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
     </QueryClientProvider>
