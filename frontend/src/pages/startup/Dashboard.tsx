@@ -126,6 +126,16 @@ export const StartupDashboard: React.FC = () => {
     }
   ];
 
+  const isDemoProfile = !startupProfile || startupProfile.dpiitRecognitionNumber === 'DIPP104829';
+  
+  const { data: apiApplications = [] } = useQuery({
+    queryKey: ['startup-applications'],
+    queryFn: startupChallengeApi.getMyApplications,
+    enabled: !isDemoProfile
+  });
+
+  const displayApplications = isDemoProfile ? myApplications : apiApplications;
+
   // Active Sandbox Pilots & Milestone Escrow Tracking
   const activePilots = [
     {
@@ -145,6 +155,8 @@ export const StartupDashboard: React.FC = () => {
       compliancePacts: ['Data Privacy & Digital DPDP Act Compliant', 'Non-Disclosure & State IP Rights Protected', 'CERT-In Web & IoT Security Verified']
     }
   ];
+
+  const displayPilots = isDemoProfile ? activePilots : [];
 
   const statutoryExemptions = [
     {
@@ -192,8 +204,18 @@ export const StartupDashboard: React.FC = () => {
                 <span className="text-[11px] font-bold tracking-widest uppercase bg-amber-500/20 text-amber-300 border border-amber-400/40 px-2 py-0.5 rounded">
                   Maharashtra State Innovation Society (MSInS)
                 </span>
-                <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5" /> DPIIT Recognized & GFR-149 Eligible
+                <span className={`px-2 py-0.5 rounded text-[11px] font-semibold border flex items-center gap-1 ${
+                  startupProfile?.verificationStatus === 'GovernmentVerified'
+                    ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400/30'
+                    : startupProfile?.verificationStatus === 'Rejected'
+                    ? 'bg-red-500/20 text-red-300 border-red-400/30'
+                    : 'bg-amber-500/20 text-amber-300 border-amber-400/30'
+                }`}>
+                  <ShieldCheck className="w-3.5 h-3.5" /> 
+                  {startupProfile?.verificationStatus === 'GovernmentVerified' ? 'DPIIT Recognized & GFR-149 Eligible' : 
+                   startupProfile?.verificationStatus === 'Rejected' ? 'Verification Rejected' :
+                   startupProfile?.verificationStatus === 'PendingGovernmentVerification' ? 'Pending Final Approval' :
+                   'Pending AI Verification'}
                 </span>
               </div>
               
@@ -249,10 +271,10 @@ export const StartupDashboard: React.FC = () => {
             <FileText className="w-4 h-4 text-blue-700" />
           </div>
           <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl font-bold text-gray-900">{myApplications.length}</span>
-            <span className="text-[11px] font-medium text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">2 Shortlisted</span>
+            <span className="text-2xl font-bold text-gray-900">{displayApplications.length}</span>
+            <span className="text-[11px] font-medium text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">{displayApplications.length > 0 ? '2 Shortlisted' : '0 Shortlisted'}</span>
           </div>
-          <p className="text-[12px] text-gray-500 mt-1">Across 3 GoM Departments</p>
+          <p className="text-[12px] text-gray-500 mt-1">Across {displayApplications.length > 0 ? '3' : '0'} GoM Departments</p>
         </div>
 
         <div className="bg-white p-4 rounded border border-gray-200 shadow-2xs border-l-4 border-l-emerald-600">
@@ -261,10 +283,10 @@ export const StartupDashboard: React.FC = () => {
             <PlayCircle className="w-4 h-4 text-emerald-600" />
           </div>
           <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl font-bold text-gray-900">1 Live</span>
-            <span className="text-[11px] font-medium text-purple-700 bg-purple-50 px-1.5 py-0.5 rounded">Phase 3 PoC</span>
+            <span className="text-2xl font-bold text-gray-900">{displayPilots.length} Live</span>
+            {displayPilots.length > 0 && <span className="text-[11px] font-medium text-purple-700 bg-purple-50 px-1.5 py-0.5 rounded">Phase 3 PoC</span>}
           </div>
-          <p className="text-[12px] text-gray-500 mt-1">Pune Smart City Sandbox</p>
+          <p className="text-[12px] text-gray-500 mt-1">{displayPilots.length > 0 ? 'Pune Smart City Sandbox' : 'No active pilots'}</p>
         </div>
 
         <div className="bg-white p-4 rounded border border-gray-200 shadow-2xs border-l-4 border-l-amber-500">
@@ -273,10 +295,10 @@ export const StartupDashboard: React.FC = () => {
             <CreditCard className="w-4 h-4 text-amber-600" />
           </div>
           <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl font-bold text-gray-900">₹ 37.5 L</span>
+            <span className="text-2xl font-bold text-gray-900">{displayPilots.length > 0 ? '₹ 37.5 L' : '₹ 0'}</span>
             <span className="text-[11px] font-medium text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded">Escrow DBT</span>
           </div>
-          <p className="text-[12px] text-gray-500 mt-1">₹ 6.0L Pending Audit Signoff</p>
+          <p className="text-[12px] text-gray-500 mt-1">{displayPilots.length > 0 ? '₹ 6.0L Pending Audit Signoff' : 'No grants sanctioned'}</p>
         </div>
 
         <div className="bg-white p-4 rounded border border-gray-200 shadow-2xs border-l-4 border-l-purple-600">
@@ -285,7 +307,7 @@ export const StartupDashboard: React.FC = () => {
             <TrendingUp className="w-4 h-4 text-purple-600" />
           </div>
           <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl font-bold text-gray-900">1 GeM Ready</span>
+            <span className="text-2xl font-bold text-gray-900">{displayPilots.length > 0 ? '1 GeM Ready' : '0 GeM Ready'}</span>
             <span className="text-[11px] font-medium text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">Prior-Turnover Exempt</span>
           </div>
           <p className="text-[12px] text-gray-500 mt-1">Direct State Procurement</p>
@@ -403,7 +425,7 @@ export const StartupDashboard: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 text-xs">
-                  {myApplications.map((app) => (
+                  {displayApplications.length > 0 ? displayApplications.map((app) => (
                     <tr key={app.id} className="hover:bg-blue-50/30 transition-colors">
                       <td className="p-3 font-mono font-medium text-gray-900">
                         {app.id}
@@ -441,7 +463,13 @@ export const StartupDashboard: React.FC = () => {
                         </button>
                       </td>
                     </tr>
-                  ))}
+                  )) : (
+                    <tr>
+                      <td colSpan={6} className="p-6 text-center text-gray-500 text-sm">
+                        You have not submitted any applications yet.
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -508,7 +536,7 @@ export const StartupDashboard: React.FC = () => {
       {/* TAB 2: Sandbox Pilots & Milestone Escrow */}
       {activeTab === 'pilots' && (
         <div className="space-y-6">
-          {activePilots.map((pilot) => (
+          {displayPilots.length > 0 ? displayPilots.map((pilot) => (
             <div key={pilot.pilotId} className="bg-white rounded border border-gray-200 shadow-2xs overflow-hidden">
               <div className="p-5 border-b border-gray-200 bg-gray-50/80 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
@@ -599,7 +627,11 @@ export const StartupDashboard: React.FC = () => {
                 </div>
               </div>
             </div>
-          ))}
+          )) : (
+            <div className="text-center py-8 bg-white rounded border border-gray-200 text-gray-500 text-sm">
+              You do not have any active Sandbox Pilots at this time.
+            </div>
+          )}
         </div>
       )}
 

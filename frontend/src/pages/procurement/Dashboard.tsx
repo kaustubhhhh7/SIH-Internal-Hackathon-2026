@@ -19,9 +19,12 @@ import {
   Printer,
   X,
   CreditCard,
-  FileCheck
+  FileCheck,
+  Sparkles,
+  Loader2
 } from 'lucide-react';
 import { procurementApi } from '../../services/api/procurement';
+import { aiAgentsApi } from '../../services/api/aiAgents';
 import type {
   ProcurementDashboardStats,
   PurchaseOrder,
@@ -45,6 +48,27 @@ const ProcurementDashboard = () => {
 
   // Certificate Modal State
   const [selectedOrderForCert, setSelectedOrderForCert] = useState<PurchaseOrder | null>(null);
+
+  // AI Executive Brief Modal State (Agent 4)
+  const [briefModalOpen, setBriefModalOpen] = useState(false);
+  const [briefLoading, setBriefLoading] = useState(false);
+  const [briefContent, setBriefContent] = useState<string>('');
+  const [selectedPilotForBrief, setSelectedPilotForBrief] = useState<ValidatedPilot | null>(null);
+
+  const handleOpenBrief = async (pilot: ValidatedPilot) => {
+    setSelectedPilotForBrief(pilot);
+    setBriefModalOpen(true);
+    setBriefLoading(true);
+    try {
+      const res = await aiAgentsApi.generateBrief(pilot.trialId);
+      setBriefContent(res.markdownBrief);
+    } catch (err: any) {
+      console.error('Failed to generate AI brief:', err);
+      setBriefContent('# Error\nFailed to generate AI Executive Brief. Please try again.');
+    } finally {
+      setBriefLoading(false);
+    }
+  };
 
   // Notification Toast
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -468,24 +492,38 @@ const ProcurementDashboard = () => {
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                  {pilot.hasExistingPO ? (
-                    <span className="text-xs font-bold text-indigo-700 flex items-center gap-1">
-                      <Check className="w-4 h-4 text-emerald-600" /> Work Order Issued
-                    </span>
-                  ) : (
-                    <span className="text-xs text-amber-700 font-semibold flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-amber-600" /> Awaiting PO Award
-                    </span>
-                  )}
+                <div className="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    {pilot.hasExistingPO ? (
+                      <span className="text-xs font-bold text-indigo-700 flex items-center gap-1">
+                        <Check className="w-4 h-4 text-emerald-600" /> Work Order Issued
+                      </span>
+                    ) : (
+                      <span className="text-xs text-amber-700 font-semibold flex items-center gap-1">
+                        <Clock className="w-3.5 h-3.5 text-amber-600" /> Awaiting PO Award
+                      </span>
+                    )}
+                  </div>
 
-                  <Link
-                    to={`/procurement/issue-po?trialId=${pilot.trialId}`}
-                    className="px-3 py-1.5 text-xs font-bold bg-gov-blue hover:bg-gov-blueDark text-white rounded transition-colors flex items-center gap-1"
-                  >
-                    <ShoppingCart className="w-3.5 h-3.5" />
-                    Issue Work Order
-                  </Link>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleOpenBrief(pilot)}
+                      className="px-3 py-1.5 text-xs font-semibold bg-indigo-50 hover:bg-indigo-100 text-indigo-950 border border-indigo-200 rounded transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+                      title="Generate 1-Page AI Executive Brief for GFR 149 Sanction"
+                    >
+                      <FileText className="w-3.5 h-3.5 text-indigo-600" />
+                      <span>📄 Generate AI Executive Brief</span>
+                    </button>
+
+                    <Link
+                      to={`/procurement/issue-po?trialId=${pilot.trialId}`}
+                      className="px-3 py-1.5 text-xs font-bold bg-gov-blue hover:bg-gov-blueDark text-white rounded transition-colors flex items-center gap-1 shadow-xs"
+                    >
+                      <ShoppingCart className="w-3.5 h-3.5" />
+                      Issue Work Order
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}

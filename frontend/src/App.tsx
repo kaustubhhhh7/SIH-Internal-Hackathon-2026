@@ -181,6 +181,14 @@ function App() {
                 <ValidatorDashboard />
               </ProtectedRoute>
             } />
+
+            {/* Authenticated Innovation Showcase Pages inside Government Dashboard */}
+            <Route path="/gov/showcase" element={<ProductShowcase />} />
+            <Route path="/admin/showcase" element={<ProductShowcase />} />
+            <Route path="/procurement/showcase" element={<ProductShowcase />} />
+            <Route path="/startup/showcase" element={<ProductShowcase />} />
+            <Route path="/validator/showcase" element={<ProductShowcase />} />
+            <Route path="/expert/showcase" element={<ProductShowcase />} />
             
             {/* Procurement Routes */}
             <Route path="/procurement/dashboard" element={

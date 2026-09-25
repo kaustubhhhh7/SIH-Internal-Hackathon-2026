@@ -18,7 +18,7 @@ builder.Services.AddControllers();
 // Add Custom Services
 builder.Services.AddScoped<IChallengeReferenceGenerator, ChallengeReferenceGenerator>();
 builder.Services.AddScoped<IChatService, LocalRagChatService>();
-builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<IAgentOrchestratorService, AgentOrchestratorService>();
 builder.Services.AddEndpointsApiExplorer();
 
 // Configure Database

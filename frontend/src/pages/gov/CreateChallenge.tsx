@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Check, ChevronRight, ChevronLeft, Save, Send } from 'lucide-react';
+import { Check, ChevronRight, ChevronLeft, Save, Send, Sparkles, Loader2, CheckCircle2 } from 'lucide-react';
 import { govChallengeApi, type CreateChallengeDto } from '../../services/api/challenges';
+import { aiAgentsApi } from '../../services/api/aiAgents';
 
 const CreateChallenge = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [rawProblemText, setRawProblemText] = useState('');
+  const [isAiStructuring, setIsAiStructuring] = useState(false);
+  const [aiSuccessMessage, setAiSuccessMessage] = useState<string | null>(null);
 
   const [formData, setFormData] = useState<CreateChallengeDto>({
     titleEnglish: '',
@@ -90,11 +94,115 @@ const CreateChallenge = () => {
     }
   };
 
+  const handleAutoStructureRfp = async () => {
+    if (!rawProblemText.trim()) {
+      setError('Please enter a raw departmental problem statement to auto-structure');
+      return;
+    }
+    setIsAiStructuring(true);
+    setAiSuccessMessage(null);
+    setError('');
+
+    try {
+      const parsed = await aiAgentsApi.parseRfp(rawProblemText);
+      setFormData(prev => ({
+        ...prev,
+        titleEnglish: parsed.title,
+        sector: parsed.sector,
+        geographicScope: parsed.geographicScope,
+        targetBeneficiaries: parsed.targetBeneficiaries,
+        problemStatementEnglish: parsed.description,
+        currentSituation: parsed.currentSituation,
+        desiredOutcomeEnglish: parsed.desiredOutcome,
+        expectedDeliverables: parsed.expectedDeliverables,
+        technicalRequirements: parsed.technicalRequirements,
+        functionalRequirements: parsed.functionalRequirements,
+        eligibilityRequirements: parsed.eligibilityRequirements,
+        dataRequirements: parsed.dataRequirements,
+        cybersecurityRequirements: parsed.cybersecurityRequirements,
+        intellectualPropertyRequirements: parsed.intellectualPropertyRequirements,
+        pilotRequirement: true,
+        pilotDuration: parsed.pilotDuration || '90 Days',
+        estimatedBudget: parsed.suggestedGrantCap
+      }));
+      setAiSuccessMessage(`✨ Autonomous RFP Agent successfully structured the challenge! Auto-populated: Title, Sector, Geo-Scope, Beneficiaries, Current Situation, ${parsed.targetKpis.length} Target KPIs, TRL ${parsed.recommendedTrl}, and Grant Budget (₹${parsed.suggestedGrantCap.toLocaleString('en-IN')}).`);
+    } catch (err: any) {
+      console.error('AI Auto-Structure failed:', err);
+      setError(err?.message || 'Failed to auto-structure RFP');
+    } finally {
+      setIsAiStructuring(false);
+    }
+  };
+
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
         return (
           <div className="space-y-6">
+            {/* AI RFP Agent Assistant Box */}
+            <div className="bg-gradient-to-br from-indigo-50/80 via-blue-50/50 to-purple-50/60 border border-indigo-200 rounded-lg p-5 shadow-xs">
+              <div className="flex items-center justify-between gap-3 mb-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-md bg-indigo-600 text-white flex items-center justify-center shadow-xs">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-indigo-950 uppercase tracking-wider">
+                      Autonomous RFP Structuring Agent (GFR Rule 149)
+                    </h4>
+                    <p className="text-[11px] text-slate-600">
+                      Paste unstructured departmental complaints or field memos. The AI Agent structures it into GFR-compliant RFP parameters.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-3 space-y-2">
+                <label className="block text-xs font-semibold text-slate-700">
+                  Raw Departmental Problem Statement
+                </label>
+                <textarea
+                  value={rawProblemText}
+                  onChange={(e) => setRawProblemText(e.target.value)}
+                  placeholder="e.g. Severe traffic jams and waterlogging at Dadar junction every monsoon. Need automated camera detection for potholes and water depth to alert ward staff before citizens complain..."
+                  className="input-field h-24 text-xs font-normal bg-white"
+                  disabled={isAiStructuring}
+                />
+              </div>
+
+              <div className="mt-3 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                <div className="text-[11px] text-indigo-800 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Agent 1: Extracts Title, GFR KPIs, Grant Budget & TRL automatically
+                </div>
+                <button
+                  type="button"
+                  onClick={handleAutoStructureRfp}
+                  disabled={isAiStructuring || !rawProblemText.trim()}
+                  className="px-4 py-2 text-xs font-bold bg-indigo-700 hover:bg-indigo-800 disabled:bg-indigo-300 text-white rounded-md shadow-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+                >
+                  {isAiStructuring ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>RFP Agent Structuring...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="w-4 h-4 text-amber-300" />
+                      <span>🪄 Auto-Structure RFP with AI Agent</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {aiSuccessMessage && (
+                <div className="mt-3 p-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-md text-xs font-medium flex items-center gap-2 animate-fadeIn">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>{aiSuccessMessage}</span>
+                </div>
+              )}
+            </div>
+
             <h3 className="text-section-title">Basic Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>

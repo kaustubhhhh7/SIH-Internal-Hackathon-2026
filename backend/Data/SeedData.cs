@@ -102,6 +102,36 @@ namespace GovPortal.API.Data
                 await context.SaveChangesAsync();
             }
 
+            if (!context.DpiitRegistries.Any())
+            {
+                var registries = new[]
+                {
+                    new DpiitRegistry 
+                    { 
+                        DpiitNumber = "DPIIT10928", 
+                        PanNumber = "AAACH7409R", 
+                        CompanyName = "Praxis Robotics & AI Labs", 
+                        IsValidRegistration = true 
+                    },
+                    new DpiitRegistry 
+                    { 
+                        DpiitNumber = "DPIIT40552", 
+                        PanNumber = "ABCDE1234F", 
+                        CompanyName = "GovTech Innovators Pvt Ltd", 
+                        IsValidRegistration = true 
+                    },
+                    new DpiitRegistry 
+                    { 
+                        DpiitNumber = "DPIIT99999", 
+                        PanNumber = "ZZZZZ9999Z", 
+                        CompanyName = "Fraudulent Startup", 
+                        IsValidRegistration = false 
+                    }
+                };
+                context.DpiitRegistries.AddRange(registries);
+                await context.SaveChangesAsync();
+            }
+
             // --- Seed System Roles ---
             var roleNames = new[]
             {

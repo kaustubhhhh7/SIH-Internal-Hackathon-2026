@@ -65,6 +65,23 @@ export interface ChallengeDetailsDto extends CreateChallengeDto {
   updatedAt: string;
 }
 
+export interface StartupApplicationDto {
+  id: string;
+  challengeRef: string;
+  challengeTitle: string;
+  department: string;
+  submittedDate: string;
+  stage: string;
+  stageNumber: number;
+  score: string;
+  status: string;
+  statusColor: string;
+  pilotAwarded: boolean;
+  grantSanctioned: string;
+  nextMilestone: string;
+  deadline: string;
+}
+
 export interface GovDashboardStats {
   activeChallenges: number;
   totalApplications: number;
@@ -131,6 +148,11 @@ export const startupChallengeApi = {
 
   applyForChallenge: async (id: string) => {
     const response = await api.post<{ applicationId: string }>(`/api/startup/challenges/${id}/apply`);
+    return response.data;
+  },
+
+  getMyApplications: async () => {
+    const response = await api.get<StartupApplicationDto[]>('/api/startup/challenges/applications');
     return response.data;
   }
 };

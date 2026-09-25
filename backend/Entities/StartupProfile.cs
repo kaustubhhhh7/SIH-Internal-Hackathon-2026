@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace GovPortal.API.Entities
 {
+    using GovPortal.API.Entities.Enums;
+
     public class StartupProfile : BaseEntity
     {
         public Guid UserId { get; set; }
@@ -25,5 +27,8 @@ namespace GovPortal.API.Entities
         public ICollection<StartupTechnologyCategory> TechnologyCategories { get; set; } = new List<StartupTechnologyCategory>();
         public ICollection<SavedChallenge> SavedChallenges { get; set; } = new List<SavedChallenge>();
         public ICollection<ChallengeApplication> ChallengeApplications { get; set; } = new List<ChallengeApplication>();
+        
+        public VerificationStatus VerificationStatus { get; set; } = VerificationStatus.Draft;
+        public ICollection<AIVerificationReport> AIVerificationReports { get; set; } = new List<AIVerificationReport>();
     }
 }

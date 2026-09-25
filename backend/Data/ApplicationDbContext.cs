@@ -18,6 +18,7 @@ namespace GovPortal.API.Data
         public DbSet<AuditLog> AuditLogs { get; set; } = null!;
         public DbSet<Department> Departments { get; set; } = null!;
         public DbSet<StartupProfile> StartupProfiles { get; set; } = null!;
+        public DbSet<AIVerificationReport> AIVerificationReports { get; set; } = null!;
         public DbSet<StartupDocument> StartupDocuments { get; set; } = null!;
         public DbSet<TechnologyCategory> TechnologyCategories { get; set; } = null!;
         public DbSet<StartupTechnologyCategory> StartupTechnologyCategories { get; set; } = null!;
@@ -41,6 +42,7 @@ namespace GovPortal.API.Data
         public DbSet<TrialDocument> TrialDocuments { get; set; } = null!;
         public DbSet<TrialStatusHistory> TrialStatusHistories { get; set; } = null!;
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; } = null!;
+        public DbSet<DpiitRegistry> DpiitRegistries { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,6 +51,10 @@ namespace GovPortal.API.Data
             // Purchase Order Indexing
             modelBuilder.Entity<PurchaseOrder>()
                 .HasIndex(p => p.OrderNumber)
+                .IsUnique();
+
+            modelBuilder.Entity<DpiitRegistry>()
+                .HasIndex(d => new { d.DpiitNumber, d.PanNumber })
                 .IsUnique();
 
             // Sandbox Indexing & Cascade Deletes

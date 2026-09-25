@@ -18,7 +18,6 @@ obj/
 .env
 *.env
 !.env.example
-!backend/.env
 
 # IDE / OS files
 .vscode/

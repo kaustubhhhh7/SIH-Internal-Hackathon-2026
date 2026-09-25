@@ -1,225 +1,207 @@
-﻿# Innovation Procurement Portal (IPP) - Project Overview
+# Maharashtra StartupSetu (IPP) - Project Overview & System Architecture
 
-## What We Built
-A full-stack web platform that acts as a **Direct Startup-to-Government Procurement Gateway** under **GFR Rule 149 and Maharashtra Innovation Framework**, eliminating legacy tender barriers (3-year turnover, EMD, prior track record) for DPIIT-recognized deep-tech startups.
+## 1. Executive Summary
+**StartupSetu (Innovation Procurement Portal - IPP)** is a production-grade, full-stack digital platform engineered for the **Government of Maharashtra** to automate and streamline **Direct Startup-to-Government Procurement** under **GFR Rule 149, GFR Rule 173(i), and the Maharashtra Innovation Framework 2026**.
 
----
-
-## The Problem
-Standard government tenders require:
-- 3+ years audited turnover
-- Prior execution track records
-- Earnest Money Deposits (EMD)
-- ISO/BIS certifications
-
-Deep-tech startups with AI, drones, IoT, robotics solutions **cannot participate** — India loses innovation.
+The platform dismantles traditional legacy public procurement barriers—such as mandatory 3-year turnover, previous execution track records, and Earnest Money Deposits (EMD)—enabling DPIIT-recognized deep-tech startups to deploy field-tested AI, IoT, robotics, drone, and clean-tech solutions across municipal corporations and state departments.
 
 ---
 
-## Our Solution: 5-Stage Procurement Lifecycle
+## 2. Core Problem & Solution Architecture
+
+### The Problem
+Traditional government tendering processes disadvantage early-stage and high-impact deep-tech startups:
+- **Financial Barriers:** Requirement of 3+ years of audited balance sheets and multi-crore turnover.
+- **Track Record Constraints:** Minimum 3 past government purchase orders of similar magnitude.
+- **Capital Lock-in:** 2%–5% Earnest Money Deposit (EMD) and 10% Performance Bank Guarantees (PBG).
+- **Time-to-Procure:** Average 6–12 months RFP lifecycles leading to outdated technology adoption.
+
+### The 5-Stage Innovation Procurement Lifecycle
+```
+[1] GOVERNMENT DEPARTMENT publishes Reverse Problem Statement
+        ↓
+[2] DPIIT STARTUP submits Solution Proposal (100% EMD & Prior-Turnover Exempt)
+        ↓
+[3] EXPERT EVALUATION COMMITTEE conducts Double-Blind Scoring (TRL, Financial, Swadeshi Score)
+        ↓
+[4] 90-DAY PAID FIELD SANDBOX PILOT (Up to ₹25 Lakhs milestone-linked grant)
+        ↓
+[5] INDEPENDENT VALIDATOR audits KPIs → Issues Pass/Fail & Scale-Up Certificate
+        ↓
+[6] STATE PROCUREMENT OFFICER generates GeM-Compliant Direct Work Order (GFR 149)
+        ↓
+[7] ESCROW DBT DISBURSEMENT (40% Dispatch → 40% Delivery & Acceptance → 20% Operational Commissioning)
+```
+
+---
+
+## 3. Autonomous 4-Agent AI Engine
+
+StartupSetu incorporates a multi-agent AI engine powered by **Google Gemini 1.5 Flash** (with fallback to Groq LLaMA 3.3 and heuristic logic) to automate mission-critical procurement tasks:
 
 ```
-[1] GOV DEPT publishes Reverse Challenge
-        ↓
-[2] STARTUP submits Bid/Proposal (GFR 149 EMD exempt)
-        ↓
-[3] EXPERT evaluates bids (TRL, financial, Swadeshi score)
-        ↓
-[4] 90-Day Paid Field Sandbox Trial (up to Rs.25L milestone grant)
-        ↓
-[5] VALIDATOR issues Pass/Fail cert → PROCUREMENT OFFICER issues GeM Work Order
-        ↓
-[ESCROW DBT] 40% dispatch → 40% acceptance → 20% commissioning
+┌────────────────────────────────────────────────────────────────────────┐
+│                        4-AGENT AI PROCUREMENT ENGINE                   │
+├────────────────────┬────────────────────┬──────────────────────────────┤
+│ 1. RFP Agent       │ 2. Bid Agent       │ 3. Fraud / DPIIT Verification│
+│ (POST /ai/parse-rfp│ (POST /ai/score-bid│ (POST /ai/verify-startup)    │
+│ Translates raw gov │ Blind technical    │ Cross-verifies DPIIT Udyam & │
+│ complaints into    │ evaluation, TRL    │ GSTIN, detects circularities │
+│ GFR-compliant RFPs │ assessment & scoring│ and fraudulent claims       │
+├────────────────────┴────────────────────┴──────────────────────────────┤
+│ 4. Executive Briefing Agent (POST /api/ai/generate-brief)               │
+│ Synthesizes sandbox telemetry, KPI milestones & financial viability    │
+│ into a 1-page statutory procurement briefing for decision-makers.     │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
----
-
-## Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Frontend | React 19, TypeScript, Vite 8, Tailwind CSS v4 |
-| State | TanStack React Query, Axios |
-| Forms | React Hook Form + Zod |
-| i18n | i18next (English + Marathi) |
-| Charts | Recharts |
-| Backend | ASP.NET Core (.NET 9.0 / C# 13) Web API |
-| ORM | Entity Framework Core 9 + Npgsql |
-| Database | PostgreSQL 15+ |
-| Auth | JWT Bearer + BCrypt password hashing |
-| AI Chat | Local RAG Chat Service (Knowledge Base) |
-| Hosting | Netlify (frontend), Any .NET 9 runtime (backend) |
+1. **Agent 1: RFP Generation Agent (`POST /api/ai/parse-rfp`)**
+   - Ingests raw unstructured problem statements from municipal/state officials.
+   - Outputs GFR Rule 149-compliant RFP structured JSON (Title, Sector, Technical Specs, KPI Benchmarks, Budget Cap, EMD Exemption Clauses).
+2. **Agent 2: Bid Evaluation Agent (`POST /api/ai/score-bid`)**
+   - Automatically assesses startup proposals against department problem criteria.
+   - Computes TRL feasibility, architectural soundness, Swadeshi/Make-in-India percentage, and delivers weighted scores (0–100) with justification.
+3. **Agent 3: Fraud & DPIIT Verification Agent (`POST /api/ai/verify-startup`)**
+   - Interrogates startup incorporation metadata, GSTIN formats, and DPIIT recognition numbers.
+   - Assesses shell company risk and issues automated verification status badges.
+4. **Agent 4: Executive Briefing Agent (`POST /api/ai/generate-brief`)**
+   - Aggregates 90-day sandbox pilot sensor telemetry and milestone logs.
+   - Compiles a clean Markdown briefing highlighting cost savings, deployment reliability, and procurement recommendations.
 
 ---
 
-## 6 Roles (RBAC)
+## 4. Multi-Role RBAC & Portals (6 Distinct User Roles)
 
-| Role | Dashboard | Key Capabilities |
+| Role Code | Portal Route | Primary Capabilities |
 |---|---|---|
-| STARTUP | /startup/dashboard | Browse challenges, submit bids, track pilot KPIs, DBT disbursements |
-| GOVERNMENT_DEPARTMENT | /gov/dashboard | Publish challenges (7-step wizard), manage sandbox trials, view applications |
-| EXPERT_EVALUATOR | /expert/dashboard | Double-blind scoring (TRL, financial, Swadeshi), shortlist bids |
-| INDEPENDENT_VALIDATOR | /validator/dashboard | Audit sandbox KPIs, issue Pass/Fail + scale-up certification |
-| PROCUREMENT_OFFICER | /procurement/dashboard | Issue GeM work orders (GFR 149), manage PO lifecycle + escrow |
-| ADMINISTRATOR | /admin/dashboard | User/role management, dept onboarding, startup verification, system settings |
+| `STARTUP` | `/startup/dashboard` | List deep-tech products on Startup Runway, browse challenges, submit proposals, monitor sandbox milestone telemetry, and track DBT grant disbursements. |
+| `GOVERNMENT_DEPARTMENT` | `/gov/dashboard` | 7-step challenge creation wizard, sandbox trial oversight, milestone approval, and pilot budget tracking. |
+| `EXPERT_EVALUATOR` | `/expert/dashboard` | Double-blind technical scoring (TRL, financial viability, Make-in-India score) and bid shortlisting. |
+| `INDEPENDENT_VALIDATOR` | `/validator/dashboard` | Real-time sensor & telemetry inspection, third-party benchmark audits, and Pass/Fail scale-up certification. |
+| `PROCUREMENT_OFFICER` | `/procurement/dashboard` | Direct GeM Work Order generation (`/procurement/issue-po`), dynamic innovation catalog selector, GFR 149 statutory certificate downloads, and escrow DBT milestone release. |
+| `ADMINISTRATOR` | `/admin/dashboard` | Master 5-tab Command Center: real-time user activation toggles, department onboarding, startup DPIIT approvals, knowledge base management, and statutory policy configurations. |
 
 ---
 
-## Demo Credentials (Universal Password: Password123!)
+## 5. Bilingual Localization (English & Marathi)
 
-| Role | Email |
+The entire application provides complete, seamless **Bilingual Support (English & Marathi - मराठी)**:
+- Switching to **MR** dynamically updates navigation headers, dashboards, KPI stat cards, innovation showcase filters, GeM work order interfaces, and system notifications.
+- Managed via `react-i18next` with localized dictionaries (`src/locales/en.json` and `src/locales/mr.json`) and instant fallback synchronization.
+
+---
+
+## 6. Technology Stack
+
+### Frontend
+- **Framework:** React 19 (TypeScript, Vite 8)
+- **Styling:** Tailwind CSS v4, custom glassmorphism design tokens
+- **State Management & Data Fetching:** TanStack React Query v5, Axios
+- **Form Validation:** React Hook Form, Zod
+- **Icons & Visualization:** Lucide React, Recharts
+- **Internationalization:** i18next, react-i18next
+
+### Backend Web API
+- **Framework:** ASP.NET Core (.NET 9.0 / C# 13) Web API
+- **Data Access:** Entity Framework Core 9, Npgsql (PostgreSQL Provider)
+- **Database:** PostgreSQL 15+ (28 Relational Tables)
+- **Authentication & Security:** JWT Bearer tokens, BCrypt password hashing, RBAC middleware
+- **AI Integration:** Google Gemini 1.5 Flash API, Groq LLaMA 3.3, Local RAG Vector Knowledge Base
+
+---
+
+## 7. PostgreSQL Database Architecture (28 Tables)
+
+```
+├── Identity & Authentication
+│   ├── Users, Roles, UserRoles, Permissions, RolePermissions, RefreshTokens, AuditLogs
+├── Departments & Startup Profiles
+│   ├── Departments, StartupProfiles, StartupDocuments, TechnologyCategories, StartupTechnologyCategories
+├── Challenge & Bid Management
+│   ├── Challenges, ChallengeDocuments, ChallengeTechnologyCategories, ChallengeApplications, SavedChallenges
+├── Sandbox Trial & Telemetry System
+│   ├── SandboxTrials, SandboxTrialKPIs, KPIMeasurements, TrialMilestones, TrialDocuments, TrialStatusHistories
+├── Procurement & GeM Orders
+│   ├── PurchaseOrders (GeM Work Order ID, GFR 149 statutory affirmations, escrow milestones, status transitions)
+└── Knowledge Base & Assistant
+    ├── KnowledgeBase, UnansweredQuestions, ChatSessions, ChatMessages, SystemSettings
+```
+
+---
+
+## 8. Key API Endpoints
+
+### AI Agents (`/api/ai`)
+- `POST /api/ai/parse-rfp` - Convert raw text to structured RFP
+- `POST /api/ai/score-bid` - Automatic bid scoring & TRL evaluation
+- `POST /api/ai/verify-startup` - Fraud detection & DPIIT validation
+- `POST /api/ai/generate-brief` - Executive procurement summary from sandbox trials
+
+### Procurement (`/api/procurement`)
+- `GET /api/procurement/dashboard` - Real-time procurement stats & pilot queues
+- `GET /api/procurement/orders` - Filter purchase orders by status, department, or search query
+- `POST /api/procurement/orders` - Issue new direct purchase order (GFR Rule 149)
+- `PATCH /api/procurement/orders/{id}/status` - Advance order lifecycle and release escrow DBT
+- `GET /api/procurement/orders/{id}/gfr149-cert` - Generate statutory exemption certificate
+
+### Administration (`/api/admin`)
+- `GET /api/admin/dashboard` - Unified platform metrics
+- `GET /api/admin/users` & `PATCH /api/admin/users/{id}/toggle-status` - Manage user access
+- `GET /api/admin/departments` & `POST /api/admin/departments` - Onboard government entities
+- `GET /api/admin/startups` & `PATCH /api/admin/startups/{id}/verify` - Review & approve DPIIT status
+- `GET /api/admin/settings` & `PUT /api/admin/settings` - Update policy caps & GFR thresholds
+
+---
+
+## 9. Demo Credentials
+
+> **Universal Password:** `Password123!` (or click any 1-Click Role Card on the `/login` page)
+
+| Role | Demo Email Account |
 |---|---|
-| Startup | startup@maharashtra.gov.in |
-| Government Dept | gov@maharashtra.gov.in |
-| Expert Evaluator | expert@maharashtra.gov.in |
-| Independent Validator | validator@maharashtra.gov.in |
-| Procurement Officer | procurement@maharashtra.gov.in |
-| Administrator | admin@maharashtra.gov.in |
-
-> Use 1-click role cards on the /login page to auto-fill credentials.
+| **Startup Innovator** | `startup@maharashtra.gov.in` |
+| **Government Department** | `gov@maharashtra.gov.in` |
+| **State Procurement Officer** | `procurement@maharashtra.gov.in` |
+| **Independent Validator** | `validator@maharashtra.gov.in` |
+| **Expert Evaluator** | `expert@maharashtra.gov.in` |
+| **System Administrator** | `admin@maharashtra.gov.in` |
 
 ---
 
-## Database: 28 PostgreSQL Tables
-
-### Identity & Auth
-Users, Roles, UserRoles, Permissions, RolePermissions, RefreshTokens, AuditLogs
-
-### Organization
-Departments, StartupProfiles, StartupDocuments, TechnologyCategories, StartupTechnologyCategories
-
-### Challenge Ecosystem
-Challenges, ChallengeDocuments, ChallengeTechnologyCategories, ChallengeApplications, SavedChallenges
-
-### Sandbox Pilot System
-SandboxTrials, SandboxTrialKPIs, KPIMeasurements, TrialMilestones, TrialDocuments, TrialStatusHistories
-
-### Procurement
-PurchaseOrders
-
-### Knowledge & Chatbot
-KnowledgeBase, UnansweredQuestions, ChatSessions, ChatMessages, SystemSettings
-
----
-
-## Backend Controllers (10 total)
-
-| Controller | Key Endpoints |
-|---|---|
-| AuthController | POST /api/auth/login, /register, /refresh, /logout |
-| UsersController | GET /api/users/me, PATCH activate |
-| AdminController | GET /api/admin/dashboard, users, departments, startups, settings |
-| GovDashboardController | GET /api/gov/dashboard (live KPIs) |
-| ChallengesController | GET/POST /api/challenges, status updates |
-| GovSandboxTrialsController | Full trial lifecycle, KPI logging, milestones, validation |
-| ProcurementController | GET/POST/PATCH /api/procurement/orders, dashboard, GFR-149 cert |
-| StartupChallengesController | Startup bid submission and tracking |
-| KnowledgeController | GET/POST /api/knowledge |
-| ChatController | POST /api/chat/message (RAG chatbot) |
-
----
-
-## Frontend Pages (20+ pages across 8 portals)
-
-### Public (no auth)
-/ - Home | /challenges - Challenge List | /showcase - Product Marketplace
-/runway - Startup Sectors | /process - SOP | /raise-ticket - Grievance | /login | /register/startup
-
-### Startup (/startup/*)
-dashboard, products/add, challenges, challenges/:id
-
-### Government (/gov/*)
-dashboard, challenges/create (7-step wizard), sandbox-trials, sandbox-trials/:id, request-sandbox
-
-### Procurement (/procurement/*)
-dashboard (KPIs + validated pilots), issue-po (GeM work order form)
-
-### Admin (/admin/*)
-dashboard (5 tabs: Overview, Users, Departments, Startups, Settings), knowledge
-
-### Expert, Validator
-/expert/dashboard, /validator/dashboard
-
----
-
-## Module Status
-
-| Module | Status |
-|---|---|
-| Auth (JWT, BCrypt, refresh tokens) | LIVE |
-| Government Dashboard (live PostgreSQL KPIs) | LIVE |
-| Challenge Creation (7-step wizard → DB) | LIVE |
-| Public Pages (Home, Showcase, Challenges, etc.) | LIVE |
-| Admin Dashboard (5-tab, full user/dept/startup mgmt) | LIVE |
-| Sandbox Trial System (full lifecycle + KPI tracking) | LIVE |
-| Procurement Controller (orders, GFR 149, dashboard) | LIVE |
-| Knowledge Base + RAG Chatbot | LIVE |
-| Procurement Dashboard frontend integration | PARTIAL |
-| Expert Evaluator scoring → DB | PARTIAL |
-| File upload to cloud storage | PLANNED |
-| Email notifications | PLANNED |
-| GeM API integration | FUTURE |
-
----
-
-## Running Locally
+## 10. Local Development Setup
 
 ```bash
-# Backend (http://localhost:5015)
+# 1. Start Backend Web API (Port 5015)
 cd backend
 dotnet ef database update
 dotnet run
 
-# Frontend (http://localhost:5173)
+# 2. Start Frontend Dev Server (Port 5173)
 cd frontend
 npm install
 npm run dev
 ```
 
-Backend .env required:
-```
-DATABASE_URL=Host=localhost;Port=5432;Database=govportal;Username=postgres;Password=...
-JWT_SECRET=your-secret-min-32-chars
+### Environment Variables (`backend/.env`)
+```env
+DATABASE_URL=Host=localhost;Port=5432;Database=govportal;Username=postgres;Password=yourpassword
+JWT_SECRET=YourSuperSecretKeyWithMinimum32CharactersLength!
 JWT_ISSUER=GovPortal
 JWT_AUDIENCE=GovPortalUsers
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 ---
 
-## Legal & Policy Framework
+## 11. Statutory & Policy Alignment
 
-| Policy | Role in IPP |
+| Framework | Implementation in Platform |
 |---|---|
-| GFR Rule 149 | Exempts DPIIT startups from turnover/experience criteria |
-| GFR Rule 173(i) | Allows direct procurement without public tender |
-| Maharashtra IT & Innovation Policy 2026 | 25% procurement mandate from startups |
-| GeM Integration | PO format: GEM-GOM-YYYY-PO-NNNNNN |
-| Milestone Escrow DBT | 40% dispatch + 40% acceptance + 20% commissioning |
+| **GFR Rule 149** | Exemption from prior-turnover and prior-experience requirements for DPIIT startups. |
+| **GFR Rule 173(i)** | Direct single-source procurement for proprietary innovations tested in sandboxes. |
+| **Maharashtra Innovation Policy 2026** | 25% quota allocation and fast-tracked milestone escrow payments. |
+| **GeM Integration Specification** | Automated Work Order format: `GEM-GOM-YYYY-PO-XXXXXX`. |
+| **Escrow DBT Schedule** | 40% Dispatch → 40% Acceptance → 20% Final Commissioning. |
 
 ---
-
-## File Structure
-
-```
-project-root/
-├── OVERVIEW.md              <- This file
-├── CREDENTIALS.md           <- Demo login credentials
-├── TECH_STACK.md            <- Full dependency docs
-├── backend/
-│   ├── Controllers/         (10 controllers)
-│   ├── Data/ApplicationDbContext.cs  (28-table context)
-│   ├── DTOs/                (AdminDTOs, ProcurementDTOs, etc.)
-│   ├── Entities/            (26 entity files)
-│   ├── Services/LocalRagChatService.cs
-│   ├── Migrations/
-│   └── Program.cs
-└── frontend/src/
-    ├── App.tsx              (all routes)
-    ├── layouts/             (MainLayout, PublicLayout)
-    ├── pages/               (admin, auth, expert, gov, procurement, public, startup, validator)
-    ├── services/api/        (axios, admin, procurement, ...)
-    └── index.css            (Tailwind v4 + design tokens)
-```
-
----
-*SIH Internal Hackathon 2026 | Last Updated: September 2026*
+*Developed for the Smart India Hackathon & Maharashtra State Innovation Society (MSInS)*

@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ShieldCheck, ArrowRight, CheckCircle, Upload, Eye, EyeOff, Building2, Award, Lock, FileCheck } from 'lucide-react';
-import { registerStartup } from '../../services/api/auth';
+import { registerStartup, login } from '../../services/api/auth';
 import emblemLogo from '../../assets/images/Emblem_of_India_(Government_Gazette).svg.webp';
 
 const RegisterStartup = () => {
@@ -13,7 +13,41 @@ const RegisterStartup = () => {
   const [apiError, setApiError] = useState<string | null>(null);
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [files, setFiles] = useState<File[]>([]);
+  const [isDragActive, setIsDragActive] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setIsDragActive(true);
+    } else if (e.type === 'dragleave') {
+      setIsDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      const droppedFiles = Array.from(e.dataTransfer.files);
+      setFiles((prev) => [...prev, ...droppedFiles]);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (e.target.files && e.target.files[0]) {
+      const selectedFiles = Array.from(e.target.files);
+      setFiles((prev) => [...prev, ...selectedFiles]);
+    }
+  };
+
+  const removeFile = (index: number) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+  };
 
   const onSubmit = async (data: any) => {
     if (step < 4) {
@@ -37,6 +71,33 @@ const RegisterStartup = () => {
           description: data.description,
           problemSolved: data.problemSolved,
         });
+        // Auto-login to prevent logging out automatically
+        try {
+          const loginRes = await login({ emailOrUsername: data.email, password: data.password });
+          if (loginRes && loginRes.accessToken) {
+            localStorage.setItem('token', loginRes.accessToken);
+            try {
+              const base64Url = loginRes.accessToken.split('.')[1];
+              const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+              const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+              }).join(''));
+              const claims = JSON.parse(jsonPayload);
+              localStorage.setItem('userRole', claims.role || 'STARTUP');
+              localStorage.setItem('userName', claims.unique_name || data.email);
+            } catch (e) {
+              console.error("Error parsing JWT claims", e);
+              localStorage.setItem('userRole', 'STARTUP');
+              localStorage.setItem('userName', data.email);
+            }
+            alert(t('registerStartup.successAlert'));
+            navigate('/startup/dashboard');
+            return;
+          }
+        } catch (autoLoginErr) {
+          console.error("Auto login failed", autoLoginErr);
+        }
+
         alert(t('registerStartup.successAlert'));
         navigate('/login');
       } catch (err: any) {
@@ -270,19 +331,49 @@ const RegisterStartup = () => {
                   <p className="text-xs text-gray-500 mt-0.5">{t('registerStartup.step4.subtitle')}</p>
                 </div>
                 
-                <div className="mt-4 flex justify-center px-6 pt-8 pb-8 border-2 border-gray-300 border-dashed rounded-sm bg-gray-50/50 hover:bg-white hover:border-gray-400 transition-colors">
+                <div 
+                  className={`mt-4 flex flex-col justify-center px-6 pt-8 pb-8 border-2 ${isDragActive ? 'border-gov-blue bg-blue-50' : 'border-gray-300 border-dashed bg-gray-50/50 hover:bg-white hover:border-gray-400'} rounded-sm transition-colors relative`}
+                  onDragEnter={handleDrag}
+                  onDragLeave={handleDrag}
+                  onDragOver={handleDrag}
+                  onDrop={handleDrop}
+                >
                   <div className="space-y-2 text-center">
-                    <Upload className="mx-auto h-10 w-10 text-gray-400" />
+                    <Upload className={`mx-auto h-10 w-10 ${isDragActive ? 'text-gov-blue' : 'text-gray-400'}`} />
                     <div className="flex text-xs text-gray-600 justify-center items-center gap-1">
                       <label htmlFor="file-upload" className="relative cursor-pointer bg-white px-2.5 py-1 border border-gray-300 rounded-xs font-semibold text-[#0b1f3a] hover:bg-gray-50 shadow-2xs">
                         <span>{t('registerStartup.step4.uploadFile')}</span>
-                        <input id="file-upload" name="file-upload" type="file" className="sr-only" multiple />
+                        <input id="file-upload" name="file-upload" type="file" className="sr-only" multiple onChange={handleChange} />
                       </label>
                       <span className="text-gray-500">{t('registerStartup.step4.dragDrop')}</span>
                     </div>
                     <p className="text-[11px] text-gray-500 font-mono">{t('registerStartup.step4.formats')}</p>
                   </div>
                 </div>
+                
+                {files.length > 0 && (
+                  <div className="mt-4 space-y-2">
+                    <h4 className="text-xs font-semibold text-gray-700">Selected Files ({files.length})</h4>
+                    <ul className="space-y-2">
+                      {files.map((file, index) => (
+                        <li key={index} className="flex items-center justify-between p-2 bg-white border border-gray-200 rounded text-xs shadow-xs">
+                          <div className="flex items-center gap-2 overflow-hidden">
+                            <FileCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                            <span className="truncate text-gray-700 font-medium">{file.name}</span>
+                            <span className="text-gray-400">({(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                          </div>
+                          <button 
+                            type="button" 
+                            onClick={() => removeFile(index)}
+                            className="text-gray-400 hover:text-red-500 ml-2"
+                          >
+                            ×
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
 

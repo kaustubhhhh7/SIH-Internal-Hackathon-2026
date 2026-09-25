@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { 
   Users, Building, Activity, Shield, RefreshCw, Search, CheckCircle, 
   XCircle, Plus, Settings, FileText, ArrowUpRight, 
-  Layers, Lock, Sliders
+  Layers, Lock, Sliders, Sparkles
 } from 'lucide-react';
 import { 
   adminApi, 
@@ -13,12 +14,15 @@ import {
   type AdminAuditLogDto, 
   type AdminSystemSettingDto 
 } from '../../services/api/admin';
+import { aiAgentsApi, type VerifyStartupResponse } from '../../services/api/aiAgents';
 
 interface AdminDashboardProps {
   defaultTab?: 'overview' | 'users' | 'departments' | 'startups' | 'settings';
 }
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview' }) => {
+  const { i18n } = useTranslation();
+  const isMr = i18n.language === 'mr';
   const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'departments' | 'startups' | 'settings'>(defaultTab);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -43,6 +47,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
   const [newDeptDesc, setNewDeptDesc] = useState('');
   const [deptSubmitting, setDeptSubmitting] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [auditModalOpen, setAuditModalOpen] = useState(false);
+  const [auditData, setAuditData] = useState<{ report: VerifyStartupResponse, startup: AdminStartupDto } | null>(null);
 
   useEffect(() => {
     if (defaultTab) {
@@ -145,11 +151,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
     }
   };
 
-  const handleToggleStartupVerification = async (startup: AdminStartupDto) => {
+  const handleToggleStartupVerification = async (startup: AdminStartupDto, approve: boolean) => {
     try {
       setActionLoadingId(startup.id);
-      const res = await adminApi.toggleStartupVerification(startup.id);
-      setStartups(prev => prev.map(s => s.id === startup.id ? { ...s, isVerified: res.isVerified } : s));
+      const res = await adminApi.toggleStartupVerification(startup.id, approve);
+      setStartups(prev => prev.map(s => s.id === startup.id ? { ...s, verificationStatus: res.verificationStatus } : s));
       showToast(res.message);
       adminApi.getDashboardStats().then(setStats).catch(() => {});
     } catch (err: unknown) {
@@ -217,32 +223,36 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
         <div>
           <div className="flex items-center space-x-2">
             <span className="px-2.5 py-0.5 text-xs font-bold bg-gov-blue text-white rounded uppercase tracking-wider">
-              Super Admin Command Center
+              {isMr ? 'मुख्य प्रशासक नियंत्रण केंद्र' : 'Super Admin Command Center'}
             </span>
             <span className="flex items-center text-xs text-green-700 font-medium bg-green-50 px-2 py-0.5 rounded border border-green-200">
               <span className="w-2 h-2 rounded-full bg-green-500 mr-1.5 animate-pulse"></span>
-              Live PostgreSQL Database
+              {isMr ? 'थेट डेटाबेस जोडणी' : 'Live PostgreSQL Database'}
             </span>
           </div>
-          <h2 className="text-2xl font-bold text-gov-blue mt-1">State Innovation Governance & Administration</h2>
-          <p className="text-sm text-gray-600">Maharashtra State Innovation Society (MSInS) • GFR 149 Regulatory Framework</p>
+          <h2 className="text-2xl font-bold text-gov-blue mt-1">
+            {isMr ? 'राज्य नाविन्यपूर्ण खरेदी प्रशासन व नियमन' : 'State Innovation Governance & Administration'}
+          </h2>
+          <p className="text-sm text-gray-600">
+            {isMr ? 'महाराष्ट्र राज्य नाविन्यपूर्ण सोसायटी (MSInS) • GFR १४९ नियामक चौकट' : 'Maharashtra State Innovation Society (MSInS) • GFR 149 Regulatory Framework'}
+          </p>
         </div>
 
         <div className="flex items-center space-x-3">
           <button
             onClick={() => loadData(true)}
             disabled={refreshing}
-            className="flex items-center px-3.5 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 shadow-sm transition-colors"
+            className="flex items-center px-3.5 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 shadow-sm transition-colors cursor-pointer"
           >
             <RefreshCw className={`w-4 h-4 mr-2 text-gray-500 ${refreshing ? 'animate-spin' : ''}`} />
-            {refreshing ? 'Syncing...' : 'Sync Live DB'}
+            {refreshing ? (isMr ? 'सिंक्रोनाइझ करत आहे...' : 'Syncing...') : (isMr ? 'डेटा सिंक्रोनाइझ करा' : 'Sync Live DB')}
           </button>
           <button
             onClick={() => setShowDeptModal(true)}
-            className="flex items-center px-4 py-2 text-sm font-semibold text-white bg-gov-blue rounded-md hover:bg-blue-800 shadow-sm transition-colors"
+            className="flex items-center px-4 py-2 text-sm font-semibold text-white bg-gov-blue rounded-md hover:bg-blue-800 shadow-sm transition-colors cursor-pointer"
           >
             <Plus className="w-4 h-4 mr-2" />
-            Onboard Department
+            {isMr ? '+ नवीन विभाग जोडा' : '+ Onboard Department'}
           </button>
         </div>
       </div>
@@ -250,10 +260,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
       {error && (
         <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md flex items-center justify-between text-red-700">
           <div>
-            <p className="font-semibold">Backend Connection Alert</p>
+            <p className="font-semibold">{isMr ? 'बॅकएंड कनेक्शन चेतावणी' : 'Backend Connection Alert'}</p>
             <p className="text-sm">{error}</p>
           </div>
-          <button onClick={() => loadData(true)} className="text-xs bg-red-100 px-3 py-1.5 rounded hover:bg-red-200 font-medium">Retry</button>
+          <button onClick={() => loadData(true)} className="text-xs bg-red-100 px-3 py-1.5 rounded hover:bg-red-200 font-medium">
+            {isMr ? 'पुन्हा प्रयत्न करा' : 'Retry'}
+          </button>
         </div>
       )}
 
@@ -262,76 +274,110 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
         {/* Total Users */}
         <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-200 border-l-4 border-l-gov-blue hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">Total Users</span>
+            <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">
+              {isMr ? 'एकूण वापरकर्ते' : 'Total Users'}
+            </span>
             <Users className="w-6 h-6 text-gov-blue opacity-70" />
           </div>
           <div className="mt-2 flex items-baseline">
             <span className="text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.totalUsers ?? 0)}</span>
-            <span className="ml-2 text-xs text-green-600 font-medium">RBAC Active</span>
+            <span className="ml-2 text-xs text-green-600 font-medium">
+              {isMr ? 'RBAC सक्रिय' : 'RBAC Active'}
+            </span>
           </div>
-          <p className="text-xs text-gray-500 mt-1">Across 6 Persona Roles</p>
+          <p className="text-xs text-gray-500 mt-1">
+            {isMr ? '६ अधिकृत भूमिकांमध्ये' : 'Across 6 Persona Roles'}
+          </p>
         </div>
 
         {/* Registered Startups */}
         <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-200 border-l-4 border-l-green-500 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">Startups</span>
+            <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">
+              {isMr ? 'स्टार्टअप्स' : 'Startups'}
+            </span>
             <Activity className="w-6 h-6 text-green-600 opacity-70" />
           </div>
           <div className="mt-2 flex items-baseline">
             <span className="text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.totalStartups ?? 0)}</span>
-            <span className="ml-2 text-xs text-amber-600 font-medium">DPIIT Verified</span>
+            <span className="ml-2 text-xs text-amber-600 font-medium">
+              {isMr ? 'DPIIT प्रमाणित' : 'DPIIT Verified'}
+            </span>
           </div>
-          <p className="text-xs text-gray-500 mt-1">Deep-Tech Innovators</p>
+          <p className="text-xs text-gray-500 mt-1">
+            {isMr ? 'डीप-टेक नवोन्मेषक' : 'Deep-Tech Innovators'}
+          </p>
         </div>
 
         {/* Departments */}
         <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-200 border-l-4 border-l-indigo-500 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">Departments</span>
+            <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">
+              {isMr ? 'शासकीय विभाग' : 'Departments'}
+            </span>
             <Building className="w-6 h-6 text-indigo-600 opacity-70" />
           </div>
           <div className="mt-2 flex items-baseline">
             <span className="text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.totalDepartments ?? 0)}</span>
-            <span className="ml-2 text-xs text-indigo-600 font-medium">State & Municipal</span>
+            <span className="ml-2 text-xs text-indigo-600 font-medium">
+              {isMr ? 'राज्य व महानगरपालिका' : 'State & Municipal'}
+            </span>
           </div>
-          <p className="text-xs text-gray-500 mt-1">Active Procurement Bodies</p>
+          <p className="text-xs text-gray-500 mt-1">
+            {isMr ? 'सक्रिय खरेदी संस्था' : 'Active Procurement Bodies'}
+          </p>
         </div>
 
         {/* Active Challenges */}
         <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-200 border-l-4 border-l-amber-500 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">Challenges</span>
+            <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">
+              {isMr ? 'आव्हाने' : 'Challenges'}
+            </span>
             <FileText className="w-6 h-6 text-amber-600 opacity-70" />
           </div>
           <div className="mt-2 flex items-baseline">
             <span className="text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.activeChallenges ?? 0)}</span>
-            <span className="ml-2 text-xs text-amber-600 font-medium">Published</span>
+            <span className="ml-2 text-xs text-amber-600 font-medium">
+              {isMr ? 'प्रकाशित' : 'Published'}
+            </span>
           </div>
-          <p className="text-xs text-gray-500 mt-1">Reverse Problem Statements</p>
+          <p className="text-xs text-gray-500 mt-1">
+            {isMr ? 'समस्या विधाने' : 'Reverse Problem Statements'}
+          </p>
         </div>
 
         {/* Sandbox Pilots */}
         <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-200 border-l-4 border-l-purple-500 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">Sandbox Pilots</span>
+            <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">
+              {isMr ? 'सँडबॉक्स पायलट' : 'Sandbox Pilots'}
+            </span>
             <Layers className="w-6 h-6 text-purple-600 opacity-70" />
           </div>
           <div className="mt-2 flex items-baseline">
             <span className="text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.activePilots ?? 0)}</span>
-            <span className="ml-2 text-xs text-purple-600 font-medium">90-Day</span>
+            <span className="ml-2 text-xs text-purple-600 font-medium">
+              {isMr ? '९०-दिवस' : '90-Day'}
+            </span>
           </div>
-          <p className="text-xs text-gray-500 mt-1">Active Field Sandboxes</p>
+          <p className="text-xs text-gray-500 mt-1">
+            {isMr ? 'सक्रिय फील्ड सँडबॉक्स' : 'Active Field Sandboxes'}
+          </p>
         </div>
 
         {/* System Health */}
         <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-200 border-l-4 border-l-emerald-500 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">System State</span>
+            <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">
+              {isMr ? 'प्रणाली स्थिती' : 'System State'}
+            </span>
             <Shield className="w-6 h-6 text-emerald-600 opacity-70" />
           </div>
           <div className="mt-2 flex items-baseline">
-            <span className="text-2xl font-bold text-emerald-600">{stats?.systemHealth || 'Healthy'}</span>
+            <span className="text-2xl font-bold text-emerald-600">
+              {stats?.systemHealth || (isMr ? 'सक्षम (Healthy)' : 'Healthy')}
+            </span>
           </div>
           <p className="text-xs text-gray-500 mt-1">Npgsql EF Core 10 OK</p>
         </div>
@@ -341,62 +387,62 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
       <div className="bg-white border border-gray-200 rounded-lg p-1.5 shadow-sm flex flex-wrap gap-1">
         <button
           onClick={() => setActiveTab('overview')}
-          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors ${
+          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors cursor-pointer ${
             activeTab === 'overview'
               ? 'bg-gov-blue text-white shadow'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
           }`}
         >
           <Activity className="w-4 h-4 mr-2" />
-          Live Audit Trail & Overview
+          {isMr ? 'थेट आढावा व ऑडिट ट्रेल' : 'Live Audit Trail & Overview'}
         </button>
 
         <button
           onClick={() => setActiveTab('users')}
-          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors ${
+          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors cursor-pointer ${
             activeTab === 'users'
               ? 'bg-gov-blue text-white shadow'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
           }`}
         >
           <Users className="w-4 h-4 mr-2" />
-          User & Role Governance ({users.length})
+          {isMr ? `वापरकर्ते व भूमिका व्यवस्थापन (${users.length})` : `User & Role Governance (${users.length})`}
         </button>
 
         <button
           onClick={() => setActiveTab('departments')}
-          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors ${
+          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors cursor-pointer ${
             activeTab === 'departments'
               ? 'bg-gov-blue text-white shadow'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
           }`}
         >
           <Building className="w-4 h-4 mr-2" />
-          Department Onboarding ({departments.length})
+          {isMr ? `विभाग नोंदणी (${departments.length})` : `Department Onboarding (${departments.length})`}
         </button>
 
         <button
           onClick={() => setActiveTab('startups')}
-          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors ${
+          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors cursor-pointer ${
             activeTab === 'startups'
               ? 'bg-gov-blue text-white shadow'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
           }`}
         >
           <CheckCircle className="w-4 h-4 mr-2" />
-          Startup Verification Hub ({startups.length})
+          {isMr ? `स्टार्टअप पडताळणी केंद्र (${startups.length})` : `Startup Verification Hub (${startups.length})`}
         </button>
 
         <button
           onClick={() => setActiveTab('settings')}
-          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors ${
+          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors cursor-pointer ${
             activeTab === 'settings'
               ? 'bg-gov-blue text-white shadow'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
           }`}
         >
           <Sliders className="w-4 h-4 mr-2" />
-          Governance Settings & Policies
+          {isMr ? 'प्रशासन धोरणे व सेटिंग्ज' : 'Governance Settings & Policies'}
         </button>
       </div>
 
@@ -780,29 +826,61 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
                       </td>
                       <td className="px-6 py-3.5 whitespace-nowrap">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${
-                          s.isVerified 
+                          s.verificationStatus === 'GovernmentVerified'
                             ? 'bg-green-100 text-green-800 border border-green-200' 
+                            : s.verificationStatus === 'Rejected'
+                            ? 'bg-red-100 text-red-800 border border-red-200'
                             : 'bg-amber-100 text-amber-800 border border-amber-200'
                         }`}>
-                          {s.isVerified ? '✓ DPIIT Approved' : '⏳ Pending Review'}
+                          {s.verificationStatus === 'GovernmentVerified' ? '✓ DPIIT Approved' : s.verificationStatus === 'Rejected' ? '❌ Rejected' : '⏳ Pending Review'}
                         </span>
                       </td>
                       <td className="px-6 py-3.5 whitespace-nowrap text-right text-xs">
-                        <button
-                          onClick={() => handleToggleStartupVerification(s)}
-                          disabled={actionLoadingId === s.id}
-                          className={`px-3 py-1.5 rounded font-semibold transition-colors ${
-                            s.isVerified
-                              ? 'text-red-700 bg-red-50 hover:bg-red-100 border border-red-200'
-                              : 'text-white bg-green-600 hover:bg-green-700 shadow-sm'
-                          }`}
-                        >
-                          {actionLoadingId === s.id 
-                            ? 'Saving...' 
-                            : s.isVerified 
-                              ? 'Revoke Status' 
-                              : 'Approve & Verify'}
-                        </button>
+                        <div className="flex items-center justify-end gap-2">
+                          <button
+                            onClick={async () => {
+                              try {
+                                setActionLoadingId(s.id);
+                                const verifyRes = await aiAgentsApi.verifyStartup(s.id);
+                                setAuditData({ report: verifyRes, startup: s });
+                                setAuditModalOpen(true);
+                              } catch (e) {
+                                showToast('Failed to process AI check.');
+                              } finally {
+                                setActionLoadingId(null);
+                              }
+                            }}
+                            disabled={actionLoadingId === s.id}
+                            className="px-2.5 py-1 rounded bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 font-semibold transition-colors flex items-center gap-1 cursor-pointer"
+                            title="Run Agent 2 Autonomous Statutory Verification"
+                          >
+                            <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
+                            <span>AI Audit</span>
+                          </button>
+
+                          <button
+                            onClick={() => handleToggleStartupVerification(s, true)}
+                            disabled={actionLoadingId === s.id || s.verificationStatus === 'GovernmentVerified'}
+                            className={`px-3 py-1 rounded font-semibold transition-colors cursor-pointer ${
+                              s.verificationStatus === 'GovernmentVerified'
+                                ? 'text-green-800 bg-green-100 border border-green-200 opacity-50 cursor-not-allowed'
+                                : 'text-white bg-green-600 hover:bg-green-700 shadow-sm'
+                            }`}
+                          >
+                            {actionLoadingId === s.id ? 'Processing...' : s.verificationStatus === 'GovernmentVerified' ? 'Approved' : 'Approve'}
+                          </button>
+                          <button
+                            onClick={() => handleToggleStartupVerification(s, false)}
+                            disabled={actionLoadingId === s.id || s.verificationStatus === 'Rejected'}
+                            className={`px-3 py-1 rounded font-semibold transition-colors cursor-pointer ${
+                              s.verificationStatus === 'Rejected'
+                                ? 'text-red-800 bg-red-100 border border-red-200 opacity-50 cursor-not-allowed'
+                                : 'text-red-700 bg-red-50 hover:bg-red-100 border border-red-200'
+                            }`}
+                          >
+                            {actionLoadingId === s.id ? 'Processing...' : s.verificationStatus === 'Rejected' ? 'Rejected' : 'Reject'}
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))
@@ -865,6 +943,84 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* AI Audit Modal */}
+      {auditModalOpen && auditData && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full p-6 animate-scaleUp">
+            <div className="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-indigo-600" />
+                <h3 className="text-base font-bold text-gray-900">AI Verification Audit: {auditData.startup.companyName}</h3>
+              </div>
+              <button onClick={() => setAuditModalOpen(false)} className="text-gray-400 hover:text-gray-600">
+                <XCircle className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-4 max-h-[60vh] overflow-y-auto">
+              <div className={`p-4 rounded-md border ${auditData.report.isGenuine ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
+                <h4 className={`text-lg font-bold ${auditData.report.isGenuine ? 'text-green-800' : 'text-red-800'} mb-1`}>
+                  {auditData.report.isGenuine ? '✅ Startup verified as Genuine (100/100)' : '❌ Verification Failed / Flags Detected'}
+                </h4>
+                <p className="text-sm text-gray-700">The AI Autonomous Engine has cross-referenced statutory records across DPIIT, MCA, and State Tax Registries.</p>
+              </div>
+
+              <div>
+                <h5 className="text-sm font-bold text-gray-900 mb-2 border-b pb-1">Validation Checks Passed ({auditData.report.checksPassed?.length || 0})</h5>
+                <ul className="space-y-2">
+                  {auditData.report.checksPassed?.map((check, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-green-700">
+                      <span className="font-bold text-green-500 mt-0.5">✓</span>
+                      <span>{check}</span>
+                    </li>
+                  ))}
+                  {(!auditData.report.checksPassed || auditData.report.checksPassed.length === 0) && (
+                    <li className="text-sm text-gray-500 italic">No valid checks passed.</li>
+                  )}
+                </ul>
+              </div>
+
+              {auditData.report.warnings?.length > 0 && (
+                <div>
+                  <h5 className="text-sm font-bold text-red-700 mb-2 border-b border-red-100 pb-1">Critical Warnings ({auditData.report.warnings.length})</h5>
+                  <ul className="space-y-2">
+                    {auditData.report.warnings.map((warn, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-red-600">
+                        <span className="font-bold text-red-500 mt-0.5">⚠</span>
+                        <span>{warn}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-between items-center pt-4 mt-6 border-t border-gray-100">
+              <span className="text-xs text-gray-500 italic">Generated by AgentOrchestratorService via Autonomous AI</span>
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => setAuditModalOpen(false)}
+                  className="px-4 py-2 text-xs font-semibold text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200"
+                >
+                  Close
+                </button>
+                {auditData.report.isGenuine && auditData.startup.verificationStatus !== 'GovernmentVerified' && (
+                  <button
+                    onClick={() => {
+                      handleToggleStartupVerification(auditData.startup, true);
+                      setAuditModalOpen(false);
+                    }}
+                    className="px-4 py-2 text-xs font-semibold text-white bg-gov-blue rounded-md hover:bg-blue-800"
+                  >
+                    Officially Approve
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}

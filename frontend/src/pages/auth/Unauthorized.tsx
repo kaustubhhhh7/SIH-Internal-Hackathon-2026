@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { 
   ShieldAlert, 
@@ -13,6 +13,7 @@ import {
 
 const Unauthorized: React.FC = () => {
   const navigate = useNavigate();
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const userRole = localStorage.getItem('userRole') || 'ANONYMOUS';
   const userEmail = localStorage.getItem('userEmail') || localStorage.getItem('userName') || 'Authorized User';
 
@@ -56,11 +57,20 @@ const Unauthorized: React.FC = () => {
   };
 
   const handleLogout = () => {
+    setShowLogoutConfirm(true);
+  };
+
+  const confirmLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userRole');
     localStorage.removeItem('userEmail');
     localStorage.removeItem('userName');
+    setShowLogoutConfirm(false);
     navigate('/login');
+  };
+
+  const cancelLogout = () => {
+    setShowLogoutConfirm(false);
   };
 
   return (
@@ -163,6 +173,37 @@ const Unauthorized: React.FC = () => {
 
           </div>
         </div>
+
+        {/* Logout Confirmation Modal */}
+        {showLogoutConfirm && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
+            <div className="bg-white rounded-lg shadow-xl max-w-sm w-full overflow-hidden animate-fadeIn">
+              <div className="p-6">
+                <div className="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mb-4 mx-auto">
+                  <LogOut className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold text-center text-gray-900 mb-2">Confirm Logout</h3>
+                <p className="text-sm text-center text-gray-600 mb-6">
+                  Are you sure you want to log out of your account?
+                </p>
+                <div className="flex gap-3">
+                  <button 
+                    onClick={cancelLogout}
+                    className="flex-1 py-2 px-4 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-md text-sm font-medium transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    onClick={confirmLogout}
+                    className="flex-1 py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm font-medium transition-colors"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
       </div>
     </div>

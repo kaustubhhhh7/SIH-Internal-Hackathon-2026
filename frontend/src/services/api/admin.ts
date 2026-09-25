@@ -58,7 +58,7 @@ export interface AdminStartupDto {
   productSolutionName: string;
   currentProductStage: string;
   userEmail: string;
-  isVerified: boolean;
+  verificationStatus: string;
   applicationCount: number;
   createdAt: string;
 }
@@ -117,8 +117,8 @@ export const adminApi = {
     return response.data;
   },
 
-  toggleStartupVerification: async (startupId: string): Promise<{ success: boolean; message: string; isVerified: boolean }> => {
-    const response = await api.put(`/api/admin/startups/${startupId}/verify`);
+  toggleStartupVerification: async (startupId: string, approve: boolean): Promise<{ success: boolean; message: string; verificationStatus: string }> => {
+    const response = await api.put(`/api/admin/startups/${startupId}/verify?approve=${approve}`);
     return response.data;
   },
 

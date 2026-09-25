@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { getStoredProducts } from '../../services/productStore';
 import { 
   Search, 
@@ -236,6 +237,9 @@ const DUMMY_PRODUCTS: ProductItem[] = [
 
 const ProductShowcase: React.FC = () => {
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
+  const isMr = i18n.language === 'mr';
+
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryParam = searchParams.get('category') || 'all';
   const searchParam = searchParams.get('search') || '';
@@ -287,12 +291,14 @@ const ProductShowcase: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
           
           <div className="flex items-center space-x-2 text-xs text-slate-500">
-            <Link to="/" className="hover:text-blue-900">Home</Link>
+            <Link to="/" className="hover:text-blue-900">{isMr ? 'मुख्य पृष्ठ' : 'Home'}</Link>
             <span>/</span>
-            <Link to="/runway" className="hover:text-blue-900">Startup Runway</Link>
+            <Link to="/runway" className="hover:text-blue-900">{isMr ? 'स्टार्टअप रनवे' : 'Startup Runway'}</Link>
             <span>/</span>
             <span className="font-semibold text-slate-800 capitalize">
-              {selectedCategory === 'all' ? 'All Showcase Products' : selectedCategory}
+              {selectedCategory === 'all' 
+                ? (isMr ? 'सर्व नाविन्यपूर्ण उत्पादने' : 'All Showcase Products') 
+                : selectedCategory}
             </span>
           </div>
 
@@ -319,7 +325,7 @@ const ProductShowcase: React.FC = () => {
                     });
                   }
                 }}
-                placeholder="Search products, startups, brands..."
+                placeholder={isMr ? 'उत्पादने, स्टार्टअप किंवा ब्रँड शोधा...' : 'Search products, startups, brands...'}
                 className="input-field pl-9 py-1.5 text-xs w-full bg-slate-50"
               />
             </div>
@@ -341,20 +347,20 @@ const ProductShowcase: React.FC = () => {
               }}
               className="input-field py-1.5 text-xs w-auto bg-white font-medium"
             >
-              <option value="all">All Categories</option>
-              <option value="robotics">Advanced Robotics</option>
-              <option value="agritech">Agriculture Tech</option>
-              <option value="ai-bigdata">Artificial Intelligence</option>
-              <option value="medtech">MedTech Diagnostic Devices</option>
-              <option value="watertech">Water Tech & Sanitation</option>
-              <option value="cleantech">CleanTech / Renewables</option>
-              <option value="cybersecurity">Cybersecurity & DefTech</option>
-              <option value="edtech">Education Tech</option>
-              <option value="health-lifesciences">Health & Life Sciences</option>
-              <option value="assistive">Assistive Tech & Inclusion</option>
-              <option value="blockchain">Blockchain & Web3 Trust</option>
-              <option value="ar-vr">Augmented / Virtual Reality</option>
-              <option value="renewable">Renewable Power & Storage</option>
+              <option value="all">{isMr ? 'सर्व वर्गवारी (All Categories)' : 'All Categories'}</option>
+              <option value="robotics">{isMr ? 'प्रगत रोबोटिक्स (Robotics)' : 'Advanced Robotics'}</option>
+              <option value="agritech">{isMr ? 'कृषी तंत्रज्ञान (AgriTech)' : 'Agriculture Tech'}</option>
+              <option value="ai-bigdata">{isMr ? 'कृत्रिम बुद्धिमत्ता (AI)' : 'Artificial Intelligence'}</option>
+              <option value="medtech">{isMr ? 'वैद्यकीय उपकरणे (MedTech)' : 'MedTech Diagnostic Devices'}</option>
+              <option value="watertech">{isMr ? 'जल व स्वच्छता तंत्रज्ञान (WaterTech)' : 'Water Tech & Sanitation'}</option>
+              <option value="cleantech">{isMr ? 'पर्यावरण व नवीकरणीय ऊर्जा' : 'CleanTech / Renewables'}</option>
+              <option value="cybersecurity">{isMr ? 'सायबर सुरक्षा व संरक्षण' : 'Cybersecurity & DefTech'}</option>
+              <option value="edtech">{isMr ? 'शैक्षणिक तंत्रज्ञान (EdTech)' : 'Education Tech'}</option>
+              <option value="health-lifesciences">{isMr ? 'आरोग्य व जीवन विज्ञान' : 'Health & Life Sciences'}</option>
+              <option value="assistive">{isMr ? 'सहाय्यक तंत्रज्ञान (Assistive Tech)' : 'Assistive Tech & Inclusion'}</option>
+              <option value="blockchain">{isMr ? 'ब्लॉकचेन आणि वेब३' : 'Blockchain & Web3 Trust'}</option>
+              <option value="ar-vr">{isMr ? 'आभासी वास्तविकता (AR/VR)' : 'Augmented / Virtual Reality'}</option>
+              <option value="renewable">{isMr ? 'सौर व ऊर्जा साठवण' : 'Renewable Power & Storage'}</option>
             </select>
 
             <Link
@@ -362,7 +368,7 @@ const ProductShowcase: React.FC = () => {
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded bg-emerald-700 text-white hover:bg-emerald-800 transition shadow-xs"
             >
               <PlusCircle className="w-3.5 h-3.5" />
-              <span>List Product</span>
+              <span>{isMr ? 'नवीन उत्पादन जोडा' : 'List Product'}</span>
             </Link>
 
             <Link
@@ -370,63 +376,102 @@ const ProductShowcase: React.FC = () => {
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded bg-blue-900 text-white hover:bg-blue-800 transition shadow-xs"
             >
               <FlaskConical className="w-3.5 h-3.5 text-amber-300" />
-              <span>Sandbox Register</span>
+              <span>{isMr ? 'सँडबॉक्स नोंदवही' : 'Sandbox Register'}</span>
             </Link>
           </div>
 
         </div>
       </div>
 
-      {/* 2. MAIN SHOWCASE HEADER (Matching GeM Q2 Category Layout) */}
+      {/* Government Department Banner */}
+      {Boolean(localStorage.getItem('token')) && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+          <div className="bg-gradient-to-r from-gov-blue via-indigo-950 to-slate-900 rounded-lg p-5 text-white shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-l-4 border-amber-400">
+            <div>
+              <div className="flex items-center gap-2 text-xs font-semibold text-amber-300 uppercase tracking-wider mb-1">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                {isMr ? 'GFR नियम १४९ थेट खरेदी मोड सक्रिय' : 'GFR Rule 149 Direct Procurement Mode Active'}
+              </div>
+              <h2 className="text-lg font-bold">
+                {isMr ? 'महाराष्ट्र शासन नाविन्यपूर्ण खरेदी प्रदर्शन' : 'Government Innovation Procurement Showcase'}
+              </h2>
+              <p className="text-xs text-blue-100 mt-0.5">
+                {isMr 
+                  ? 'अधिकृत खरेदी अधिकारी १००% EMD सवलतीसह आणि एस्क्रो डीबीटीसह थेट खरेदी आदेश जारी करू शकतात.'
+                  : 'Authorized Maharashtra State & Municipal Purchasing Officers can directly sanction purchase orders for DPIIT-verified deep-tech innovations with 100% EMD waiver and milestone-linked escrow DBT.'}
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Link
+                to="/procurement/issue-po"
+                className="px-4 py-2 text-xs font-bold bg-amber-400 hover:bg-amber-500 text-slate-950 rounded shadow-sm flex items-center gap-1.5 transition"
+              >
+                <ShoppingCart className="w-4 h-4" />
+                <span>{isMr ? 'थेट खरेदी आदेश जारी करा' : 'Issue Custom Work Order'}</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 2. MAIN SHOWCASE HEADER */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-gray-300 pb-4">
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-                {selectedCategory === 'all' ? 'Startup Products Catalogue' : `${filteredProducts[0]?.categoryName || selectedCategory}`}
+                {selectedCategory === 'all' 
+                  ? (isMr ? 'स्टार्टअप नाविन्यपूर्ण उत्पादने कॅटलॉग' : 'Startup Products Catalogue') 
+                  : `${filteredProducts[0]?.categoryName || selectedCategory}`}
               </h1>
               <span className="text-[11px] font-mono text-slate-500 bg-slate-200/80 px-2 py-0.5 rounded font-semibold">
-                (Q2 Direct Category)
+                {isMr ? '(Q2 थेट वर्गवारी)' : '(Q2 Direct Category)'}
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              Showing 1 - {filteredProducts.length} products in eligible startup innovation register
+              {isMr 
+                ? `पात्र स्टार्टअप नोंदवहीत एकूण ${filteredProducts.length} उत्पादने उपलब्ध`
+                : `Showing 1 - ${filteredProducts.length} products in eligible startup innovation register`}
             </p>
           </div>
 
           {/* Sort Control */}
           <div className="flex items-center gap-3 self-end sm:self-auto">
-            <span className="text-xs font-semibold text-slate-600">Sort by:</span>
+            <span className="text-xs font-semibold text-slate-600">{isMr ? 'क्रमवारी लावा:' : 'Sort by:'}</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
               className="input-field py-1.5 px-3 text-xs w-auto bg-white font-medium shadow-2xs cursor-pointer"
             >
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="rating">Top Rated & Reviewed</option>
+              <option value="price-asc">{isMr ? 'किंमत: कमी ते जास्त' : 'Price: Low to High'}</option>
+              <option value="price-desc">{isMr ? 'किंमत: जास्त ते कमी' : 'Price: High to Low'}</option>
+              <option value="rating">{isMr ? 'सर्वोत्कृष्ट मानांकन (Top Rated)' : 'Top Rated & Reviewed'}</option>
             </select>
           </div>
         </div>
 
         {/* Seller Type Filter Pills */}
         <div className="flex items-center gap-2 mt-4 text-xs font-medium text-slate-600">
-          <span>Seller Role:</span>
-          {['ALL', 'OEM', 'Resellers'].map((st) => (
+          <span>{isMr ? 'विक्रेता भूमिका:' : 'Seller Role:'}</span>
+          {[
+            { id: 'ALL', label: isMr ? 'सर्व विक्रेते' : 'All Sellers' },
+            { id: 'OEM', label: 'OEM' },
+            { id: 'Resellers', label: isMr ? 'पुनर्विक्रेता (Resellers)' : 'Resellers' }
+          ].map((st) => (
             <button
-              key={st}
-              onClick={() => setFilterSeller(st as any)}
+              key={st.id}
+              onClick={() => setFilterSeller(st.id as any)}
               className={`px-3 py-1 rounded-sm border text-[11px] font-semibold transition-all cursor-pointer ${
-                filterSeller === st
+                filterSeller === st.id
                   ? 'bg-[#0c2340] text-white border-[#0c2340]'
                   : 'bg-white text-slate-700 border-gray-300 hover:bg-gray-50'
               }`}
             >
-              {st === 'ALL' ? 'All Sellers' : st}
+              {st.label}
             </button>
           ))}
           <span className="ml-auto text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 border border-emerald-200 font-semibold flex items-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5" /> GFR 149 Prior-Turnover Exempt
+            <ShieldCheck className="w-3.5 h-3.5" /> {isMr ? 'GFR १४९ पूर्व-टर्नओव्हर सवलत' : 'GFR 149 Prior-Turnover Exempt'}
           </span>
         </div>
       </div>
@@ -532,17 +577,32 @@ const ProductShowcase: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Action Button */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedProductForModal(item);
-                  }}
-                  className="btn-primary w-full text-xs py-2 mt-3 font-bold uppercase tracking-wider flex items-center justify-center gap-1.5"
-                >
-                  <span>Procurement Specs</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </button>
+                {/* Action Buttons */}
+                <div className="mt-3 flex items-center gap-2">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/procurement/issue-po?productId=${item.id}`);
+                    }}
+                    className="flex-1 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs py-2 px-2 rounded-xs shadow-xs flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                    title="Direct Government Purchase Order under GFR Rule 149"
+                  >
+                    <ShoppingCart className="w-3.5 h-3.5" />
+                    <span>Procure / Buy</span>
+                  </button>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedProductForModal(item);
+                    }}
+                    className="bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 font-bold text-xs py-2 px-3 rounded-xs flex items-center justify-center gap-1 transition-all cursor-pointer"
+                    title="View Detailed Procurement Specs & Sandbox Testing"
+                  >
+                    <span>Specs</span>
+                    <ExternalLink className="w-3 h-3 text-slate-500" />
+                  </button>
+                </div>
               </div>
             ))}
           </div>

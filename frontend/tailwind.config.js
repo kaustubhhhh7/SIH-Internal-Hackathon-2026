@@ -17,7 +17,7 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['"Times New Roman"', 'Times', 'serif'],
       }
     },
   },

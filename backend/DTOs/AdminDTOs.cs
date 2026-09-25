@@ -56,7 +56,7 @@ namespace GovPortal.API.DTOs
         public string ProductSolutionName { get; set; } = string.Empty;
         public string CurrentProductStage { get; set; } = string.Empty;
         public string UserEmail { get; set; } = string.Empty;
-        public bool IsVerified { get; set; }
+        public string VerificationStatus { get; set; } = string.Empty;
         public int ApplicationCount { get; set; }
         public DateTime CreatedAt { get; set; }
     }

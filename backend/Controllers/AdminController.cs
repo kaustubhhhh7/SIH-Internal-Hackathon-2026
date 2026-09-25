@@ -70,7 +70,7 @@ namespace GovPortal.API.Controllers
                 .Where(t => t.Status == "PILOT_ACTIVE")
                 .CountAsync();
             var pendingVerifications = await _context.StartupProfiles
-                .Where(s => !s.IsActive)
+                .Where(s => s.VerificationStatus == VerificationStatus.PendingGovernmentVerification)
                 .CountAsync();
 
             var recentAuditLogsEntities = await _context.AuditLogs
@@ -297,7 +297,7 @@ namespace GovPortal.API.Controllers
                     ProductSolutionName = s.ProductSolutionName,
                     CurrentProductStage = s.CurrentProductStage,
                     UserEmail = s.User.Email,
-                    IsVerified = s.IsActive,
+                    VerificationStatus = s.VerificationStatus.ToString(),
                     ApplicationCount = s.ChallengeApplications.Count(),
                     CreatedAt = s.CreatedAt
                 })
@@ -308,7 +308,7 @@ namespace GovPortal.API.Controllers
         }
 
         [HttpPut("startups/{id}/verify")]
-        public async Task<IActionResult> ToggleStartupVerification(Guid id)
+        public async Task<IActionResult> ToggleStartupVerification(Guid id, [FromQuery] bool approve)
         {
             var startup = await _context.StartupProfiles.FirstOrDefaultAsync(s => s.Id == id);
             if (startup == null)
@@ -316,14 +316,16 @@ namespace GovPortal.API.Controllers
                 return NotFound(new { success = false, message = "Startup profile not found" });
             }
 
-            startup.IsActive = !startup.IsActive;
+            var oldStatus = startup.VerificationStatus;
+            startup.VerificationStatus = approve ? VerificationStatus.GovernmentVerified : VerificationStatus.Rejected;
             startup.UpdatedAt = DateTime.UtcNow;
 
             await LogAuditAsync(
-                action: startup.IsActive ? "VERIFY_STARTUP_DPIIT" : "REVOKE_STARTUP_VERIFICATION",
+                action: approve ? "VERIFY_STARTUP_DPIIT" : "REJECT_STARTUP_VERIFICATION",
                 entityType: "StartupProfile",
                 entityId: startup.Id.ToString(),
-                newValues: $"IsVerified={startup.IsActive}, CompanyName={startup.CompanyName}"
+                oldValues: $"VerificationStatus={oldStatus}",
+                newValues: $"VerificationStatus={startup.VerificationStatus}, CompanyName={startup.CompanyName}"
             );
 
             await _context.SaveChangesAsync();
@@ -331,8 +333,8 @@ namespace GovPortal.API.Controllers
             return Ok(new
             {
                 success = true,
-                message = startup.IsActive ? "Startup DPIIT verification approved" : "Startup verification revoked",
-                isVerified = startup.IsActive
+                message = approve ? "Startup DPIIT verification approved" : "Startup verification rejected",
+                verificationStatus = startup.VerificationStatus.ToString()
             });
         }
 

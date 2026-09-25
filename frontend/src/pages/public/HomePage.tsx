@@ -106,14 +106,14 @@ const HomePage = () => {
               />
             ))}
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#061426] via-[#061426]/85 to-[#061426]/40 pointer-events-none"></div>
-          <div className="absolute inset-0 bg-radial-at-c from-transparent via-[#061426]/30 to-[#061426]/80 pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#061426]/90 via-[#061426]/40 to-transparent pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#061426]/80 via-transparent to-transparent pointer-events-none"></div>
           
           <div className="absolute inset-0 flex flex-col justify-end pb-14 md:pb-20 px-6 sm:px-10 lg:px-16 max-w-7xl mr-auto">
-            <h1 className="text-3xl md:text-5xl lg:text-[44px] font-extrabold tracking-tight text-white mb-3.5 max-w-3xl leading-[1.2]">
+            <h1 className="text-3xl md:text-5xl lg:text-[44px] font-extrabold tracking-tight text-white mb-3.5 max-w-3xl leading-[1.2] drop-shadow-lg shadow-black/50">
               {t('landing.hero.title')}
             </h1>
-            <p className="text-sm md:text-base text-slate-200 mb-8 max-w-2xl font-normal leading-relaxed">
+            <p className="text-sm md:text-base text-slate-100 mb-8 max-w-2xl font-normal leading-relaxed drop-shadow-md shadow-black/50">
               {t('landing.hero.subtitle')}
             </p>
             <div className="flex flex-wrap items-center gap-4 pt-1">

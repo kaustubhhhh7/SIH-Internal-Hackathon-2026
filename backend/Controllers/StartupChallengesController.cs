@@ -246,5 +246,38 @@ namespace GovPortal.API.Controllers
 
             return CreatedAtAction(nameof(GetChallengeDetails), new { id = challenge.Id }, new { ApplicationId = application.Id });
         }
+
+        [HttpGet("applications")]
+        public async Task<ActionResult> GetMyApplications()
+        {
+            var userId = GetUserId();
+            var startup = await _context.StartupProfiles.FirstOrDefaultAsync(s => s.UserId == userId);
+            if (startup == null) return Forbid();
+
+            var applications = await _context.ChallengeApplications
+                .Include(a => a.Challenge)
+                .ThenInclude(c => c.Department)
+                .Where(a => a.StartupProfileId == startup.Id)
+                .OrderByDescending(a => a.StartedAt)
+                .Select(a => new {
+                    id = "APP-" + a.Id.ToString().Substring(0, 8).ToUpper(),
+                    challengeRef = a.Challenge.ChallengeReferenceNumber,
+                    challengeTitle = a.Challenge.TitleEnglish,
+                    department = a.Challenge.Department != null ? a.Challenge.Department.Name : "GoM Department",
+                    submittedDate = a.StartedAt.ToString("dd MMM yyyy"),
+                    stage = a.Status == "DRAFT" ? "Draft Application" : "Submitted",
+                    stageNumber = 1,
+                    score = "Pending",
+                    status = a.Status,
+                    statusColor = a.Status == "DRAFT" ? "text-gray-700 bg-gray-50 border-gray-200" : "text-amber-700 bg-amber-50 border-amber-200",
+                    pilotAwarded = false,
+                    grantSanctioned = "Under Review",
+                    nextMilestone = a.Status == "DRAFT" ? "Complete and submit application" : "Technical Evaluation",
+                    deadline = a.Challenge.SubmissionClosingDate.HasValue ? a.Challenge.SubmissionClosingDate.Value.ToString("dd MMM yyyy") : "N/A"
+                })
+                .ToListAsync();
+
+            return Ok(applications);
+        }
     }
 }
