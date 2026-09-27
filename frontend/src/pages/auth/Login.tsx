@@ -99,13 +99,13 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-[#f4f6f9] flex-1 w-full py-8 px-4 sm:px-6 lg:px-8 flex items-center justify-center m-auto">
-      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch my-auto">
+    <div className="bg-[#f4f6f9] flex-1 w-full py-6 sm:py-8 px-3 sm:px-6 lg:px-8 flex items-center justify-center m-auto">
+      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-stretch my-auto">
         
         {/* LEFT PANEL: Professional Demo Persona Switcher */}
-        <div className="md:col-span-5 bg-white border border-slate-200 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] p-6 flex flex-col justify-between">
+        <div className="md:col-span-5 bg-white border border-slate-200 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] p-4 sm:p-6 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between pb-3.5 border-b border-slate-100">
+            <div className="flex items-center justify-between pb-3 sm:pb-3.5 border-b border-slate-100">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-700">
                   <FlaskConical className="w-4 h-4" />
@@ -114,13 +114,13 @@ const Login = () => {
                   Test Personas
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-[11px] font-mono font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded-sm border border-slate-200">
+              <div className="flex items-center gap-1.5 text-[10px] sm:text-[11px] font-mono font-medium text-slate-600 bg-slate-100 px-2 py-0.5 rounded-sm border border-slate-200">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
                 <span>SANDBOX ENV</span>
               </div>
             </div>
 
-            <p className="text-[12px] text-slate-500 mt-3 mb-3.5 leading-relaxed">
+            <p className="text-[11px] sm:text-[12px] text-slate-500 mt-2.5 sm:mt-3 mb-3 sm:mb-3.5 leading-relaxed">
               Select a stakeholder persona to test their workflow:
             </p>
 
@@ -132,19 +132,19 @@ const Login = () => {
                     type="button"
                     key={r.role}
                     onClick={() => handleQuickRole(r)}
-                    className={`w-full text-left p-3 rounded-lg transition-all cursor-pointer flex items-center justify-between border ${
+                    className={`w-full text-left p-2.5 sm:p-3 rounded-lg transition-all cursor-pointer flex items-center justify-between border ${
                       isSelected
                         ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
                         : 'bg-slate-50/70 text-slate-700 border-slate-200/80 hover:bg-slate-100 hover:border-slate-300'
                     }`}
                   >
-                    <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
                       <div className={`w-2 h-2 rounded-full shrink-0 ${
                         isSelected ? 'bg-amber-400 ring-4 ring-amber-400/20' : 'bg-slate-300'
                       }`} />
                       <span className="text-xs font-semibold truncate">{r.label}</span>
                     </div>
-                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded shrink-0 ml-2 ${
+                    <span className={`text-[10px] font-mono px-1.5 sm:px-2 py-0.5 rounded shrink-0 ml-1.5 sm:ml-2 ${
                       isSelected ? 'bg-white/15 text-slate-200' : 'bg-white text-slate-500 border border-slate-200'
                     }`}>
                       {r.badge}
@@ -155,7 +155,7 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+          <div className="mt-4 sm:mt-5 pt-3 sm:pt-3.5 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
             <span className="flex items-center gap-1.5 font-medium">
               <KeyRound className="w-3.5 h-3.5 text-slate-400" /> Default Password:
             </span>
@@ -166,18 +166,18 @@ const Login = () => {
         </div>
 
         {/* RIGHT PANEL: Official Government Sign-In Card */}
-        <div className="md:col-span-7 bg-white border border-slate-200 rounded-xl shadow-[0_8px_30px_rgba(12,35,64,0.06)] p-7 sm:p-8 flex flex-col justify-between">
+        <div className="md:col-span-7 bg-white border border-slate-200 rounded-xl shadow-[0_8px_30px_rgba(12,35,64,0.06)] p-5 sm:p-7 md:p-8 flex flex-col justify-between">
           <div>
             {/* Header */}
-            <div className="mb-6 pb-4 border-b border-slate-100">
-              <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#0c2340] tracking-wider uppercase mb-2.5 bg-slate-100 border border-slate-200/80 px-2.5 py-1 rounded-sm">
+            <div className="mb-5 sm:mb-6 pb-3 sm:pb-4 border-b border-slate-100">
+              <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-[#0c2340] tracking-wider uppercase mb-2 bg-slate-100 border border-slate-200/80 px-2.5 py-1 rounded-sm">
                 <ShieldCheck className="w-3.5 h-3.5 text-blue-900" />
                 <span>Government of Maharashtra</span>
               </div>
-              <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                 Sign In to IPP Portal
               </h1>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                 Innovation Procurement Platform • Official Startup & Department Access
               </p>
             </div>

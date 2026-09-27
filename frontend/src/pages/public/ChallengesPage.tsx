@@ -85,13 +85,13 @@ const ChallengesPage = () => {
           </div>
 
           {/* Right: Status Filters & Search Bar in the Sub-Navbar */}
-          <div className="flex flex-wrap items-center gap-2.5">
-            <div className="flex items-center bg-[#071527] p-0.5 rounded-xs border border-slate-700">
+          <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
+            <div className="flex flex-wrap items-center bg-[#071527] p-0.5 rounded-xs border border-slate-700 max-w-full">
               {['All', t('challengesPage.filters.accepting'), t('challengesPage.filters.upcoming'), t('challengesPage.filters.closed')].map(f => (
                 <button 
                   key={f}
                   onClick={() => setFilter(f)}
-                  className={`px-3 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-xs transition-all cursor-pointer ${
+                  className={`px-2.5 sm:px-3 py-1 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider rounded-xs transition-all cursor-pointer ${
                     filter === f || (filter === 'All' && f === 'All') 
                       ? 'bg-amber-500 text-slate-950 font-bold shadow-xs' 
                       : 'text-slate-300 hover:text-white hover:bg-white/5'
@@ -117,18 +117,18 @@ const ChallengesPage = () => {
       </div>
 
       {/* Main Full-Width Content Container */}
-      <div className="w-full px-4 sm:px-8 lg:px-12 py-8 flex-1">
+      <div className="w-full px-4 sm:px-8 lg:px-12 py-6 sm:py-8 flex-1">
         {/* List of Challenges */}
         <div className="space-y-4">
         {filteredChallenges.map((challenge) => (
           <div 
             key={challenge.id} 
-            className="border border-slate-200 bg-white p-6 rounded-lg shadow-2xs hover:border-slate-300 hover:shadow-xs transition-all"
+            className="border border-slate-200 bg-white p-4 sm:p-6 rounded-lg shadow-2xs hover:border-slate-300 hover:shadow-xs transition-all"
           >
-            <div className="flex flex-col lg:flex-row justify-between lg:items-start gap-4 mb-3">
-              <div className="space-y-1.5 flex-1">
-                <div className="flex items-center gap-2.5 flex-wrap">
-                  <span className={`text-[11px] font-bold px-2 py-0.5 uppercase tracking-wide rounded-sm ${
+            <div className="flex flex-col lg:flex-row justify-between lg:items-start gap-3 sm:gap-4 mb-3">
+              <div className="space-y-1.5 flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className={`text-[10px] sm:text-[11px] font-bold px-2 py-0.5 uppercase tracking-wide rounded-sm ${
                     challenge.status === t('challengesPage.filters.accepting') 
                       ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' 
                       : challenge.status === t('challengesPage.filters.upcoming') 
@@ -141,20 +141,20 @@ const ChallengesPage = () => {
                     {challenge.dept}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 leading-snug">
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug break-words">
                   {challenge.title}
                 </h3>
               </div>
               
               {/* Key Metrics: Budget & Deadline */}
-              <div className="flex items-center gap-6 lg:border-l lg:border-slate-100 lg:pl-6 shrink-0 text-sm">
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 lg:border-l lg:border-slate-100 lg:pl-6 shrink-0 text-sm">
                 <div>
                   <span className="block text-slate-400 text-[10px] uppercase font-bold tracking-wider">{t('challengesPage.budget')}</span>
-                  <span className="font-bold text-slate-900 font-mono">{challenge.budget}</span>
+                  <span className="font-bold text-slate-900 font-mono text-xs sm:text-sm">{challenge.budget}</span>
                 </div>
                 <div>
                   <span className="block text-slate-400 text-[10px] uppercase font-bold tracking-wider">{t('challengesPage.deadline')}</span>
-                  <span className="font-semibold text-rose-700 font-mono">{challenge.deadline}</span>
+                  <span className="font-semibold text-rose-700 font-mono text-xs sm:text-sm">{challenge.deadline}</span>
                 </div>
               </div>
             </div>

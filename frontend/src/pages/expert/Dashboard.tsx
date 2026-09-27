@@ -214,13 +214,13 @@ const ExpertDashboard: React.FC = () => {
       )}
 
       {/* Top Banner */}
-      <div className="bg-gradient-to-r from-gov-blue via-indigo-900 to-slate-900 rounded-lg p-6 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-gov-blue via-indigo-900 to-slate-900 rounded-lg p-4 sm:p-6 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-xs font-semibold text-blue-200 uppercase tracking-widest mb-1">
-            <Award className="w-4 h-4 text-emerald-400" />
-            {isMr ? 'द्वि-अंध तांत्रिक मूल्यमापन व AI स्कोअरिंग इंजिन' : 'Double-Blind Technical Evaluation & AI Scoring Engine'}
+            <Award className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span className="truncate">{isMr ? 'द्वि-अंध तांत्रिक मूल्यमापन व AI स्कोअरिंग इंजिन' : 'Double-Blind Technical Evaluation & AI Scoring Engine'}</span>
           </div>
-          <h1 className="text-2xl font-extrabold tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight">
             {isMr ? 'तज्ज्ञ मूल्यमापक प्रशासन केंद्र (Expert Evaluator Portal)' : 'Expert Evaluator Governance Cockpit'}
           </h1>
           <p className="text-xs text-blue-100 mt-1 max-w-2xl">
@@ -508,7 +508,7 @@ const ExpertDashboard: React.FC = () => {
       {/* DETAIL MODAL: AI Audit & Double-Blind Score Details */}
       {activeModalBid && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-2xl border border-slate-200 max-w-2xl w-full p-6 space-y-5 animate-scaleUp">
+          <div className="bg-white rounded-xl shadow-2xl border border-slate-200 max-w-2xl w-full max-w-[95vw] max-h-[90vh] overflow-y-auto p-4 sm:p-6 space-y-5 animate-scaleUp">
             
             {/* Modal Header */}
             <div className="flex items-start justify-between pb-3 border-b border-slate-200">

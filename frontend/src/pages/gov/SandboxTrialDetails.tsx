@@ -178,7 +178,7 @@ const SandboxTrialDetails: React.FC = () => {
       </div>
 
       {/* KPI & Summary Top Metrics */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
           <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Startup Partner</p>
           <p className="text-sm font-bold text-slate-900 mt-1 truncate">{trial.startupName}</p>
@@ -213,17 +213,17 @@ const SandboxTrialDetails: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-slate-200 flex gap-2">
+      <div className="border-b border-slate-200 flex gap-2 overflow-x-auto">
         {[
-          { key: 'kpis', label: `KPI Tracking (${(trial.kpis || []).length})`, icon: <Activity className="w-4 h-4" /> },
-          { key: 'milestones', label: `Milestones & Escrow (${(trial.milestones || []).length})`, icon: <TrendingUp className="w-4 h-4" /> },
-          { key: 'scope', label: 'Testing Scope & Safety', icon: <FileText className="w-4 h-4" /> },
-          { key: 'history', label: `Audit Trail (${(trial.statusHistory || []).length})`, icon: <History className="w-4 h-4" /> }
+          { key: 'kpis', label: `KPI Tracking (${(trial.kpis || []).length})`, icon: <Activity className="w-4 h-4 shrink-0" /> },
+          { key: 'milestones', label: `Milestones & Escrow (${(trial.milestones || []).length})`, icon: <TrendingUp className="w-4 h-4 shrink-0" /> },
+          { key: 'scope', label: 'Testing Scope & Safety', icon: <FileText className="w-4 h-4 shrink-0" /> },
+          { key: 'history', label: `Audit Trail (${(trial.statusHistory || []).length})`, icon: <History className="w-4 h-4 shrink-0" /> }
         ].map((t) => (
           <button
             key={t.key}
             onClick={() => setActiveTab(t.key as any)}
-            className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-all cursor-pointer ${
+            className={`px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
               activeTab === t.key
                 ? 'border-blue-900 text-blue-900 bg-white'
                 : 'border-transparent text-slate-500 hover:text-slate-800'
@@ -422,7 +422,7 @@ const SandboxTrialDetails: React.FC = () => {
       {/* Measurement Modal */}
       {isMeasurementModalOpen && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 animate-fadeIn">
-          <div className="bg-white rounded-lg shadow-xl border border-slate-200 max-w-md w-full p-6 space-y-4">
+          <div className="bg-white rounded-lg shadow-xl border border-slate-200 max-w-md w-full max-w-[95vw] max-h-[90vh] overflow-y-auto p-4 sm:p-6 space-y-4">
             <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider">Log Field Metric Measurement</h3>
             <p className="text-xs text-slate-500">Record an audited numerical value. The system will recalculate achievement mathematically.</p>
 

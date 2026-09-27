@@ -204,13 +204,13 @@ const ProcurementDashboard = () => {
       )}
 
       {/* Header Banner */}
-      <div className="bg-gradient-to-r from-gov-blue to-indigo-900 rounded-lg p-6 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-gov-blue to-indigo-900 rounded-lg p-4 sm:p-6 text-white shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-xs font-semibold text-blue-200 uppercase tracking-widest mb-1">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            GFR Rule 149 & Rule 173(i) Direct Procurement Gateway
+            <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span className="truncate">GFR Rule 149 & Rule 173(i) Direct Procurement Gateway</span>
           </div>
-          <h1 className="text-2xl font-extrabold tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight">
             Procurement Officer Governance Dashboard
           </h1>
           <p className="text-xs text-blue-100 mt-1 max-w-2xl">
@@ -218,7 +218,7 @@ const ProcurementDashboard = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full md:w-auto">
           <button
             onClick={loadData}
             className="px-3 py-2 text-xs font-semibold bg-white/10 hover:bg-white/20 text-white rounded-md transition-colors flex items-center gap-1.5"
@@ -288,7 +288,7 @@ const ProcurementDashboard = () => {
 
       {/* Tabs */}
       <div className="border-b border-slate-200">
-        <nav className="flex space-x-6 text-xs font-bold" aria-label="Tabs">
+        <nav className="flex overflow-x-auto gap-4 sm:gap-6 text-xs font-bold whitespace-nowrap" aria-label="Tabs">
           <button
             onClick={() => setActiveTab('orders')}
             className={`py-3 px-1 border-b-2 transition-colors flex items-center gap-2 ${
@@ -297,7 +297,7 @@ const ProcurementDashboard = () => {
                 : 'border-transparent text-slate-500 hover:text-slate-700'
             }`}
           >
-            <ShoppingCart className="w-4 h-4" />
+            <ShoppingCart className="w-4 h-4 shrink-0" />
             Direct Purchase Orders ({orders.length})
           </button>
 
@@ -309,7 +309,7 @@ const ProcurementDashboard = () => {
                 : 'border-transparent text-slate-500 hover:text-slate-700'
             }`}
           >
-            <Award className="w-4 h-4" />
+            <Award className="w-4 h-4 shrink-0" />
             Validated Pilots Awaiting PO ({validatedPilots.length})
           </button>
 
@@ -321,7 +321,7 @@ const ProcurementDashboard = () => {
                 : 'border-transparent text-slate-500 hover:text-slate-700'
             }`}
           >
-            <ShieldCheck className="w-4 h-4" />
+            <ShieldCheck className="w-4 h-4 shrink-0" />
             Statutory Framework (GFR 149 & DBT Rules)
           </button>
         </nav>
@@ -374,7 +374,7 @@ const ProcurementDashboard = () => {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-slate-200 text-xs">
+              <table className="w-full min-w-[760px] divide-y divide-slate-200 text-xs">
                 <thead className="bg-slate-50 text-slate-600 font-bold uppercase tracking-wider">
                   <tr>
                     <th className="px-4 py-3 text-left">PO Reference</th>
@@ -593,7 +593,7 @@ const ProcurementDashboard = () => {
       {/* MILESTONE / ESCROW UPDATE MODAL */}
       {selectedOrderForMilestone && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn">
-          <div className="bg-white rounded-lg shadow-xl border border-slate-300 w-full max-w-lg p-6 space-y-4">
+          <div className="bg-white rounded-lg shadow-xl border border-slate-300 w-full max-w-lg max-w-[95vw] max-h-[90vh] overflow-y-auto p-4 sm:p-6 space-y-4">
             <div className="flex items-center justify-between border-b border-slate-200 pb-3">
               <div>
                 <h3 className="text-base font-bold text-slate-900">Update Escrow Milestone Status</h3>
@@ -664,18 +664,18 @@ const ProcurementDashboard = () => {
       {/* GFR 149 EXEMPTION CERTIFICATE MODAL */}
       {selectedOrderForCert && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn">
-          <div className="bg-white rounded-lg shadow-2xl border border-slate-400 w-full max-w-2xl max-h-[90vh] overflow-y-auto p-8 space-y-6 text-slate-900">
+          <div className="bg-white rounded-lg shadow-2xl border border-slate-400 w-full max-w-2xl max-w-[95vw] max-h-[90vh] overflow-y-auto p-4 sm:p-8 space-y-6 text-slate-900">
             {/* Header */}
             <div className="flex items-center justify-between border-b-2 border-slate-900 pb-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-amber-500/20 text-amber-900 rounded-full flex items-center justify-center font-bold text-xl border border-amber-500">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-amber-500/20 text-amber-900 rounded-full flex items-center justify-center font-bold text-lg sm:text-xl border border-amber-500 shrink-0">
                   🏛️
                 </div>
                 <div>
-                  <h2 className="text-base font-extrabold uppercase tracking-wide text-slate-950">
+                  <h2 className="text-sm sm:text-base font-extrabold uppercase tracking-wide text-slate-950">
                     Government of Maharashtra
                   </h2>
-                  <p className="text-xs font-semibold text-slate-600">
+                  <p className="text-[11px] sm:text-xs font-semibold text-slate-600">
                     Maharashtra State Innovation Society (MSInS) • GeM Procurement Cell
                   </p>
                 </div>
@@ -683,7 +683,7 @@ const ProcurementDashboard = () => {
 
               <button
                 onClick={() => setSelectedOrderForCert(null)}
-                className="text-slate-400 hover:text-slate-700"
+                className="text-slate-400 hover:text-slate-700 cursor-pointer"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -694,21 +694,21 @@ const ProcurementDashboard = () => {
               <span className="text-[10px] font-mono uppercase bg-slate-100 px-3 py-1 rounded font-bold border border-slate-300">
                 Statutory Sanction & Exemption Certificate
               </span>
-              <h3 className="text-lg font-black text-slate-950 mt-1">
+              <h3 className="text-base sm:text-lg font-black text-slate-950 mt-1 break-words">
                 SANCTION ORDER: {selectedOrderForCert.orderNumber}
               </h3>
-              <p className="text-[11px] font-mono text-gov-blue font-semibold">
+              <p className="text-[11px] font-mono text-gov-blue font-semibold break-words">
                 Authority Ref: {selectedOrderForCert.rule149ExemptionRef}
               </p>
             </div>
 
             {/* Certificate Body */}
-            <div className="bg-slate-50 border border-slate-200 p-5 rounded space-y-3 text-xs leading-relaxed text-slate-800">
+            <div className="bg-slate-50 border border-slate-200 p-4 sm:p-5 rounded space-y-3 text-xs leading-relaxed text-slate-800">
               <p>
                 This certifies that the direct procurement of <strong>{selectedOrderForCert.productName}</strong> (Quantity: {selectedOrderForCert.quantity}) has been approved in accordance with <strong>Rule 149 of the General Financial Rules (GFR)</strong> and <strong>Rule 173(i)</strong> for DPIIT-recognized startups.
               </p>
 
-              <div className="grid grid-cols-2 gap-3 pt-2 border-t border-slate-200">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
                 <div>
                   <span className="text-slate-500 block text-[10px]">Beneficiary Startup:</span>
                   <strong>{selectedOrderForCert.startupName}</strong>
@@ -734,13 +734,13 @@ const ProcurementDashboard = () => {
             </div>
 
             {/* Signature & Seal Footer */}
-            <div className="flex items-center justify-between pt-4 border-t border-slate-200 text-xs">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-4 border-t border-slate-200 text-xs">
               <div>
                 <p className="text-[11px] text-slate-500">Sanctioned Date: {new Date(selectedOrderForCert.orderDate).toLocaleDateString()}</p>
                 <p className="text-[11px] text-slate-500">Digital Seal: SHA-256 Verified</p>
               </div>
 
-              <div className="text-right">
+              <div className="text-left sm:text-right">
                 <p className="font-bold text-slate-900">{selectedOrderForCert.procurementOfficerName || 'Chief Procurement Officer'}</p>
                 <p className="text-[10px] text-slate-500">State Nodal Procurement Authority</p>
               </div>
@@ -751,10 +751,61 @@ const ProcurementDashboard = () => {
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="px-4 py-2 text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white rounded flex items-center gap-1.5 transition-colors"
+                className="px-4 py-2 text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white rounded flex items-center gap-1.5 transition-colors cursor-pointer"
               >
                 <Printer className="w-3.5 h-3.5" /> Print / Save PDF
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* AI EXECUTIVE BRIEF MODAL */}
+      {briefModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn">
+          <div className="bg-white rounded-lg shadow-2xl border border-indigo-200 w-full max-w-2xl max-w-[95vw] max-h-[90vh] overflow-y-auto p-4 sm:p-6 space-y-4 text-slate-900">
+            <div className="flex items-center justify-between border-b border-indigo-100 pb-3">
+              <div className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-indigo-600" />
+                <h3 className="text-sm sm:text-base font-bold text-indigo-950">
+                  AI Autonomous Executive Sanction Brief
+                </h3>
+              </div>
+              <button
+                onClick={() => setBriefModalOpen(false)}
+                className="text-slate-400 hover:text-slate-700 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {briefLoading ? (
+              <div className="py-12 flex flex-col items-center justify-center gap-3 text-slate-500">
+                <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
+                <p className="text-xs">Agent 4 synthesizing field telemetry & GFR Rule 149 clauses...</p>
+              </div>
+            ) : (
+              <div className="prose prose-xs max-w-none text-slate-700 whitespace-pre-wrap bg-slate-50 p-4 rounded border border-slate-200 font-mono text-[11px] leading-relaxed max-h-[60vh] overflow-y-auto">
+                {briefContent}
+              </div>
+            )}
+
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setBriefModalOpen(false)}
+                className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded cursor-pointer"
+              >
+                Close
+              </button>
+              {selectedPilotForBrief && (
+                <Link
+                  to={`/procurement/issue-po?trialId=${selectedPilotForBrief.trialId}`}
+                  className="px-4 py-2 text-xs font-bold bg-gov-blue hover:bg-gov-blueDark text-white rounded flex items-center gap-1.5 cursor-pointer"
+                >
+                  <ShoppingCart className="w-3.5 h-3.5" /> Proceed to Issue PO
+                </Link>
+              )}
             </div>
           </div>
         </div>

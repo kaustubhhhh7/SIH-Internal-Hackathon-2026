@@ -75,15 +75,15 @@ const KnowledgeBaseAdmin = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-page-title text-gray-900">Knowledge Base Management</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Knowledge Base Management</h1>
         <p className="text-body text-gray-500 mt-1">Review unanswered questions and verify portal knowledge.</p>
       </div>
 
       <div className="border-b border-gray-200">
-        <nav className="-mb-px flex space-x-8">
+        <nav className="-mb-px flex overflow-x-auto gap-4 sm:gap-8 whitespace-nowrap">
           <button
             onClick={() => setActiveTab('unanswered')}
-            className={`whitespace-nowrap pb-4 px-1 border-b-2 text-nav ${
+            className={`whitespace-nowrap pb-4 px-1 border-b-2 text-nav cursor-pointer ${
               activeTab === 'unanswered'
                 ? 'border-blue-600 text-blue-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -93,7 +93,7 @@ const KnowledgeBaseAdmin = () => {
           </button>
           <button
             onClick={() => setActiveTab('knowledge')}
-            className={`whitespace-nowrap pb-4 px-1 border-b-2 text-nav ${
+            className={`whitespace-nowrap pb-4 px-1 border-b-2 text-nav cursor-pointer ${
               activeTab === 'knowledge'
                 ? 'border-blue-600 text-blue-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'

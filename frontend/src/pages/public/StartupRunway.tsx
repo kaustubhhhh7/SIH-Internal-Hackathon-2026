@@ -153,36 +153,36 @@ const StartupRunway: React.FC = () => {
     <div className="bg-[#f0f2f5] min-h-screen text-slate-800 animate-fadeIn">
       
       {/* 1. HERO BANNER - GeM / Gov Themed Dark Blue */}
-      <div className="bg-gradient-to-b from-[#002b66] via-[#003380] to-[#0c2340] text-white py-14 px-4 sm:px-6 lg:px-8 border-b-4 border-amber-500 shadow-md relative overflow-hidden">
+      <div className="bg-gradient-to-b from-[#002b66] via-[#003380] to-[#0c2340] text-white py-10 sm:py-14 px-4 sm:px-6 lg:px-8 border-b-4 border-amber-500 shadow-md relative overflow-hidden">
         <div className="max-w-6xl mx-auto text-center relative z-10">
           
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs uppercase tracking-widest text-amber-300 font-semibold mb-4 backdrop-blur-xs">
-            <Award className="w-3.5 h-3.5" />
-            <span>Government e-Marketplace (GeM) & Maharashtra State Innovation Society</span>
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-white/10 border border-white/20 text-[10px] sm:text-xs uppercase tracking-wider sm:tracking-widest text-amber-300 font-semibold mb-3 sm:mb-4 backdrop-blur-xs max-w-full">
+            <Award className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">GeM & Maharashtra State Innovation Society</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight uppercase text-white drop-shadow-sm font-sans">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight uppercase text-white drop-shadow-sm font-sans">
             STARTUP RUNWAY
           </h1>
           
-          <p className="mt-3 text-sm sm:text-lg text-blue-100/90 max-w-3xl mx-auto font-medium leading-relaxed">
+          <p className="mt-2.5 sm:mt-3 text-xs sm:text-base md:text-lg text-blue-100/90 max-w-3xl mx-auto font-medium leading-relaxed">
             Showcasing innovative products and commercial-ready solutions from the finest DPIIT-recognized Startups in India.
           </p>
 
           {/* Quick Search on Runway */}
-          <div className="mt-8 max-w-xl mx-auto">
+          <div className="mt-6 sm:mt-8 max-w-xl mx-auto">
             <div className="relative flex items-center shadow-lg rounded-full overflow-hidden bg-white">
-              <Search className="absolute left-4 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3.5 sm:left-4 w-4 sm:w-5 h-4 sm:h-5 text-gray-400 shrink-0" />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search across 350+ startup products, technologies, or sectors..."
-                className="w-full pl-11 pr-32 py-3.5 text-xs sm:text-sm text-slate-900 focus:outline-none placeholder:text-gray-400"
+                placeholder="Search products, technologies, or sectors..."
+                className="w-full pl-10 sm:pl-11 pr-24 sm:pr-32 py-2.5 sm:py-3.5 text-xs sm:text-sm text-slate-900 focus:outline-none placeholder:text-gray-400"
               />
               <button 
                 onClick={() => navigate(`/showcase?search=${encodeURIComponent(searchTerm)}`)}
-                className="absolute right-1.5 bg-[#0c2340] hover:bg-[#15345c] text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
+                className="absolute right-1 sm:right-1.5 bg-[#0c2340] hover:bg-[#15345c] text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
               >
                 Browse
               </button>
@@ -190,17 +190,17 @@ const StartupRunway: React.FC = () => {
           </div>
 
           {/* Statutory Exemption Highlights */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-blue-200">
+          <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-[11px] sm:text-xs text-blue-200">
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" /> GFR Rule 149 Exempted
+              <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0" /> GFR Rule 149 Exempted
             </span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" /> Prior Turnover & Experience Waived
+              <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0" /> Prior Turnover & Experience Waived
             </span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" /> Direct Government Work Order Eligible
+              <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400 shrink-0" /> Direct Work Order Eligible
             </span>
           </div>
         </div>
@@ -210,14 +210,14 @@ const StartupRunway: React.FC = () => {
       </div>
 
       {/* 2. CATEGORY TILES GRID (Matching GeM Startup Runway Layout) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
         
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3 mb-6 pb-3 border-b border-gray-300">
           <div>
             <div className="text-xs font-bold text-amber-700 uppercase tracking-widest flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5" /> Innovation Domains
             </div>
-            <h2 className="text-xl font-bold text-slate-900 tracking-tight mt-0.5">
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight mt-0.5">
               Explore Products by Technology Category
             </h2>
           </div>
@@ -230,12 +230,12 @@ const StartupRunway: React.FC = () => {
         </div>
 
         {/* Grid matching GeM's crisp white cards on blue/grey */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3.5 sm:gap-4">
           {filteredCategories.map((cat) => (
             <Link
               key={cat.id}
               to={`/showcase?category=${cat.id}`}
-              className="group bg-white border border-slate-300 hover:border-blue-900 rounded-xs p-6 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between items-center text-center cursor-pointer relative"
+              className="group bg-white border border-slate-300 hover:border-blue-900 rounded-xs p-5 sm:p-6 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between items-center text-center cursor-pointer relative"
             >
               {/* Product count pill */}
               <span className="absolute top-2.5 right-2.5 text-[10px] font-mono font-semibold text-slate-500 bg-slate-100 group-hover:bg-blue-50 group-hover:text-blue-800 px-1.5 py-0.5 rounded-none border border-slate-200 transition-colors">
@@ -243,7 +243,7 @@ const StartupRunway: React.FC = () => {
               </span>
 
               {/* Central Icon */}
-              <div className="w-16 h-16 rounded-full bg-slate-50 group-hover:bg-blue-50/70 border border-slate-200 group-hover:border-blue-300 flex items-center justify-center mb-4 transition-transform duration-200 group-hover:scale-105">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-slate-50 group-hover:bg-blue-50/70 border border-slate-200 group-hover:border-blue-300 flex items-center justify-center mb-3 sm:mb-4 transition-transform duration-200 group-hover:scale-105">
                 {cat.icon}
               </div>
 
@@ -272,12 +272,12 @@ const StartupRunway: React.FC = () => {
         </div>
 
         {/* 3. PROCUREMENT PATHWAY CALLOUT */}
-        <div className="mt-12 bg-white border-l-4 border-l-blue-900 border border-slate-300 p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="mt-10 sm:mt-12 bg-white border-l-4 border-l-blue-900 border border-slate-300 p-5 sm:p-6 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-5 sm:gap-6">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-1.5 text-[11px] font-bold text-blue-900 uppercase tracking-wider">
               <TrendingUp className="w-3.5 h-3.5" /> Direct Purchase for Government Departments
             </div>
-            <h3 className="text-base font-bold text-slate-900">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900">
               Procure from DPIIT Startups under Maharashtra State Innovation Policy
             </h3>
             <p className="text-xs text-slate-600 max-w-2xl leading-relaxed">
@@ -285,16 +285,16 @@ const StartupRunway: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 shrink-0 w-full sm:w-auto">
             <Link
               to="/process"
-              className="btn-secondary text-xs py-2.5 px-4 font-bold uppercase tracking-wider"
+              className="btn-secondary text-xs py-2 px-3 sm:px-4 font-bold uppercase tracking-wider flex-1 sm:flex-none text-center"
             >
               Policy Guidelines
             </Link>
             <Link
               to="/showcase"
-              className="btn-primary text-xs py-2.5 px-4 font-bold uppercase tracking-wider"
+              className="btn-primary text-xs py-2 px-3 sm:px-4 font-bold uppercase tracking-wider flex-1 sm:flex-none text-center"
             >
               Explore Products
             </Link>

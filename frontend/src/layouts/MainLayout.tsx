@@ -120,14 +120,31 @@ const MainLayout = () => {
 
   return (
     <div className="flex h-screen bg-gov-gray">
-      {/* Sidebar for Desktop */}
-      <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gov-border transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-auto ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      {/* Overlay Backdrop for Mobile/Tablet */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-xs z-40 md:hidden transition-opacity"
+          onClick={() => setIsSidebarOpen(false)}
+          aria-label="Close sidebar"
+        />
+      )}
+
+      {/* Sidebar for Desktop & Mobile Off-canvas Drawer */}
+      <aside 
+        className={`fixed inset-y-0 left-0 z-50 w-64 max-w-[80vw] bg-white border-r border-gov-border transform transition-transform duration-200 ease-in-out md:translate-x-0 md:static md:inset-auto ${
+          isSidebarOpen ? 'translate-x-0 shadow-2xl md:shadow-none' : '-translate-x-full'
+        }`}
+      >
         <div className="flex items-center justify-between h-16 px-4 border-b border-gov-border bg-gov-blue text-white">
           <span className="text-sm font-semibold tracking-wide uppercase truncate">
             {isMr ? 'महाराष्ट्र शासन' : 'Gov of Maharashtra'}
           </span>
-          <button onClick={() => setIsSidebarOpen(false)} className="lg:hidden text-white">
-            <X className="w-6 h-6" />
+          <button 
+            onClick={() => setIsSidebarOpen(false)} 
+            className="md:hidden text-white hover:text-gray-200 p-1 rounded-md focus:outline-none"
+            aria-label="Close navigation"
+          >
+            <X className="w-5 h-5" />
           </button>
         </div>
         <div className="flex flex-col h-[calc(100vh-4rem)]">
@@ -139,6 +156,7 @@ const MainLayout = () => {
                   <Link
                     key={item.path}
                     to={item.path}
+                    onClick={() => setIsSidebarOpen(false)}
                     className={`flex items-center px-3 py-2.5 text-sm font-medium rounded-md transition-colors ${
                       isActive
                         ? 'bg-blue-50 text-gov-blue font-bold'
@@ -146,61 +164,70 @@ const MainLayout = () => {
                     }`}
                   >
                     <span className={isActive ? 'text-gov-blue' : 'text-gray-400'}>{item.icon}</span>
-                    {item.name}
+                    <span className="truncate">{item.name}</span>
                   </Link>
                 );
               })}
             </nav>
           </div>
           <div className="p-4 border-t border-gov-border">
-            <div className="flex items-center">
+            <div className="flex items-center min-w-0">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 rounded-full bg-gov-blueLight flex items-center justify-center text-white font-bold">
+                <div className="w-8 h-8 rounded-full bg-gov-blueLight flex items-center justify-center text-white font-bold text-sm">
                   {userName.charAt(0)}
                 </div>
               </div>
-              <div className="ml-3">
-                <p className="text-sm font-medium text-gray-700">{userName}</p>
-                <p className="text-xs font-medium text-gray-500">{getRoleDisplayName(userRole)}</p>
+              <div className="ml-3 min-w-0 flex-1">
+                <p className="text-sm font-medium text-gray-700 truncate">{userName}</p>
+                <p className="text-xs font-medium text-gray-500 truncate">{getRoleDisplayName(userRole)}</p>
               </div>
             </div>
             <button 
               onClick={handleLogout}
               className="mt-4 flex w-full items-center px-3 py-2 text-sm font-medium text-red-600 rounded-md hover:bg-red-50 cursor-pointer"
             >
-              <LogOut className="w-5 h-5 mr-3 text-red-500" />
-              {isMr ? 'लॉगआउट करा' : 'Logout'}
+              <LogOut className="w-5 h-5 mr-3 text-red-500 shrink-0" />
+              <span className="truncate">{isMr ? 'लॉगआउट करा' : 'Logout'}</span>
             </button>
           </div>
         </div>
       </aside>
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Header */}
-        <header className="bg-white border-b border-gov-border h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center">
-            <button onClick={() => setIsSidebarOpen(true)} className="text-gray-500 focus:outline-none lg:hidden mr-4">
-              <Menu className="w-6 h-6" />
+        <header className="bg-white border-b border-gov-border h-16 flex items-center justify-between px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center min-w-0 mr-2">
+            <button 
+              onClick={() => setIsSidebarOpen(true)} 
+              className="text-gray-600 hover:text-gov-blue focus:outline-none md:hidden mr-2 sm:mr-3 p-1.5 rounded-md hover:bg-gray-100"
+              aria-label="Open menu"
+            >
+              <Menu className="w-5 h-5" />
             </button>
-            <h1 className="text-xl font-bold text-gov-blue truncate hidden sm:block">
-              {isMr ? 'महाराष्ट्र शासन नाविन्यपूर्ण खरेदी पोर्टल' : 'Innovation Procurement Portal'}
-            </h1>
-            <h1 className="text-xl font-bold text-gov-blue sm:hidden">IPP</h1>
+            <div className="min-w-0">
+              <h1 className="text-sm sm:text-base md:text-lg font-bold text-gov-blue truncate">
+                {isMr ? 'महाराष्ट्र शासन नाविन्यपूर्ण खरेदी पोर्टल' : 'Innovation Procurement Portal'}
+              </h1>
+              <p className="text-[11px] text-gray-500 truncate hidden sm:block">
+                {getRoleDisplayName(userRole)}
+              </p>
+            </div>
           </div>
           
-          <div className="flex items-center space-x-4">
-            <button className="text-gray-500 hover:text-gov-blue p-1">
-              <Bell className="w-5 h-5" />
+          <div className="flex items-center space-x-2 sm:space-x-3 shrink-0">
+            <button className="text-gray-500 hover:text-gov-blue p-1.5 rounded-md hover:bg-gray-100 relative" title="Notifications" aria-label="Notifications">
+              <Bell className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
             
             <div className="relative">
               <button 
                 onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                className="flex items-center text-gray-700 hover:text-gov-blue p-1.5 focus:outline-none bg-slate-100 hover:bg-slate-200 rounded-md border border-slate-300 transition-colors"
+                className="flex items-center text-gray-700 hover:text-gov-blue px-2 py-1.5 focus:outline-none bg-slate-100 hover:bg-slate-200 rounded-md border border-slate-300 transition-colors text-xs font-semibold"
+                aria-label="Switch language"
               >
-                <Globe className="w-4 h-4 mr-1 text-gov-blue" />
-                <span className="text-xs font-extrabold uppercase tracking-wider">{i18n.language}</span>
+                <Globe className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 text-gov-blue shrink-0" />
+                <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider">{i18n.language}</span>
               </button>
               
               {isLangMenuOpen && (
@@ -225,15 +252,15 @@ const MainLayout = () => {
           </div>
         </header>
 
-        {/* Main Area */}
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gov-gray p-4 sm:p-6 lg:p-8 relative">
+        {/* Main Viewport */}
+        <main className="flex-1 min-w-0 overflow-x-hidden overflow-y-auto bg-gov-gray p-3 sm:p-5 lg:p-8 relative">
           <Outlet />
 
           {/* Logout Confirmation Modal */}
           {showLogoutConfirm && (
             <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
-              <div className="bg-white rounded-lg shadow-xl max-w-sm w-full overflow-hidden animate-fadeIn">
-                <div className="p-6">
+              <div className="bg-white rounded-lg shadow-xl max-w-sm w-full mx-auto overflow-hidden animate-fadeIn">
+                <div className="p-5 sm:p-6">
                   <div className="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mb-4 mx-auto">
                     <LogOut className="w-6 h-6" />
                   </div>

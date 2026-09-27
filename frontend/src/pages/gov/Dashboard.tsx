@@ -70,16 +70,16 @@ const GovDashboard = () => {
 
   return (
     <div className="space-y-6 animate-fadeIn">
-      <div className="flex justify-between items-center border-b border-gov-border pb-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-gov-border pb-4">
         <div>
-          <h2 className="text-page-title text-gov-blue">
+          <h2 className="text-xl sm:text-2xl font-bold text-gov-blue">
             {t('dashboard.title')} - {data?.departmentName || 'Department'}
           </h2>
           <p className="text-caption text-gray-500 mt-0.5">
             Real-time government challenge management & procurement overview
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
           <button 
             onClick={() => refetch()} 
             disabled={isFetching}
@@ -88,7 +88,7 @@ const GovDashboard = () => {
           >
             <RefreshCw className={`w-4 h-4 ${isFetching ? 'animate-spin' : ''}`} />
           </button>
-          <Link to="/gov/challenges/create" className="btn-primary flex items-center">
+          <Link to="/gov/challenges/create" className="btn-primary flex items-center justify-center">
             <Plus className="w-4 h-4 mr-2" />
             {t('challenge.create')}
           </Link>
@@ -96,7 +96,7 @@ const GovDashboard = () => {
       </div>
 
       {/* KPI Cards — Derived directly from PostgreSQL */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="card border-l-4 border-l-gov-blue flex items-center justify-between">
           <div>
             <p className="text-caption text-gray-500">Active Challenges</p>
@@ -160,8 +160,8 @@ const GovDashboard = () => {
             </div>
           </div>
         ) : data?.recentChallenges && data.recentChallenges.length > 0 ? (
-          <div className="bg-white rounded-lg shadow-sm border border-gov-border overflow-hidden">
-            <table className="w-full text-left border-collapse">
+          <div className="bg-white rounded-lg shadow-sm border border-gov-border overflow-x-auto">
+            <table className="w-full min-w-[650px] text-left border-collapse">
               <thead>
                 <tr className="bg-gray-50 border-b border-gray-200">
                   <th className="p-4 text-caption text-gray-600">Ref Number</th>

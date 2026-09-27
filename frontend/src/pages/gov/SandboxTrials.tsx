@@ -203,8 +203,8 @@ const SandboxTrials: React.FC = () => {
           </button>
         </div>
       ) : trials.length > 0 ? (
-        <div className="bg-white rounded-lg border border-slate-200 shadow-xs overflow-hidden">
-          <table className="w-full text-left border-collapse">
+        <div className="bg-white rounded-lg border border-slate-200 shadow-xs overflow-x-auto">
+          <table className="w-full min-w-[760px] text-left border-collapse">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-600 uppercase tracking-wider">
                 <th className="p-4">Trial ID & Title</th>

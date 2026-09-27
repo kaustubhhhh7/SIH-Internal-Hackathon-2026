@@ -110,34 +110,34 @@ const RegisterStartup = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f1f3f6] py-8 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    <div className="min-h-screen bg-[#f1f3f6] py-6 sm:py-8 px-3 sm:px-6 lg:px-8 flex flex-col items-center">
       <div className="w-full max-w-4xl">
         
         {/* National / State Portal Identification Banner */}
-        <div className="bg-[#0b1f3a] text-white rounded-t-sm border-t-4 border-amber-500 shadow-sm p-6 mb-0 relative">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div className="flex items-center gap-5">
+        <div className="bg-[#0b1f3a] text-white rounded-t-sm border-t-4 border-amber-500 shadow-sm p-4 sm:p-6 mb-0 relative">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
+            <div className="flex items-center gap-3 sm:gap-5 min-w-0">
               <img 
                 src={emblemLogo} 
                 alt="State Emblem of India" 
-                className="h-16 w-auto object-contain brightness-0 invert filter shrink-0 opacity-95" 
+                className="h-12 sm:h-16 w-auto object-contain brightness-0 invert filter shrink-0 opacity-95" 
               />
-              <div className="border-l border-white/20 pl-5">
-                <div className="text-[11px] font-bold text-amber-400 uppercase tracking-wider">
+              <div className="border-l border-white/20 pl-3 sm:pl-5 min-w-0">
+                <div className="text-[10px] sm:text-[11px] font-bold text-amber-400 uppercase tracking-wider truncate">
                   {t('registerStartup.deptName')}
                 </div>
-                <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-0.5">
+                <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-white tracking-tight mt-0.5 break-words">
                   {t('registerStartup.bannerTitle')}
                 </h1>
-                <p className="text-xs text-slate-300 mt-1 font-normal">
+                <p className="text-[11px] sm:text-xs text-slate-300 mt-0.5 sm:mt-1 font-normal leading-tight">
                   {t('registerStartup.bannerSub')}
                 </p>
               </div>
             </div>
             
             <div className="shrink-0 flex sm:flex-col items-start sm:items-end gap-2 border-t sm:border-t-0 border-white/10 pt-3 sm:pt-0 w-full sm:w-auto justify-between">
-              <span className="px-2.5 py-1 rounded-xs bg-emerald-900/60 border border-emerald-500/50 text-emerald-300 text-[11px] font-semibold tracking-wide flex items-center gap-1.5">
-                <Lock className="w-3 h-3 text-emerald-400" /> {t('registerStartup.dpiitSync')}
+              <span className="px-2.5 py-1 rounded-xs bg-emerald-900/60 border border-emerald-500/50 text-emerald-300 text-[10px] sm:text-[11px] font-semibold tracking-wide flex items-center gap-1.5">
+                <Lock className="w-3 h-3 text-emerald-400 shrink-0" /> {t('registerStartup.dpiitSync')}
               </span>
               <Link to="/login" className="text-xs text-blue-200 hover:text-white underline font-medium">
                 {t('registerStartup.alreadyRegistered')}
@@ -147,15 +147,15 @@ const RegisterStartup = () => {
         </div>
 
         {/* Structured Stepper Bar */}
-        <div className="bg-white border-x border-b border-gray-300 px-6 py-5 shadow-2xs mb-6">
-          <div className="grid grid-cols-4 gap-2 relative">
+        <div className="bg-white border-x border-b border-gray-300 px-3 sm:px-6 py-4 sm:py-5 shadow-2xs mb-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 relative">
             {[
               { num: 1, label: t('registerStartup.steps.s1') },
               { num: 2, label: t('registerStartup.steps.s2') },
               { num: 3, label: t('registerStartup.steps.s3') },
               { num: 4, label: t('registerStartup.steps.s4') },
             ].map((s) => (
-              <div key={s.num} className="flex flex-col sm:flex-row items-center sm:items-center gap-2 text-center sm:text-left">
+              <div key={s.num} className="flex items-center gap-2 text-left p-1 rounded-xs">
                 <div 
                   className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-colors ${
                     step > s.num 
@@ -168,8 +168,8 @@ const RegisterStartup = () => {
                   {step > s.num ? <CheckCircle className="w-4 h-4" /> : s.num}
                 </div>
                 <div className="min-w-0">
-                  <div className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Step 0{s.num}</div>
-                  <div className={`text-xs font-semibold truncate ${step === s.num ? 'text-[#0b1f3a]' : 'text-gray-600'}`}>
+                  <div className="text-[9px] sm:text-[10px] uppercase font-bold text-gray-400 tracking-wider">Step 0{s.num}</div>
+                  <div className={`text-[11px] sm:text-xs font-semibold truncate ${step === s.num ? 'text-[#0b1f3a]' : 'text-gray-600'}`}>
                     {s.label}
                   </div>
                 </div>
@@ -180,7 +180,7 @@ const RegisterStartup = () => {
 
         {/* Form Container */}
         <div className="bg-white border border-gray-300 rounded-sm shadow-2xs">
-          <form onSubmit={handleSubmit(onSubmit)} className="p-6 sm:p-8">
+          <form onSubmit={handleSubmit(onSubmit)} className="p-4 sm:p-6 md:p-8">
             
             {/* STEP 1: ORGANISATION DETAILS */}
             {step === 1 && (
@@ -378,22 +378,22 @@ const RegisterStartup = () => {
             )}
 
             {/* Navigation Buttons */}
-            <div className="mt-10 pt-5 border-t border-gray-200">
+            <div className="mt-8 sm:mt-10 pt-4 sm:pt-5 border-t border-gray-200">
               {apiError && (
-                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded text-red-700 text-xs sm:text-sm">
                   {apiError}
                 </div>
               )}
-              <div className="flex justify-between">
+              <div className="flex flex-col-reverse sm:flex-row justify-between gap-3 sm:gap-0">
                 {step > 1 ? (
-                  <button type="button" onClick={() => setStep(step - 1)} className="btn-secondary" disabled={isSubmitting}>
+                  <button type="button" onClick={() => setStep(step - 1)} className="btn-secondary w-full sm:w-auto text-center" disabled={isSubmitting}>
                     {t('registerStartup.nav.previous')}
                   </button>
                 ) : (
-                  <Link to="/login" className="btn-secondary">{t('registerStartup.nav.backToLogin')}</Link>
+                  <Link to="/login" className="btn-secondary w-full sm:w-auto text-center">{t('registerStartup.nav.backToLogin')}</Link>
                 )}
                 
-                <button type="submit" className="btn-primary flex items-center" disabled={isSubmitting}>
+                <button type="submit" className="btn-primary flex items-center justify-center w-full sm:w-auto text-center" disabled={isSubmitting}>
                   {isSubmitting ? t('registerStartup.nav.submitting') : (step < 4 ? t('registerStartup.nav.nextStep') : t('registerStartup.nav.submitReg'))}
                   {!isSubmitting && step < 4 && <ArrowRight className="ml-2 w-4 h-4" />}
                 </button>

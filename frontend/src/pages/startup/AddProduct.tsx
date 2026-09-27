@@ -146,7 +146,7 @@ const AddStartupProduct: React.FC = () => {
         </div>
 
         {/* Header */}
-        <div className="bg-[#0c2340] text-white p-6 rounded-t-sm shadow-md border-b-4 border-amber-500">
+        <div className="bg-[#0c2340] text-white p-4 sm:p-6 rounded-t-sm shadow-md border-b-4 border-amber-500">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-300 mb-1">
             <Sparkles className="w-4 h-4" />
             <span>Maharashtra State Innovation Register • GeM Startup Runway</span>
@@ -160,7 +160,7 @@ const AddStartupProduct: React.FC = () => {
         </div>
 
         {/* Main Form */}
-        <div className="bg-white p-6 sm:p-8 border border-gray-300 shadow-sm rounded-b-sm">
+        <div className="bg-white p-4 sm:p-6 md:p-8 border border-gray-300 shadow-sm rounded-b-sm">
           {success ? (
             <div className="py-12 text-center space-y-3">
               <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner">

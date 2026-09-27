@@ -389,8 +389,8 @@ const CreateChallenge = () => {
       </div>
 
       {/* Stepper */}
-      <div className="mb-8 bg-white p-6 rounded-xl border border-gray-200 shadow-xs">
-        <div className="relative flex items-center justify-between">
+      <div className="mb-8 bg-white p-4 sm:p-6 rounded-xl border border-gray-200 shadow-xs overflow-x-auto">
+        <div className="relative flex items-center justify-between min-w-[580px]">
           {/* Background Connecting Line */}
           <div className="absolute top-5 left-6 right-6 h-0.5 bg-gray-200 -z-0">
             <div 
@@ -436,21 +436,21 @@ const CreateChallenge = () => {
             {renderStepContent()}
           </div>
 
-          <div className="mt-8 pt-6 border-t border-gray-200 flex justify-between items-center">
+          <div className="mt-8 pt-6 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-3">
             <button
               type="button"
               onClick={handlePrev}
               disabled={currentStep === 1 || isSubmitting}
-              className={`px-4 py-2 border border-gray-300 rounded-md shadow-sm text-nav text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gov-blue ${currentStep === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`px-4 py-2 border border-gray-300 rounded-md shadow-sm text-nav text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gov-blue text-center ${currentStep === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               <ChevronLeft className="w-4 h-4 inline mr-1" />
               Previous
             </button>
             
-            <div className="space-x-3">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
               <button
                 type="button"
-                className="px-4 py-2 border border-transparent rounded-md shadow-sm text-nav text-gov-blue bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gov-blue"
+                className="px-4 py-2 border border-transparent rounded-md shadow-sm text-nav text-gov-blue bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gov-blue text-center"
               >
                 <Save className="w-4 h-4 inline mr-1" />
                 Save Draft
@@ -459,7 +459,7 @@ const CreateChallenge = () => {
               {currentStep < 7 ? (
                 <button
                   type="submit"
-                  className="px-6 py-2 border border-transparent rounded-md shadow-sm text-nav text-white bg-gov-blue hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gov-blue"
+                  className="px-6 py-2 border border-transparent rounded-md shadow-sm text-nav text-white bg-gov-blue hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gov-blue text-center"
                 >
                   Next
                   <ChevronRight className="w-4 h-4 inline ml-1" />
@@ -468,7 +468,7 @@ const CreateChallenge = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-6 py-2 border border-transparent rounded-md shadow-sm text-nav text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
+                  className="px-6 py-2 border border-transparent rounded-md shadow-sm text-nav text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 text-center"
                 >
                   {isSubmitting ? 'Saving...' : 'Submit Challenge'}
                   <Send className="w-4 h-4 inline ml-2" />

@@ -270,17 +270,17 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
       )}
 
       {/* KPI Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
         {/* Total Users */}
-        <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-200 border-l-4 border-l-gov-blue hover:shadow-md transition-shadow">
+        <div className="bg-white rounded-lg p-4 sm:p-5 shadow-sm border border-gray-200 border-l-4 border-l-gov-blue hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">
               {isMr ? 'एकूण वापरकर्ते' : 'Total Users'}
             </span>
-            <Users className="w-6 h-6 text-gov-blue opacity-70" />
+            <Users className="w-5 h-5 sm:w-6 sm:h-6 text-gov-blue opacity-70" />
           </div>
           <div className="mt-2 flex items-baseline">
-            <span className="text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.totalUsers ?? 0)}</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.totalUsers ?? 0)}</span>
             <span className="ml-2 text-xs text-green-600 font-medium">
               {isMr ? 'RBAC सक्रिय' : 'RBAC Active'}
             </span>
@@ -291,15 +291,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
         </div>
 
         {/* Registered Startups */}
-        <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-200 border-l-4 border-l-green-500 hover:shadow-md transition-shadow">
+        <div className="bg-white rounded-lg p-4 sm:p-5 shadow-sm border border-gray-200 border-l-4 border-l-green-500 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">
               {isMr ? 'स्टार्टअप्स' : 'Startups'}
             </span>
-            <Activity className="w-6 h-6 text-green-600 opacity-70" />
+            <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 opacity-70" />
           </div>
           <div className="mt-2 flex items-baseline">
-            <span className="text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.totalStartups ?? 0)}</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.totalStartups ?? 0)}</span>
             <span className="ml-2 text-xs text-amber-600 font-medium">
               {isMr ? 'DPIIT प्रमाणित' : 'DPIIT Verified'}
             </span>
@@ -310,15 +310,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
         </div>
 
         {/* Departments */}
-        <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-200 border-l-4 border-l-indigo-500 hover:shadow-md transition-shadow">
+        <div className="bg-white rounded-lg p-4 sm:p-5 shadow-sm border border-gray-200 border-l-4 border-l-indigo-500 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">
               {isMr ? 'शासकीय विभाग' : 'Departments'}
             </span>
-            <Building className="w-6 h-6 text-indigo-600 opacity-70" />
+            <Building className="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600 opacity-70" />
           </div>
           <div className="mt-2 flex items-baseline">
-            <span className="text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.totalDepartments ?? 0)}</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.totalDepartments ?? 0)}</span>
             <span className="ml-2 text-xs text-indigo-600 font-medium">
               {isMr ? 'राज्य व महानगरपालिका' : 'State & Municipal'}
             </span>
@@ -329,15 +329,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
         </div>
 
         {/* Active Challenges */}
-        <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-200 border-l-4 border-l-amber-500 hover:shadow-md transition-shadow">
+        <div className="bg-white rounded-lg p-4 sm:p-5 shadow-sm border border-gray-200 border-l-4 border-l-amber-500 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">
               {isMr ? 'आव्हाने' : 'Challenges'}
             </span>
-            <FileText className="w-6 h-6 text-amber-600 opacity-70" />
+            <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-amber-600 opacity-70" />
           </div>
           <div className="mt-2 flex items-baseline">
-            <span className="text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.activeChallenges ?? 0)}</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.activeChallenges ?? 0)}</span>
             <span className="ml-2 text-xs text-amber-600 font-medium">
               {isMr ? 'प्रकाशित' : 'Published'}
             </span>
@@ -348,15 +348,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
         </div>
 
         {/* Sandbox Pilots */}
-        <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-200 border-l-4 border-l-purple-500 hover:shadow-md transition-shadow">
+        <div className="bg-white rounded-lg p-4 sm:p-5 shadow-sm border border-gray-200 border-l-4 border-l-purple-500 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">
               {isMr ? 'सँडबॉक्स पायलट' : 'Sandbox Pilots'}
             </span>
-            <Layers className="w-6 h-6 text-purple-600 opacity-70" />
+            <Layers className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600 opacity-70" />
           </div>
           <div className="mt-2 flex items-baseline">
-            <span className="text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.activePilots ?? 0)}</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-gray-900">{loading ? '...' : (stats?.activePilots ?? 0)}</span>
             <span className="ml-2 text-xs text-purple-600 font-medium">
               {isMr ? '९०-दिवस' : '90-Day'}
             </span>
@@ -367,15 +367,15 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
         </div>
 
         {/* System Health */}
-        <div className="bg-white rounded-lg p-5 shadow-sm border border-gray-200 border-l-4 border-l-emerald-500 hover:shadow-md transition-shadow">
+        <div className="bg-white rounded-lg p-4 sm:p-5 shadow-sm border border-gray-200 border-l-4 border-l-emerald-500 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase text-gray-500 tracking-wider">
               {isMr ? 'प्रणाली स्थिती' : 'System State'}
             </span>
-            <Shield className="w-6 h-6 text-emerald-600 opacity-70" />
+            <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 opacity-70" />
           </div>
           <div className="mt-2 flex items-baseline">
-            <span className="text-2xl font-bold text-emerald-600">
+            <span className="text-xl sm:text-2xl font-bold text-emerald-600">
               {stats?.systemHealth || (isMr ? 'सक्षम (Healthy)' : 'Healthy')}
             </span>
           </div>
@@ -384,10 +384,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
       </div>
 
       {/* Navigation Tabs */}
-      <div className="bg-white border border-gray-200 rounded-lg p-1.5 shadow-sm flex flex-wrap gap-1">
+      <div className="bg-white border border-gray-200 rounded-lg p-1.5 shadow-sm flex overflow-x-auto gap-1 sm:gap-2 whitespace-nowrap">
         <button
           onClick={() => setActiveTab('overview')}
-          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors cursor-pointer ${
+          className={`flex items-center px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-md transition-colors cursor-pointer shrink-0 ${
             activeTab === 'overview'
               ? 'bg-gov-blue text-white shadow'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -399,7 +399,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
 
         <button
           onClick={() => setActiveTab('users')}
-          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors cursor-pointer ${
+          className={`flex items-center px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-md transition-colors cursor-pointer shrink-0 ${
             activeTab === 'users'
               ? 'bg-gov-blue text-white shadow'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -411,7 +411,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
 
         <button
           onClick={() => setActiveTab('departments')}
-          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors cursor-pointer ${
+          className={`flex items-center px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-md transition-colors cursor-pointer shrink-0 ${
             activeTab === 'departments'
               ? 'bg-gov-blue text-white shadow'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -423,7 +423,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
 
         <button
           onClick={() => setActiveTab('startups')}
-          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors cursor-pointer ${
+          className={`flex items-center px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-md transition-colors cursor-pointer shrink-0 ${
             activeTab === 'startups'
               ? 'bg-gov-blue text-white shadow'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -435,7 +435,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
 
         <button
           onClick={() => setActiveTab('settings')}
-          className={`flex items-center px-4 py-2 text-sm font-semibold rounded-md transition-colors cursor-pointer ${
+          className={`flex items-center px-3.5 py-2 text-xs sm:text-sm font-semibold rounded-md transition-colors cursor-pointer shrink-0 ${
             activeTab === 'settings'
               ? 'bg-gov-blue text-white shadow'
               : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -546,7 +546,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
             </div>
 
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 text-sm">
+              <table className="w-full min-w-[650px] divide-y divide-gray-200 text-sm">
                 <thead className="bg-gray-50 text-gray-600 font-semibold text-xs uppercase tracking-wider">
                   <tr>
                     <th className="px-6 py-3 text-left">Timestamp</th>
@@ -635,7 +635,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
           </div>
 
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 text-sm">
+            <table className="w-full min-w-[750px] divide-y divide-gray-200 text-sm">
               <thead className="bg-gray-50 text-gray-600 font-semibold text-xs uppercase tracking-wider">
                 <tr>
                   <th className="px-6 py-3 text-left">User Identity</th>
@@ -787,7 +787,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
           </div>
 
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 text-sm">
+            <table className="w-full min-w-[750px] divide-y divide-gray-200 text-sm">
               <thead className="bg-gray-50 text-gray-600 font-semibold text-xs uppercase tracking-wider">
                 <tr>
                   <th className="px-6 py-3 text-left">Company Details</th>
@@ -949,31 +949,31 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
 
       {/* AI Audit Modal */}
       {auditModalOpen && auditData && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full p-6 animate-scaleUp">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 animate-fadeIn">
+          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-w-[95vw] max-h-[90vh] overflow-y-auto p-4 sm:p-6 animate-scaleUp">
             <div className="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-indigo-600" />
-                <h3 className="text-base font-bold text-gray-900">AI Verification Audit: {auditData.startup.companyName}</h3>
+                <h3 className="text-sm sm:text-base font-bold text-gray-900">AI Verification Audit: {auditData.startup.companyName}</h3>
               </div>
-              <button onClick={() => setAuditModalOpen(false)} className="text-gray-400 hover:text-gray-600">
+              <button onClick={() => setAuditModalOpen(false)} className="text-gray-400 hover:text-gray-600 cursor-pointer">
                 <XCircle className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-4 max-h-[60vh] overflow-y-auto">
               <div className={`p-4 rounded-md border ${auditData.report.isGenuine ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
-                <h4 className={`text-lg font-bold ${auditData.report.isGenuine ? 'text-green-800' : 'text-red-800'} mb-1`}>
+                <h4 className={`text-base sm:text-lg font-bold ${auditData.report.isGenuine ? 'text-green-800' : 'text-red-800'} mb-1`}>
                   {auditData.report.isGenuine ? '✅ Startup verified as Genuine (100/100)' : '❌ Verification Failed / Flags Detected'}
                 </h4>
-                <p className="text-sm text-gray-700">The AI Autonomous Engine has cross-referenced statutory records across DPIIT, MCA, and State Tax Registries.</p>
+                <p className="text-xs sm:text-sm text-gray-700">The AI Autonomous Engine has cross-referenced statutory records across DPIIT, MCA, and State Tax Registries.</p>
               </div>
 
               <div>
                 <h5 className="text-sm font-bold text-gray-900 mb-2 border-b pb-1">Validation Checks Passed ({auditData.report.checksPassed?.length || 0})</h5>
                 <ul className="space-y-2">
                   {auditData.report.checksPassed?.map((check, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-green-700">
+                    <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-green-700">
                       <span className="font-bold text-green-500 mt-0.5">✓</span>
                       <span>{check}</span>
                     </li>
@@ -989,7 +989,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
                   <h5 className="text-sm font-bold text-red-700 mb-2 border-b border-red-100 pb-1">Critical Warnings ({auditData.report.warnings.length})</h5>
                   <ul className="space-y-2">
                     {auditData.report.warnings.map((warn, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-red-600">
+                      <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-red-600">
                         <span className="font-bold text-red-500 mt-0.5">⚠</span>
                         <span>{warn}</span>
                       </li>
@@ -999,12 +999,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
               )}
             </div>
 
-            <div className="flex justify-between items-center pt-4 mt-6 border-t border-gray-100">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pt-4 mt-6 border-t border-gray-100">
               <span className="text-xs text-gray-500 italic">Generated by AgentOrchestratorService via Autonomous AI</span>
-              <div className="flex space-x-3">
+              <div className="flex space-x-3 w-full sm:w-auto justify-end">
                 <button
                   onClick={() => setAuditModalOpen(false)}
-                  className="px-4 py-2 text-xs font-semibold text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200"
+                  className="px-4 py-2 text-xs font-semibold text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200 cursor-pointer"
                 >
                   Close
                 </button>
@@ -1014,7 +1014,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
                       handleToggleStartupVerification(auditData.startup, true);
                       setAuditModalOpen(false);
                     }}
-                    className="px-4 py-2 text-xs font-semibold text-white bg-gov-blue rounded-md hover:bg-blue-800"
+                    className="px-4 py-2 text-xs font-semibold text-white bg-gov-blue rounded-md hover:bg-blue-800 cursor-pointer"
                   >
                     Officially Approve
                   </button>
@@ -1027,8 +1027,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ defaultTab = 'overview'
 
       {/* Onboard Department Modal */}
       {showDeptModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 animate-scaleUp">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 animate-fadeIn">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full max-w-[95vw] max-h-[90vh] overflow-y-auto p-4 sm:p-6 animate-scaleUp">
             <div className="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
               <h3 className="text-base font-bold text-gov-blue">Onboard State Department</h3>
               <button onClick={() => setShowDeptModal(false)} className="text-gray-400 hover:text-gray-600">

@@ -451,27 +451,29 @@ const ProductShowcase: React.FC = () => {
         </div>
 
         {/* Seller Type Filter Pills */}
-        <div className="flex items-center gap-2 mt-4 text-xs font-medium text-slate-600">
+        <div className="flex flex-wrap items-center gap-2 mt-4 text-xs font-medium text-slate-600">
           <span>{isMr ? 'विक्रेता भूमिका:' : 'Seller Role:'}</span>
-          {[
-            { id: 'ALL', label: isMr ? 'सर्व विक्रेते' : 'All Sellers' },
-            { id: 'OEM', label: 'OEM' },
-            { id: 'Resellers', label: isMr ? 'पुनर्विक्रेता (Resellers)' : 'Resellers' }
-          ].map((st) => (
-            <button
-              key={st.id}
-              onClick={() => setFilterSeller(st.id as any)}
-              className={`px-3 py-1 rounded-sm border text-[11px] font-semibold transition-all cursor-pointer ${
-                filterSeller === st.id
-                  ? 'bg-[#0c2340] text-white border-[#0c2340]'
-                  : 'bg-white text-slate-700 border-gray-300 hover:bg-gray-50'
-              }`}
-            >
-              {st.label}
-            </button>
-          ))}
-          <span className="ml-auto text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 border border-emerald-200 font-semibold flex items-center gap-1">
-            <ShieldCheck className="w-3.5 h-3.5" /> {isMr ? 'GFR १४९ पूर्व-टर्नओव्हर सवलत' : 'GFR 149 Prior-Turnover Exempt'}
+          <div className="flex flex-wrap gap-1.5">
+            {[
+              { id: 'ALL', label: isMr ? 'सर्व विक्रेते' : 'All Sellers' },
+              { id: 'OEM', label: 'OEM' },
+              { id: 'Resellers', label: isMr ? 'पुनर्विक्रेता (Resellers)' : 'Resellers' }
+            ].map((st) => (
+              <button
+                key={st.id}
+                onClick={() => setFilterSeller(st.id as any)}
+                className={`px-2.5 sm:px-3 py-1 rounded-xs border text-[11px] font-semibold transition-all cursor-pointer ${
+                  filterSeller === st.id
+                    ? 'bg-[#0c2340] text-white border-[#0c2340]'
+                    : 'bg-white text-slate-700 border-gray-300 hover:bg-gray-50'
+                }`}
+              >
+                {st.label}
+              </button>
+            ))}
+          </div>
+          <span className="sm:ml-auto w-full sm:w-auto text-[11px] text-emerald-700 bg-emerald-50 px-2 py-0.5 border border-emerald-200 font-semibold flex items-center gap-1 mt-1 sm:mt-0">
+            <ShieldCheck className="w-3.5 h-3.5 shrink-0" /> {isMr ? 'GFR १४९ पूर्व-टर्नओव्हर सवलत' : 'GFR 149 Prior-Turnover Exempt'}
           </span>
         </div>
       </div>
@@ -612,16 +614,16 @@ const ProductShowcase: React.FC = () => {
 
       {/* 4. MODAL: DETAILED PRODUCT PROCUREMENT SPECIFICATION & WORK ORDER INQUIRY */}
       {selectedProductForModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-2xs animate-fadeIn">
-          <div className="bg-white max-w-2xl w-full border border-gray-300 shadow-xl rounded-sm overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3 sm:p-4 backdrop-blur-2xs animate-fadeIn">
+          <div className="bg-white max-w-2xl w-full max-h-[90vh] flex flex-col border border-gray-300 shadow-xl rounded-sm overflow-hidden">
             
             {/* Modal Header */}
-            <div className="bg-[#0c2340] text-white p-4 flex justify-between items-start border-b-2 border-amber-500">
-              <div>
+            <div className="bg-[#0c2340] text-white p-4 flex justify-between items-start border-b-2 border-amber-500 shrink-0">
+              <div className="pr-2">
                 <span className="text-[10px] font-bold uppercase tracking-widest text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded">
                   GeM & GoM Direct Work Order Ready
                 </span>
-                <h3 className="text-base font-bold mt-1 text-white leading-snug">
+                <h3 className="text-sm sm:text-base font-bold mt-1 text-white leading-snug">
                   {selectedProductForModal.name}
                 </h3>
                 <p className="text-xs text-blue-200 mt-0.5">
@@ -630,30 +632,31 @@ const ProductShowcase: React.FC = () => {
               </div>
               <button 
                 onClick={() => setSelectedProductForModal(null)}
-                className="text-gray-300 hover:text-white text-lg font-bold p-1 cursor-pointer"
+                className="text-gray-300 hover:text-white text-lg font-bold p-1 cursor-pointer shrink-0"
+                aria-label="Close modal"
               >
                 ✕
               </button>
             </div>
 
             {/* Modal Body */}
-            <div className="p-6 space-y-4 max-h-[75vh] overflow-y-auto text-xs text-slate-700">
+            <div className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1 text-xs text-slate-700">
               
-              <div className="flex flex-col sm:flex-row items-center gap-4 bg-slate-50 p-3 border border-slate-200">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 bg-slate-50 p-3 sm:p-4 border border-slate-200">
                 <img 
                   src={selectedProductForModal.imageUrl} 
                   alt={selectedProductForModal.name} 
-                  className="w-24 h-24 object-contain shrink-0" 
+                  className="w-20 h-20 sm:w-24 sm:h-24 object-contain shrink-0" 
                 />
                 <div className="space-y-1">
-                  <div className="text-lg font-bold text-slate-900">
+                  <div className="text-base sm:text-lg font-bold text-slate-900">
                     ₹ {selectedProductForModal.price.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
-                    <span className="text-xs text-gray-500 font-normal ml-2">({selectedProductForModal.discountPercentage}% State Rebate Applied)</span>
+                    <span className="text-[11px] sm:text-xs text-gray-500 font-normal ml-2">({selectedProductForModal.discountPercentage}% State Rebate Applied)</span>
                   </div>
-                  <div className="text-emerald-700 font-semibold flex items-center gap-1">
-                    <Check className="w-3.5 h-3.5" /> Ready for Direct Purchase Order under Rule 149 GFR
+                  <div className="text-emerald-700 font-semibold flex items-center justify-center sm:justify-start gap-1">
+                    <Check className="w-3.5 h-3.5 shrink-0" /> Ready for Direct Purchase Order under Rule 149 GFR
                   </div>
-                  <div className="text-slate-500">
+                  <div className="text-slate-500 text-[11px] sm:text-xs">
                     Delivery Period: <strong>{selectedProductForModal.deliveryPeriodDays} Days</strong> • Min Consignee Order: <strong>{selectedProductForModal.minOrderQty} Units</strong>
                   </div>
                 </div>
@@ -676,15 +679,15 @@ const ProductShowcase: React.FC = () => {
                   {selectedProductForModal.procurementSpecs.map((spec: string, i: number) => (
                     <div key={i} className="flex items-center gap-2 p-2 bg-slate-100 rounded-xs border border-slate-200 text-slate-800">
                       <ShieldCheck className="w-3.5 h-3.5 text-blue-900 shrink-0" />
-                      <span className="font-medium">{spec}</span>
+                      <span className="font-medium text-[11px] sm:text-xs">{spec}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-amber-50 border border-amber-200 p-3 text-[11px] text-amber-950 space-y-1">
+              <div className="bg-amber-50 border border-amber-200 p-3 text-[11px] text-amber-950 space-y-1 leading-relaxed">
                 <div className="font-bold flex items-center gap-1">
-                  <Award className="w-3.5 h-3.5 text-amber-700" />
+                  <Award className="w-3.5 h-3.5 text-amber-700 shrink-0" />
                   Statutory Exemption Notification (Maharashtra Innovation Framework 2026):
                 </div>
                 <p>
@@ -695,14 +698,14 @@ const ProductShowcase: React.FC = () => {
             </div>
 
             {/* Modal Footer */}
-            <div className="p-4 bg-gray-50 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-3">
-              <span className="text-[11px] text-slate-500">
+            <div className="p-3 sm:p-4 bg-gray-50 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-3 shrink-0">
+              <span className="text-[11px] text-slate-500 hidden sm:inline">
                 Item Ref ID: <strong className="font-mono">{selectedProductForModal.id}</strong>
               </span>
-              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto justify-end">
                 <button
                   onClick={() => setSelectedProductForModal(null)}
-                  className="btn-secondary text-xs"
+                  className="btn-secondary text-xs flex-1 sm:flex-none"
                 >
                   Close
                 </button>
@@ -712,7 +715,7 @@ const ProductShowcase: React.FC = () => {
                   onClick={() => {
                     navigate(`/gov/request-sandbox?productId=${selectedProductForModal.id}`);
                   }}
-                  className="px-3.5 py-2 text-xs font-semibold rounded bg-blue-100 text-blue-900 border border-blue-300 hover:bg-blue-200 transition flex items-center gap-1.5"
+                  className="px-3 py-2 text-xs font-semibold rounded bg-blue-100 text-blue-900 border border-blue-300 hover:bg-blue-200 transition flex items-center justify-center gap-1.5 flex-1 sm:flex-none"
                 >
                   <FlaskConical className="w-3.5 h-3.5 text-blue-800" />
                   <span>Test in Sandbox</span>
@@ -723,7 +726,7 @@ const ProductShowcase: React.FC = () => {
                   onClick={() => {
                     navigate(`/procurement/issue-po?productId=${selectedProductForModal.id}`);
                   }}
-                  className="btn-primary text-xs flex items-center justify-center gap-1.5"
+                  className="btn-primary text-xs flex items-center justify-center gap-1.5 w-full sm:w-auto"
                 >
                   <ShoppingCart className="w-3.5 h-3.5 text-amber-300" />
                   <span>Procure / Issue PO</span>

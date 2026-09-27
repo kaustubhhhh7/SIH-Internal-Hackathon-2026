@@ -92,7 +92,7 @@ const HomePage = () => {
     <>
       {/* 4. HERO BANNER */}
       <section className="border-b border-gray-300">
-        <div className="relative w-full h-[450px] md:h-[550px] overflow-hidden bg-gray-900">
+        <div className="relative w-full min-h-[460px] sm:h-[500px] md:h-[550px] overflow-hidden bg-gray-900">
           <div 
             className="flex w-full h-full transition-transform duration-1000 ease-in-out"
             style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -106,25 +106,25 @@ const HomePage = () => {
               />
             ))}
           </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-[#061426]/90 via-[#061426]/40 to-transparent pointer-events-none"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#061426]/80 via-transparent to-transparent pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#061426]/95 via-[#061426]/60 to-transparent pointer-events-none"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#061426]/90 via-transparent to-transparent pointer-events-none"></div>
           
-          <div className="absolute inset-0 flex flex-col justify-end pb-14 md:pb-20 px-6 sm:px-10 lg:px-16 max-w-7xl mr-auto">
-            <h1 className="text-3xl md:text-5xl lg:text-[44px] font-extrabold tracking-tight text-white mb-3.5 max-w-3xl leading-[1.2] drop-shadow-lg shadow-black/50">
+          <div className="absolute inset-0 flex flex-col justify-end pb-10 sm:pb-14 md:pb-20 px-4 sm:px-8 lg:px-16 max-w-7xl mr-auto">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-extrabold tracking-tight text-white mb-2.5 sm:mb-3.5 max-w-3xl leading-tight sm:leading-[1.2] drop-shadow-lg shadow-black/50">
               {t('landing.hero.title')}
             </h1>
-            <p className="text-sm md:text-base text-slate-100 mb-8 max-w-2xl font-normal leading-relaxed drop-shadow-md shadow-black/50">
+            <p className="text-xs sm:text-sm md:text-base text-slate-100 mb-6 sm:mb-8 max-w-2xl font-normal leading-relaxed drop-shadow-md shadow-black/50">
               {t('landing.hero.subtitle')}
             </p>
-            <div className="flex flex-wrap items-center gap-4 pt-1">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
               <Link to="/register/startup" className="group">
-                <button className="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs md:text-[13px] font-bold tracking-wider uppercase px-6 py-3 rounded-md shadow-[0_2px_12px_rgba(245,158,11,0.25)] hover:shadow-[0_4px_16px_rgba(245,158,11,0.35)] transition-all flex items-center gap-2.5 cursor-pointer border border-amber-300 active:scale-[0.98]">
+                <button className="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs md:text-[13px] font-bold tracking-wider uppercase px-4 sm:px-6 py-2.5 sm:py-3 rounded-md shadow-[0_2px_12px_rgba(245,158,11,0.25)] hover:shadow-[0_4px_16px_rgba(245,158,11,0.35)] transition-all flex items-center gap-2 cursor-pointer border border-amber-300 active:scale-[0.98]">
                   <span>{t('landing.hero.registerBtn')}</span>
                   <span className="text-sm font-black transition-transform group-hover:translate-x-1">&rarr;</span>
                 </button>
               </Link>
               <Link to="/process">
-                <button className="bg-white/10 hover:bg-white/20 text-white text-xs md:text-[13px] font-semibold tracking-wider uppercase px-6 py-3 rounded-md border border-white/30 hover:border-white/50 backdrop-blur-md transition-all cursor-pointer shadow-sm active:scale-[0.98]">
+                <button className="bg-white/10 hover:bg-white/20 text-white text-xs md:text-[13px] font-semibold tracking-wider uppercase px-4 sm:px-6 py-2.5 sm:py-3 rounded-md border border-white/30 hover:border-white/50 backdrop-blur-md transition-all cursor-pointer shadow-xs active:scale-[0.98]">
                   {t('landing.hero.learnBtn')}
                 </button>
               </Link>
@@ -132,7 +132,7 @@ const HomePage = () => {
           </div>
 
           {/* Carousel Navigation Dots */}
-          <div className="absolute bottom-6 left-0 right-0 flex justify-center space-x-2 z-20">
+          <div className="absolute bottom-4 sm:bottom-6 left-0 right-0 flex justify-center space-x-2 z-20">
             {slides.map((_, idx) => (
               <button
                 key={idx}
@@ -164,56 +164,56 @@ const HomePage = () => {
       </div>
 
       {/* 5. YELLOW STATISTICS TABLE */}
-      <section id="status-section" className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12 scroll-mt-24">
-        <div className="mb-8 border-l-4 border-yellow-500 pl-4">
-          <h2 className="text-section-title mb-1 border-none pb-0">{t('landing.status.title')}</h2>
+      <section id="status-section" className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 py-8 sm:py-12 scroll-mt-24">
+        <div className="mb-6 sm:mb-8 border-l-4 border-yellow-500 pl-4">
+          <h2 className="text-xl sm:text-2xl md:text-section-title font-bold mb-1 border-none pb-0 text-slate-900">{t('landing.status.title')}</h2>
           <p className="text-caption mt-1">{t('landing.status.subtitle')}</p>
         </div>
 
-        <div className="border border-gray-300 overflow-x-auto rounded-sm shadow-sm">
-          <table className="min-w-full divide-y divide-gray-200 text-sm">
+        <div className="border border-gray-300 overflow-x-auto rounded-sm shadow-xs -mx-4 sm:mx-0">
+          <table className="min-w-[640px] w-full divide-y divide-gray-200 text-sm">
             <thead className="bg-gray-50 border-b border-gray-300">
               <tr>
-                <th scope="col" className="px-6 py-4 text-left font-bold text-gray-700 text-small uppercase tracking-wider border-r border-gray-200 whitespace-nowrap">{t('landing.status.headers.activities')}</th>
-                <th scope="col" className="px-6 py-4 text-right font-bold text-gray-700 text-small uppercase tracking-wider border-r border-gray-200 whitespace-nowrap">{t('landing.status.headers.it')}</th>
-                <th scope="col" className="px-6 py-4 text-right font-bold text-gray-700 text-small uppercase tracking-wider border-r border-gray-200 whitespace-nowrap">{t('landing.status.headers.health')}</th>
-                <th scope="col" className="px-6 py-4 text-right font-bold text-gray-700 text-small uppercase tracking-wider border-r border-gray-200 whitespace-nowrap">{t('landing.status.headers.transport')}</th>
-                <th scope="col" className="px-6 py-4 text-right font-bold text-gray-700 text-small uppercase tracking-wider border-r border-gray-200 whitespace-nowrap">{t('landing.status.headers.validated')}</th>
-                <th scope="col" className="px-6 py-4 text-right font-bold text-gray-900 text-small uppercase tracking-wider bg-gray-100 whitespace-nowrap">{t('landing.status.headers.total')}</th>
+                <th scope="col" className="px-4 sm:px-6 py-3 sm:py-4 text-left font-bold text-gray-700 text-xs sm:text-small uppercase tracking-wider border-r border-gray-200 whitespace-nowrap">{t('landing.status.headers.activities')}</th>
+                <th scope="col" className="px-4 sm:px-6 py-3 sm:py-4 text-right font-bold text-gray-700 text-xs sm:text-small uppercase tracking-wider border-r border-gray-200 whitespace-nowrap">{t('landing.status.headers.it')}</th>
+                <th scope="col" className="px-4 sm:px-6 py-3 sm:py-4 text-right font-bold text-gray-700 text-xs sm:text-small uppercase tracking-wider border-r border-gray-200 whitespace-nowrap">{t('landing.status.headers.health')}</th>
+                <th scope="col" className="px-4 sm:px-6 py-3 sm:py-4 text-right font-bold text-gray-700 text-xs sm:text-small uppercase tracking-wider border-r border-gray-200 whitespace-nowrap">{t('landing.status.headers.transport')}</th>
+                <th scope="col" className="px-4 sm:px-6 py-3 sm:py-4 text-right font-bold text-gray-700 text-xs sm:text-small uppercase tracking-wider border-r border-gray-200 whitespace-nowrap">{t('landing.status.headers.validated')}</th>
+                <th scope="col" className="px-4 sm:px-6 py-3 sm:py-4 text-right font-bold text-gray-900 text-xs sm:text-small uppercase tracking-wider bg-gray-100 whitespace-nowrap">{t('landing.status.headers.total')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white">
               <tr className="hover:bg-blue-50/50 transition-colors">
-                <td className="px-6 py-4 text-body font-semibold text-gray-800 border-r border-gray-200 whitespace-nowrap">{t('landing.status.rows.published')}</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">45</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">12</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">18</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">75</td>
-                <td className="px-6 py-4 text-body text-right font-bold text-gray-900 bg-gray-50">75</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body font-semibold text-gray-800 border-r border-gray-200 whitespace-nowrap">{t('landing.status.rows.published')}</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">45</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">12</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">18</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">75</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right font-bold text-gray-900 bg-gray-50">75</td>
               </tr>
               <tr className="hover:bg-blue-50/50 transition-colors">
-                <td className="px-6 py-4 text-body font-semibold text-gray-800 border-r border-gray-200 whitespace-nowrap">{t('landing.status.rows.applications')}</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">1,240</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">315</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">482</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">2,037</td>
-                <td className="px-6 py-4 text-body text-right font-bold text-gray-900 bg-gray-50">2,037</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body font-semibold text-gray-800 border-r border-gray-200 whitespace-nowrap">{t('landing.status.rows.applications')}</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">1,240</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">315</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">482</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">2,037</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right font-bold text-gray-900 bg-gray-50">2,037</td>
               </tr>
               <tr className="hover:bg-blue-50/50 transition-colors">
-                <td className="px-6 py-4 text-body font-semibold text-gray-800 border-r border-gray-200 whitespace-nowrap">{t('landing.status.rows.pilots')}</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">12</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">4</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">7</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">23</td>
-                <td className="px-6 py-4 text-body text-right font-bold text-gray-900 bg-gray-50">23</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body font-semibold text-gray-800 border-r border-gray-200 whitespace-nowrap">{t('landing.status.rows.pilots')}</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">12</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">4</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">7</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">23</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right font-bold text-gray-900 bg-gray-50">23</td>
               </tr>
               <tr className="hover:bg-blue-50/50 transition-colors">
-                <td className="px-6 py-4 text-body font-semibold text-gray-800 border-r border-gray-200 whitespace-nowrap">{t('landing.status.rows.procured')}</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">5</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">1</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">3</td>
-                <td className="px-6 py-4 text-body text-right text-gray-600 border-r border-gray-200">9</td>
-                <td className="px-6 py-4 text-body text-right font-bold text-gray-900 bg-gray-50">9</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body font-semibold text-gray-800 border-r border-gray-200 whitespace-nowrap">{t('landing.status.rows.procured')}</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">5</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">1</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">3</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right text-gray-600 border-r border-gray-200">9</td>
+                <td className="px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-body text-right font-bold text-gray-900 bg-gray-50">9</td>
               </tr>
             </tbody>
           </table>
@@ -221,59 +221,59 @@ const HomePage = () => {
       </section>
 
       {/* QUICK LINKS SECTION */}
-      <section className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pb-16">
-        <div className="grid md:grid-cols-3 gap-8">
-          <Link to="/challenges" className="group border border-gray-200 bg-white p-8 hover:border-blue-300 hover:shadow-lg transition-all rounded-sm relative overflow-hidden flex flex-col justify-between h-[200px]">
+      <section className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 pb-12 sm:pb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          <Link to="/challenges" className="group border border-gray-200 bg-white p-6 sm:p-8 hover:border-blue-300 hover:shadow-lg transition-all rounded-sm relative overflow-hidden flex flex-col justify-between min-h-[170px]">
             <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-600 transform scale-y-0 group-hover:scale-y-100 transition-transform origin-bottom"></div>
             <div>
-              <h3 className="text-xl font-bold text-blue-900 mb-3 flex justify-between items-center">
-                {t('landing.header.nav.challenges')} <span className="text-blue-500 group-hover:translate-x-2 transition-transform">&rarr;</span>
+              <h3 className="text-lg sm:text-xl font-bold text-blue-900 mb-2 sm:mb-3 flex justify-between items-center">
+                <span>{t('landing.header.nav.challenges')}</span> <span className="text-blue-500 group-hover:translate-x-2 transition-transform">&rarr;</span>
               </h3>
-              <p className="text-body text-gray-600 leading-relaxed">{t('landing.challenges.subtitle')}</p>
+              <p className="text-xs sm:text-body text-gray-600 leading-relaxed">{t('landing.challenges.subtitle')}</p>
             </div>
           </Link>
-          <Link to="/sectors" className="group border border-gray-200 bg-white p-8 hover:border-blue-300 hover:shadow-lg transition-all rounded-sm relative overflow-hidden flex flex-col justify-between h-[200px]">
+          <Link to="/sectors" className="group border border-gray-200 bg-white p-6 sm:p-8 hover:border-blue-300 hover:shadow-lg transition-all rounded-sm relative overflow-hidden flex flex-col justify-between min-h-[170px]">
             <div className="absolute top-0 left-0 w-1.5 h-full bg-green-600 transform scale-y-0 group-hover:scale-y-100 transition-transform origin-bottom"></div>
             <div>
-              <h3 className="text-xl font-bold text-blue-900 mb-3 flex justify-between items-center">
-                {t('landing.header.nav.sectors')} <span className="text-blue-500 group-hover:translate-x-2 transition-transform">&rarr;</span>
+              <h3 className="text-lg sm:text-xl font-bold text-blue-900 mb-2 sm:mb-3 flex justify-between items-center">
+                <span>{t('landing.header.nav.sectors')}</span> <span className="text-blue-500 group-hover:translate-x-2 transition-transform">&rarr;</span>
               </h3>
-              <p className="text-body text-gray-600 leading-relaxed">{t('landing.sectors.subtitle')}</p>
+              <p className="text-xs sm:text-body text-gray-600 leading-relaxed">{t('landing.sectors.subtitle')}</p>
             </div>
           </Link>
-          <Link to="/process" className="group border border-gray-200 bg-white p-8 hover:border-blue-300 hover:shadow-lg transition-all rounded-sm relative overflow-hidden flex flex-col justify-between h-[200px]">
+          <Link to="/process" className="group border border-gray-200 bg-white p-6 sm:p-8 hover:border-blue-300 hover:shadow-lg transition-all rounded-sm relative overflow-hidden flex flex-col justify-between min-h-[170px] sm:col-span-2 md:col-span-1">
             <div className="absolute top-0 left-0 w-1.5 h-full bg-yellow-500 transform scale-y-0 group-hover:scale-y-100 transition-transform origin-bottom"></div>
             <div>
-              <h3 className="text-xl font-bold text-blue-900 mb-3 flex justify-between items-center">
-                {t('landing.header.nav.process')} <span className="text-blue-500 group-hover:translate-x-2 transition-transform">&rarr;</span>
+              <h3 className="text-lg sm:text-xl font-bold text-blue-900 mb-2 sm:mb-3 flex justify-between items-center">
+                <span>{t('landing.header.nav.process')}</span> <span className="text-blue-500 group-hover:translate-x-2 transition-transform">&rarr;</span>
               </h3>
-              <p className="text-body text-gray-600 leading-relaxed">{t('landing.explore.processDesc')}</p>
+              <p className="text-xs sm:text-body text-gray-600 leading-relaxed">{t('landing.explore.processDesc')}</p>
             </div>
           </Link>
         </div>
       </section>
 
       {/* 6. HOW IT WORKS / OFFICIAL STARTUP-TO-GOVERNMENT PROCUREMENT LIFECYCLE */}
-      <section className="bg-slate-50 border-t border-b border-slate-200 py-20 relative overflow-hidden">
+      <section className="bg-slate-50 border-t border-b border-slate-200 py-12 sm:py-16 md:py-20 relative overflow-hidden">
         {/* Subtle official watermark & grid backdrop */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a08_1px,transparent_1px),linear-gradient(to_bottom,#0f172a08_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none opacity-60"></div>
 
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16 relative z-10">
           
           {/* Official Administrative Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0c2340] tracking-tight mb-3">
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0c2340] tracking-tight mb-2.5 sm:mb-3">
               {t('landing.sop.title')}
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-normal">
               {t('landing.sop.subtitle')}
             </p>
           </div>
           
           {/* 4-Stage Lifecycle Cards with Official Gov/Trust Accents */}
-          <div className="grid md:grid-cols-4 gap-6 lg:gap-7 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 relative">
             {/* Stage Progress Track (Desktop) */}
-            <div className="hidden md:block absolute top-[52px] left-[12%] right-[12%] h-[2px] bg-slate-200 z-0"></div>
+            <div className="hidden lg:block absolute top-[52px] left-[12%] right-[12%] h-[2px] bg-slate-200 z-0"></div>
             
             {/* Stage 1 */}
             <div className="relative z-10 flex flex-col bg-white rounded-lg p-6 border border-slate-200 shadow-xs hover:shadow-md transition-all duration-200 hover:border-blue-700/50 group">
@@ -386,16 +386,16 @@ const HomePage = () => {
       </section>
 
       {/* 7. OFFICIAL FAQ & CITIZEN/STARTUP QUERY RESOLUTION PORTAL (Above Footer) */}
-      <section id="faq-section" className="bg-white border-t border-slate-200 py-16 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16">
+      <section id="faq-section" className="bg-white border-t border-slate-200 py-10 sm:py-16 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-16">
           
           {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-slate-200 gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 sm:mb-10 pb-6 border-b border-slate-200 gap-4">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0c2340] tracking-tight">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-[#0c2340] tracking-tight">
                 Government Procurement Helpdesk & Queries
               </h2>
-              <p className="text-sm text-slate-600 mt-1.5 max-w-2xl font-normal leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 mt-1.5 max-w-2xl font-normal leading-relaxed">
                 Official clarifications published by government departments. Startups, researchers, and citizens can ask questions regarding procurement rules, sandbox pilots, and GFR 149 guidelines.
               </p>
             </div>
@@ -405,7 +405,7 @@ const HomePage = () => {
                 setShowAskModal(true);
                 setSubmissionSuccess(null);
               }}
-              className="bg-[#0c2340] hover:bg-[#15345c] text-white text-xs font-bold uppercase tracking-wider px-5 py-3 rounded-md shadow-xs transition-all flex items-center gap-2 shrink-0 cursor-pointer border border-[#0c2340]"
+              className="bg-[#0c2340] hover:bg-[#15345c] text-white text-xs font-bold uppercase tracking-wider px-4 sm:px-5 py-2.5 sm:py-3 rounded-md shadow-xs transition-all flex items-center justify-center gap-2 shrink-0 cursor-pointer border border-[#0c2340]"
             >
               <HelpCircle className="w-4 h-4 text-amber-400" />
               <span>Ask a Question</span>
@@ -413,7 +413,7 @@ const HomePage = () => {
           </div>
 
           {/* Quick Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2 mb-8">
+          <div className="flex flex-wrap items-center gap-2 mb-6 sm:mb-8">
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider mr-2">Category:</span>
             {[
               { id: 'ALL', label: 'All Questions' },
@@ -425,7 +425,7 @@ const HomePage = () => {
               <button
                 key={cat.id}
                 onClick={() => setSelectedFaqCategory(cat.id)}
-                className={`px-3.5 py-1.5 text-xs font-semibold rounded-md border transition-all cursor-pointer ${
+                className={`px-3 py-1.5 text-xs font-semibold rounded-md border transition-all cursor-pointer ${
                   selectedFaqCategory === cat.id
                     ? 'bg-[#0c2340] text-white border-[#0c2340] shadow-2xs'
                     : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
@@ -447,19 +447,19 @@ const HomePage = () => {
                 >
                   <button
                     onClick={() => setExpandedFaqId(isOpen ? null : faq.id)}
-                    className="w-full text-left p-5 flex items-start justify-between gap-4 cursor-pointer focus:outline-none"
+                    className="w-full text-left p-4 sm:p-5 flex items-start justify-between gap-3 sm:gap-4 cursor-pointer focus:outline-none"
                   >
-                    <div className="space-y-1.5 pr-2">
-                      <div className="flex items-center gap-2 flex-wrap text-[11px]">
+                    <div className="space-y-1.5 pr-1 sm:pr-2 min-w-0">
+                      <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap text-[11px]">
                         <span className="font-semibold text-blue-900 bg-blue-50 px-2 py-0.5 rounded-sm border border-blue-200/80">
                           {faq.categoryLabel}
                         </span>
-                        <span className="text-slate-400">•</span>
+                        <span className="text-slate-400 hidden sm:inline">•</span>
                         <span className="text-slate-500 font-medium">
                           Asked by <strong className="text-slate-700">{faq.askedBy}</strong> ({faq.userType}) on {faq.submittedDate}
                         </span>
                       </div>
-                      <h3 className="text-[15px] font-bold text-slate-900 leading-snug">
+                      <h3 className="text-sm sm:text-[15px] font-bold text-slate-900 leading-snug break-words">
                         {faq.question}
                       </h3>
                     </div>
@@ -469,9 +469,9 @@ const HomePage = () => {
                   </button>
 
                   {isOpen && (
-                    <div className="p-5 pt-0 border-t border-slate-100 bg-slate-50/50">
+                    <div className="p-4 sm:p-5 pt-0 border-t border-slate-100 bg-slate-50/50">
                       {faq.answer ? (
-                        <div className="mt-4 bg-white p-4 rounded-md border border-slate-200 text-xs sm:text-[13px] text-slate-700 leading-relaxed space-y-2">
+                        <div className="mt-4 bg-white p-3.5 sm:p-4 rounded-md border border-slate-200 text-xs sm:text-[13px] text-slate-700 leading-relaxed space-y-2">
                           <div className="flex items-center gap-2 font-bold text-[#0c2340] pb-2 border-b border-slate-100 text-xs uppercase tracking-wide">
                             <ShieldCheck className="w-4 h-4 text-emerald-600" />
                             <span>Official Government Response</span>
@@ -483,9 +483,9 @@ const HomePage = () => {
                           </div>
                         </div>
                       ) : (
-                        <div className="mt-4 bg-amber-50 p-4 rounded-md border border-amber-200 text-xs text-amber-800 flex items-center justify-between gap-3">
+                        <div className="mt-4 bg-amber-50 p-3 sm:p-4 rounded-md border border-amber-200 text-xs text-amber-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                           <div className="flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse shrink-0"></span>
                             <span>Pending official departmental verification & response. Assigned to nodal innovation officer.</span>
                           </div>
                           <button
@@ -493,7 +493,7 @@ const HomePage = () => {
                               setSelectedQuestionToAnswer(faq);
                               setAnswerText('');
                             }}
-                            className="bg-amber-600 hover:bg-amber-700 text-white font-bold text-[11px] px-3 py-1.5 rounded-sm shrink-0 cursor-pointer shadow-2xs"
+                            className="bg-amber-600 hover:bg-amber-700 text-white font-bold text-[11px] px-3 py-1.5 rounded-sm shrink-0 cursor-pointer shadow-2xs self-end sm:self-auto"
                           >
                             Gov Officer: Answer Now
                           </button>
@@ -511,22 +511,23 @@ const HomePage = () => {
 
       {/* MODAL: SUBMIT A NEW QUESTION */}
       {showAskModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-2xs animate-fadeIn">
-          <div className="bg-white max-w-lg w-full rounded-lg border border-slate-200 shadow-xl overflow-hidden">
-            <div className="bg-[#0c2340] text-white p-4 flex items-center justify-between border-b-2 border-amber-500">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3 sm:p-4 backdrop-blur-2xs animate-fadeIn">
+          <div className="bg-white max-w-lg w-full max-h-[90vh] flex flex-col rounded-lg border border-slate-200 shadow-xl overflow-hidden">
+            <div className="bg-[#0c2340] text-white p-4 flex items-center justify-between border-b-2 border-amber-500 shrink-0">
               <div className="flex items-center gap-2">
                 <HelpCircle className="w-4 h-4 text-amber-400" />
                 <h3 className="text-sm font-bold uppercase tracking-wider">Submit Question to Government Helpdesk</h3>
               </div>
               <button 
                 onClick={() => setShowAskModal(false)}
-                className="text-slate-300 hover:text-white cursor-pointer font-bold text-base"
+                className="text-slate-300 hover:text-white cursor-pointer font-bold text-base p-1"
+                aria-label="Close modal"
               >
                 ✕
               </button>
             </div>
 
-            <form onSubmit={handleAskSubmit} className="p-6 space-y-4">
+            <form onSubmit={handleAskSubmit} className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
               <div>
                 <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                   Your Full Name / Entity Name <span className="text-red-500">*</span>
@@ -541,7 +542,7 @@ const HomePage = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
                     Your Role / Profile <span className="text-red-500">*</span>
@@ -610,22 +611,23 @@ const HomePage = () => {
 
       {/* MODAL: GOVERNMENT OFFICER ANSWER MODAL */}
       {selectedQuestionToAnswer && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-2xs animate-fadeIn">
-          <div className="bg-white max-w-lg w-full rounded-lg border border-slate-200 shadow-xl overflow-hidden">
-            <div className="bg-[#0c2340] text-white p-4 flex items-center justify-between border-b-2 border-emerald-500">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3 sm:p-4 backdrop-blur-2xs animate-fadeIn">
+          <div className="bg-white max-w-lg w-full max-h-[90vh] flex flex-col rounded-lg border border-slate-200 shadow-xl overflow-hidden">
+            <div className="bg-[#0c2340] text-white p-4 flex items-center justify-between border-b-2 border-emerald-500 shrink-0">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 <h3 className="text-sm font-bold uppercase tracking-wider">Provide Official Government Answer</h3>
               </div>
               <button 
                 onClick={() => setSelectedQuestionToAnswer(null)}
-                className="text-slate-300 hover:text-white cursor-pointer font-bold text-base"
+                className="text-slate-300 hover:text-white cursor-pointer font-bold text-base p-1"
+                aria-label="Close modal"
               >
                 ✕
               </button>
             </div>
 
-            <div className="p-6 space-y-4">
+            <div className="p-4 sm:p-6 space-y-4 overflow-y-auto flex-1">
               <div className="bg-slate-50 p-3.5 rounded-md border border-slate-200">
                 <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-1">
                   Question from {selectedQuestionToAnswer.askedBy}:

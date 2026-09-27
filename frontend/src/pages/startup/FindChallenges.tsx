@@ -30,10 +30,10 @@ const FindChallenges = () => {
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Header section */}
-      <div className="bg-gov-blue text-white p-8 rounded-xl shadow-md bg-opacity-90 relative overflow-hidden">
+      <div className="bg-gov-blue text-white p-5 sm:p-8 rounded-xl shadow-md bg-opacity-90 relative overflow-hidden">
         <div className="relative z-10">
-          <h1 className="text-page-title mb-2 text-white">Discover Government Challenges</h1>
-          <p className="text-blue-100 max-w-2xl text-body">Browse operational challenges published by various Government of Maharashtra departments and submit your innovative solutions.</p>
+          <h1 className="text-xl sm:text-2xl font-bold mb-2 text-white">Discover Government Challenges</h1>
+          <p className="text-blue-100 max-w-2xl text-body text-sm sm:text-base">Browse operational challenges published by various Government of Maharashtra departments and submit your innovative solutions.</p>
         </div>
         {/* Decorative elements */}
         <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-white opacity-10"></div>
@@ -52,7 +52,7 @@ const FindChallenges = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </form>
-        <div className="flex gap-4 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full md:w-auto">
           <div className="relative w-full md:w-64">
             <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <select 
@@ -68,7 +68,7 @@ const FindChallenges = () => {
               <option value="Transport">Transport</option>
             </select>
           </div>
-          <button onClick={handleSearch} className="btn-primary whitespace-nowrap">
+          <button onClick={handleSearch} className="btn-primary w-full sm:w-auto justify-center whitespace-nowrap">
             Search
           </button>
         </div>
@@ -141,7 +141,7 @@ const FindChallenges = () => {
 
           {/* Pagination */}
           {data.totalPages > 1 && (
-            <div className="flex justify-center mt-8 space-x-2">
+            <div className="flex flex-wrap justify-center mt-8 gap-2">
               <button 
                 onClick={() => setPage(p => Math.max(1, p - 1))}
                 disabled={page === 1}

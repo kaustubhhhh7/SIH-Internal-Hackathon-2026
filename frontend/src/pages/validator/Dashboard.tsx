@@ -5,10 +5,10 @@ const ValidatorDashboard = () => {
   return (
     <div className="space-y-6 animate-fadeIn">
       <div className="flex justify-between items-center border-b border-gov-border pb-4">
-        <h2 className="text-page-title text-gov-blue">Independent Validator Dashboard</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-gov-blue">Independent Validator Dashboard</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         <div className="card border-l-4 border-l-gov-blue">
           <p className="text-caption text-gray-500">Assigned Validations</p>
           <p className="text-number-large text-gray-800 mt-1">0</p>

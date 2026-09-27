@@ -66,40 +66,40 @@ const RaiseTicket = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#f1f3f6] py-10 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    <div className="min-h-screen bg-[#f1f3f6] py-6 sm:py-10 px-3 sm:px-6 lg:px-8 flex flex-col items-center">
       <div className="w-full max-w-4xl">
         
         {/* National / State Official Departmental Banner */}
-        <div className="bg-[#0b1f3a] text-white rounded-t-sm border-t-4 border-amber-500 p-6 shadow-2xs">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div className="flex items-center gap-5">
+        <div className="bg-[#0b1f3a] text-white rounded-t-sm border-t-4 border-amber-500 p-4 sm:p-6 shadow-2xs">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
+            <div className="flex items-center gap-3 sm:gap-5 min-w-0">
               <img 
                 src={emblemLogo} 
                 alt="State Emblem of India" 
-                className="h-16 w-auto object-contain brightness-0 invert filter shrink-0 opacity-95" 
+                className="h-12 sm:h-16 w-auto object-contain brightness-0 invert filter shrink-0 opacity-95" 
               />
-              <div className="border-l border-white/20 pl-5">
-                <div className="text-[11px] font-bold text-amber-400 uppercase tracking-wider">
+              <div className="border-l border-white/20 pl-3 sm:pl-5 min-w-0">
+                <div className="text-[10px] sm:text-[11px] font-bold text-amber-400 uppercase tracking-wider truncate">
                   Government of Maharashtra • Innovation & Public Delivery Cell
                 </div>
-                <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-0.5">
+                <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-white tracking-tight mt-0.5 break-words">
                   {t('raiseTicket.pageTitle')}
                 </h1>
-                <p className="text-xs text-slate-300 mt-1 font-normal">
+                <p className="text-[11px] sm:text-xs text-slate-300 mt-0.5 sm:mt-1 font-normal leading-tight">
                   Citizen & Department Operational Bottleneck Submission Registry
                 </p>
               </div>
             </div>
 
-            <div className="shrink-0 flex items-center gap-1.5 px-3 py-1 bg-white/10 border border-white/20 rounded-xs text-[11px] font-semibold text-slate-200">
-              <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+            <div className="shrink-0 flex items-center gap-1.5 px-2.5 py-1 bg-white/10 border border-white/20 rounded-xs text-[10px] sm:text-[11px] font-semibold text-slate-200">
+              <ShieldAlert className="w-3.5 h-3.5 text-amber-400 shrink-0" />
               <span>Official Citizen Registry</span>
             </div>
           </div>
         </div>
 
         {/* Form Card */}
-        <div className="bg-white border-x border-b border-gray-300 rounded-b-sm shadow-2xs p-6 sm:p-10">
+        <div className="bg-white border-x border-b border-gray-300 rounded-b-sm shadow-2xs p-4 sm:p-8 lg:p-10">
           
           <div className="mb-8 border-b border-gray-200 pb-5">
             <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-1">{t('raiseTicket.cardHeader')}</h2>

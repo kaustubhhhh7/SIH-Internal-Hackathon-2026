@@ -115,17 +115,17 @@ const Chatbot = () => {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-0 right-8 h-12 w-48 bg-blue-800 text-white rounded-t-sm border border-blue-900 border-b-0 shadow-none flex items-center justify-between px-4 hover:bg-blue-900 focus:outline-none transition-transform transform ${isOpen ? 'translate-y-12' : 'translate-y-0'}`}
+        className={`fixed bottom-0 right-3 sm:right-8 h-10 sm:h-12 w-36 sm:w-48 bg-blue-800 text-white rounded-t-sm border border-blue-900 border-b-0 shadow-none flex items-center justify-between px-3 sm:px-4 hover:bg-blue-900 focus:outline-none transition-transform transform z-30 ${isOpen ? 'translate-y-12' : 'translate-y-0'}`}
         aria-label="Open Help"
       >
-        <span className="text-nav">{t('chatbot.help')}</span>
-        <MessageSquare className="h-4 w-4" />
+        <span className="text-xs sm:text-nav truncate mr-1">{t('chatbot.help')}</span>
+        <MessageSquare className="h-4 w-4 shrink-0" />
       </button>
 
       {/* Chat Window */}
       <div 
-        className={`fixed bottom-0 right-8 w-80 sm:w-96 bg-white border border-gray-400 border-b-0 shadow-2xl flex flex-col transition-transform duration-200 transform origin-bottom ${isOpen ? 'scale-100 z-50' : 'scale-0 -z-10'}`}
-        style={{ height: '450px' }}
+        className={`fixed bottom-0 right-2 sm:right-8 w-[calc(100vw-1rem)] sm:w-96 max-w-sm sm:max-w-md bg-white border border-gray-400 border-b-0 shadow-2xl flex flex-col transition-transform duration-200 transform origin-bottom max-h-[85vh] ${isOpen ? 'scale-100 z-50' : 'scale-0 -z-10'}`}
+        style={{ height: 'min(450px, 80vh)' }}
       >
         {/* Chat Header */}
         <div className="bg-blue-800 text-white p-3 flex justify-between items-center border-b border-blue-900">

@@ -58,8 +58,8 @@ const ChallengeDetails = () => {
     <div className="max-w-5xl mx-auto space-y-6 pb-12 animate-fadeIn">
       {/* Header Banner */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="bg-gradient-to-r from-gov-blue to-indigo-700 p-8 text-white relative">
-          <div className="absolute top-4 right-4 flex space-x-2">
+        <div className="bg-gradient-to-r from-gov-blue to-indigo-700 p-5 sm:p-8 text-white relative">
+          <div className="flex flex-wrap gap-2 sm:absolute sm:top-4 sm:right-4 mb-3 sm:mb-0">
             <span className="bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full text-caption">
               {challenge.sector}
             </span>
@@ -68,29 +68,29 @@ const ChallengeDetails = () => {
             </span>
           </div>
           
-          <h1 className="text-hero-title mt-4 mb-4 pr-12 text-white drop-shadow-md">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mt-2 sm:mt-4 mb-4 sm:pr-12 text-white drop-shadow-md break-words">
             {challenge.titleEnglish}
           </h1>
           
-          <div className="flex flex-wrap gap-6 text-body text-blue-50">
+          <div className="flex flex-wrap gap-4 sm:gap-6 text-body text-blue-50">
             <div className="flex items-center">
-              <Building className="w-5 h-5 mr-2 opacity-70" />
+              <Building className="w-5 h-5 mr-2 opacity-70 shrink-0" />
               <span className="font-medium">{challenge.departmentName}</span>
             </div>
             <div className="flex items-center">
-              <MapPin className="w-5 h-5 mr-2 opacity-70" />
+              <MapPin className="w-5 h-5 mr-2 opacity-70 shrink-0" />
               <span>{challenge.geographicScope || 'Maharashtra'}</span>
             </div>
             <div className="flex items-center">
-              <Target className="w-5 h-5 mr-2 opacity-70" />
+              <Target className="w-5 h-5 mr-2 opacity-70 shrink-0" />
               <span>{challenge.targetBeneficiaries || 'Citizens'}</span>
             </div>
           </div>
         </div>
 
         {/* Action Bar */}
-        <div className="bg-gray-50 border-b border-gray-200 p-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div className="flex items-center space-x-6 text-small">
+        <div className="bg-gray-50 border-b border-gray-200 p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-small">
             <div>
               <span className="text-gray-500 block mb-0.5">Published</span>
               <span className="font-semibold text-gray-900">
@@ -111,11 +111,11 @@ const ChallengeDetails = () => {
             )}
           </div>
 
-          <div className="flex space-x-3 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
             <button 
               onClick={() => saveMutation.mutate()}
               disabled={saveMutation.isPending}
-              className={`flex-1 sm:flex-none flex items-center justify-center px-4 py-2 border rounded-md shadow-sm text-nav focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gov-blue transition-colors
+              className={`w-full sm:w-auto flex items-center justify-center px-4 py-2 border rounded-md shadow-sm text-nav focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gov-blue transition-colors
                 ${challenge.isSaved 
                   ? 'border-gov-blue text-gov-blue bg-blue-50 hover:bg-blue-100' 
                   : 'border-gray-300 text-gray-700 bg-white hover:bg-gray-50'}`}
@@ -127,7 +127,7 @@ const ChallengeDetails = () => {
             <button
               onClick={() => applyMutation.mutate()}
               disabled={applyMutation.isPending || challenge.hasApplied || challenge.status !== 'ApplicationsOpen'}
-              className="flex-1 sm:flex-none flex items-center justify-center px-6 py-2 border border-transparent rounded-md shadow-sm text-nav text-white bg-gov-blue hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gov-blue disabled:opacity-50 transition-colors"
+              className="w-full sm:w-auto flex items-center justify-center px-6 py-2 border border-transparent rounded-md shadow-sm text-nav text-white bg-gov-blue hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gov-blue disabled:opacity-50 transition-colors"
             >
               {challenge.hasApplied ? (
                 <><CheckCircle className="w-4 h-4 mr-2" /> Applied</>

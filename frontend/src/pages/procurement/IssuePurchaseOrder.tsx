@@ -180,7 +180,7 @@ const IssuePurchaseOrder: React.FC = () => {
 
         {/* Main Content */}
         {completedOrder ? (
-          <div className="bg-white border border-gray-300 shadow-md rounded-sm p-8 text-center space-y-5 animate-fadeIn">
+          <div className="bg-white border border-gray-300 shadow-md rounded-sm p-4 sm:p-6 md:p-8 text-center space-y-5 animate-fadeIn">
             <div className="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto shadow-inner">
               <CheckCircle2 className="w-10 h-10" />
             </div>
@@ -189,7 +189,7 @@ const IssuePurchaseOrder: React.FC = () => {
               <span className="text-xs font-bold uppercase tracking-widest text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded">
                 Official State Work Order Placed Successfully
               </span>
-              <h1 className="text-2xl font-extrabold text-slate-900 mt-2">
+              <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 mt-2 break-words">
                 Work Order Reference: {completedOrder.orderNumber}
               </h1>
               <p className="text-xs text-slate-500 max-w-lg mx-auto">
@@ -198,7 +198,7 @@ const IssuePurchaseOrder: React.FC = () => {
             </div>
 
             {/* Receipt Summary Box */}
-            <div className="bg-slate-50 border border-slate-200 p-5 rounded-xs max-w-lg mx-auto text-left text-xs space-y-2.5">
+            <div className="bg-slate-50 border border-slate-200 p-4 sm:p-5 rounded-xs max-w-lg mx-auto text-left text-xs space-y-2.5">
               <div className="flex justify-between border-b border-slate-200 pb-2">
                 <span className="text-slate-500">Exemption Authority:</span>
                 <span className="font-mono font-bold text-blue-900">{completedOrder.rule149ExemptionRef}</span>
@@ -223,16 +223,16 @@ const IssuePurchaseOrder: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-4 flex justify-center gap-3">
+            <div className="pt-4 flex flex-col sm:flex-row justify-center gap-3">
               <Link
                 to="/procurement/dashboard"
-                className="btn-secondary text-xs uppercase tracking-wider py-2.5 px-4"
+                className="btn-secondary text-xs uppercase tracking-wider py-2.5 px-4 text-center"
               >
                 View in Procurement Dashboard
               </Link>
               <Link
                 to="/showcase"
-                className="btn-primary text-xs uppercase tracking-wider py-2.5 px-4"
+                className="btn-primary text-xs uppercase tracking-wider py-2.5 px-4 text-center"
               >
                 Browse More Products
               </Link>
@@ -242,7 +242,7 @@ const IssuePurchaseOrder: React.FC = () => {
           <div className="space-y-6">
             
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#0c2340] via-[#15345c] to-[#0c2340] text-white p-6 rounded-t-sm shadow-md border-b-4 border-amber-500">
+            <div className="bg-gradient-to-r from-[#0c2340] via-[#15345c] to-[#0c2340] text-white p-4 sm:p-6 rounded-t-sm shadow-md border-b-4 border-amber-500">
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-300 mb-1">
                 <ShoppingCart className="w-4 h-4 text-amber-400" />
                 <span>GeM & Maharashtra State Innovation Procurement Gateway</span>
@@ -257,7 +257,7 @@ const IssuePurchaseOrder: React.FC = () => {
 
             {/* If no product is chosen yet, display prompt & selection catalog */}
             {!targetProduct ? (
-              <div className="bg-white border border-gray-300 p-6 sm:p-8 shadow-sm space-y-6 rounded-b-sm animate-fadeIn">
+              <div className="bg-white border border-gray-300 p-4 sm:p-6 md:p-8 shadow-sm space-y-6 rounded-b-sm animate-fadeIn">
                 <div className="text-center max-w-xl mx-auto space-y-2 py-4">
                   <div className="w-14 h-14 bg-amber-100 text-amber-800 rounded-full flex items-center justify-center mx-auto mb-3">
                     <Sparkles className="w-7 h-7" />
@@ -347,7 +347,7 @@ const IssuePurchaseOrder: React.FC = () => {
               </div>
             ) : (
               /* If product IS chosen, show the official PO Generation Form with Product Switcher */
-              <form onSubmit={handlePlaceOrder} className="bg-white border border-gray-300 p-6 sm:p-8 shadow-sm space-y-6 rounded-b-sm animate-fadeIn">
+              <form onSubmit={handlePlaceOrder} className="bg-white border border-gray-300 p-4 sm:p-6 md:p-8 shadow-sm space-y-6 rounded-b-sm animate-fadeIn">
                 
                 {/* Innovation Switcher / Selection Header */}
                 <div className="space-y-2">

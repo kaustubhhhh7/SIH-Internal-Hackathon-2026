@@ -178,12 +178,12 @@ const RequestTestingSandbox: React.FC = () => {
         </div>
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#0c2340] to-[#15345c] text-white p-6 rounded-t-sm shadow-md border-b-4 border-amber-500">
+        <div className="bg-gradient-to-r from-[#0c2340] to-[#15345c] text-white p-4 sm:p-6 rounded-t-sm shadow-md border-b-4 border-amber-500">
           <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-300 mb-1">
             <FlaskConical className="w-4 h-4 text-amber-400" />
             <span>Pre-Procurement Testing & Validation Sandbox</span>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight">
             Sanction Controlled Field Sandbox Test (90-Day Pilot)
           </h1>
           <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">
@@ -191,7 +191,7 @@ const RequestTestingSandbox: React.FC = () => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white border border-slate-200 p-8 shadow-sm space-y-6">
+        <form onSubmit={handleSubmit} className="bg-white border border-slate-200 p-4 sm:p-6 md:p-8 shadow-sm space-y-6">
           
           {errorMsg && (
             <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-md text-xs font-medium flex items-center gap-2">
@@ -506,10 +506,10 @@ const RequestTestingSandbox: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-slate-100">
             <Link
               to="/gov/sandbox-trials"
-              className="px-4 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold rounded"
+              className="px-4 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-semibold rounded text-center"
             >
               Cancel
             </Link>
@@ -517,7 +517,7 @@ const RequestTestingSandbox: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-2.5 bg-blue-950 hover:bg-blue-900 text-white font-bold text-xs uppercase tracking-wider rounded shadow flex items-center gap-2 cursor-pointer disabled:opacity-50"
+              className="px-6 py-2.5 bg-blue-950 hover:bg-blue-900 text-white font-bold text-xs uppercase tracking-wider rounded shadow flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
             >
               <Send className="w-4 h-4" />
               <span>{isSubmitting ? 'Sanctioning Sandbox...' : 'Submit & Sanction Field Trial'}</span>

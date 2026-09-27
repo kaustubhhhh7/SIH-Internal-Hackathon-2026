@@ -68,7 +68,7 @@
   }
   
   .card {
-    @apply bg-white p-6 rounded-sm border border-gray-300 shadow-2xs;
+    @apply bg-white p-4 sm:p-6 rounded-sm border border-gray-300 shadow-2xs;
   }
 }
 
